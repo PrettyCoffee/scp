@@ -1,7 +1,7 @@
 import { globalStyle, keyframes, style } from "@vanilla-extract/css"
 import { recipe } from "@vanilla-extract/recipes"
 
-globalStyle("#root", {
+globalStyle(".App", {
   maxWidth: 1280,
   margin: "0 auto",
   padding: "2rem",
@@ -22,11 +22,13 @@ const logoColor = "--logo-color"
 export const logo = recipe({
   base: {
     height: "6em",
-    padding: "1.5em",
+    margin: "1.5em",
     willChange: "filter",
     transition: "0.2s",
-    ":hover": {
-      filter: `drop-shadow(0 0 2em var(${logoColor}))`,
+    selectors: {
+      "a:hover &, a:focus &, a:focus-visible &": {
+        filter: `drop-shadow(0 0 2em var(${logoColor}))`,
+      },
     },
   },
   variants: {
@@ -63,7 +65,7 @@ export const button = style({
 
   selectors: {
     "&:focus, &:focus-visible": {
-      outline: "4px auto -webkit-focus-ring-color",
+      outline: "2px solid #646cff",
     },
     "&:hover": {
       borderColor: "#646cff",
