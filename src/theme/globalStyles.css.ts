@@ -1,8 +1,6 @@
 import { globalStyle } from "@vanilla-extract/css"
 
-import { quicksand } from "./fonts.css"
-
-const font = `${quicksand} , sans-serif`
+import { theme } from "./theme.css"
 
 globalStyle("html, body, #root", {
   height: "100%",
@@ -23,7 +21,7 @@ globalStyle("body", {
   minWidth: "100%",
   overflow: "hidden",
 
-  font: `500 1rem ${font}, sans-serif`,
+  font: `500 ${theme.space.md} ${theme.font}, sans-serif`,
   lineHeight: 1.5,
 })
 

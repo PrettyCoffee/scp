@@ -1,10 +1,15 @@
 import { globalStyle, keyframes, style } from "@vanilla-extract/css"
+import { calc } from "@vanilla-extract/css-utils"
 import { recipe } from "@vanilla-extract/recipes"
+
+import { theme } from "./theme"
+
+const { color, tokens, space, border } = theme
 
 globalStyle(".App", {
   maxWidth: 1280,
   margin: "0 auto",
-  padding: "2rem",
+  padding: space.lg,
   textAlign: "center",
 })
 
@@ -21,23 +26,23 @@ const logoColor = "--logo-color"
 
 export const logo = recipe({
   base: {
-    height: "6em",
-    margin: "1.5em",
+    height: calc.multiply(space["xxl"], 2),
+    padding: space.md,
     willChange: "filter",
     transition: "0.2s",
     selectors: {
       "a:hover &, a:focus &, a:focus-visible &": {
-        filter: `drop-shadow(0 0 2em var(${logoColor}))`,
+        filter: `drop-shadow(0 0 ${space.lg} var(${logoColor}))`,
       },
     },
   },
   variants: {
     tool: {
       vite: {
-        vars: { [logoColor]: "#646cffaa" },
+        vars: { [logoColor]: color.primary },
       },
       react: {
-        vars: { [logoColor]: "#61dafbaa" },
+        vars: { [logoColor]: color.secondary },
         animation: `${logoSpin} infinite 20s linear`,
       },
     },
@@ -45,36 +50,33 @@ export const logo = recipe({
 })
 
 export const card = style({
-  padding: "2em",
+  padding: space.lg,
 })
 
 export const readTheDocs = style({
-  color: "#888",
+  color: tokens.text.muted,
 })
 
 export const button = style({
   borderRadius: "8px",
-  border: "1px solid transparent",
-  padding: "0.6em 1.2em",
-  fontSize: "1em",
+  border: border.primary,
+  borderColor: "transparent",
+  padding: `${space.sm} ${space.md}`,
+  fontSize: space.md,
   fontWeight: 500,
   fontFamily: "inherit",
-  backgroundColor: "#1a1a1a",
+  backgroundColor: tokens.background.input,
   cursor: "pointer",
   transition: "border-color 0.25s",
 
   selectors: {
     "&:focus, &:focus-visible": {
-      outline: "2px solid #646cff",
+      outline: `${space.xxs} solid ${color.primary}`,
+      backgroundColor: tokens.background.hover,
     },
     "&:hover": {
-      borderColor: "#646cff",
-    },
-  },
-
-  "@media": {
-    "(prefers-color-scheme: light)": {
-      backgroundColor: "#f9f9f9",
+      backgroundColor: tokens.background.hover,
+      borderColor: color.primary,
     },
   },
 })

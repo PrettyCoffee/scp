@@ -1,13 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { button, card, logo, readTheDocs } from "./App.css"
 import reactLogo from "./assets/react.svg"
+import { themeClass } from "./theme"
 
 export const App = () => {
   const [count, setCount] = useState(0)
 
+  useEffect(() => {
+    document.firstElementChild?.classList.add(themeClass)
+  }, [])
+
   return (
-    <div className="App">
+    <div className={"App"}>
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img

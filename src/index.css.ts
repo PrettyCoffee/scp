@@ -1,16 +1,11 @@
 import { globalStyle } from "@vanilla-extract/css"
 
+import { theme } from "./theme"
+
 globalStyle(":root", {
   colorScheme: "light dark",
-  color: "rgba(255, 255, 255, 0.87)",
-  backgroundColor: "#242424",
-
-  "@media": {
-    "(prefers-color-scheme: light)": {
-      color: "#213547",
-      backgroundColor: "#ffffff",
-    },
-  },
+  backgroundColor: theme.tokens.background.default,
+  color: theme.tokens.text.default,
 })
 
 globalStyle("#root", {
