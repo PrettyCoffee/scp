@@ -18,6 +18,7 @@
     "plugin:import/typescript",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:sonarjs/recommended",
     "plugin:prettier/recommended"
   ],
   "plugins": [ 
@@ -26,7 +27,8 @@
     "react-prefer-function-component",
     "import",
     "unused-imports",
-    "jsx-a11y"
+    "jsx-a11y",
+    "sonarjs"
   ],
   "rules": {
     "import/order": [
