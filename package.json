@@ -46,6 +46,10 @@
     "typescript": "^4.8.4",
     "vite": "^3.2.3"
   },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run lint:fix"
