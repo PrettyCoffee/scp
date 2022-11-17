@@ -7,8 +7,9 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./ --ignore-path .gitignore",
-    "lint:fix": "npm run lint -- --fix"
+    "lint": "eslint ./src --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -37,8 +38,15 @@
     "eslint-plugin-react-prefer-function-component": "^3.0.0",
     "eslint-plugin-sonarjs": "^0.16.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
     "vite": "^3.2.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "npm run lint:fix"
+    ]
   }
 }
