@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo ""
+echo "✨ Styling your project before committing."
+echo "⏱️ Please be patient, this may take a while..."
+echo ""
+
+npx lint-staged -q ||
+(
+    echo ""
+    echo "🧙‍♂️ This code shall not pass!"
+    echo "❌ Fix the errors and try to commit again."
+    echo "💡 Hint: Validate your changes with 'npm run lint'."
+    echo ""
+    false
+)
+
+echo ""
+echo "🎉 No error found!"
+echo "🚀 Your changes are being committed now."
+echo ""
