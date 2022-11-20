@@ -26,7 +26,7 @@ const logoColor = "--logo-color"
 
 export const logo = recipe({
   base: {
-    height: calc.multiply(space["xxl"], 2),
+    height: calc.multiply(space.xxl, 2),
     padding: space.md,
     willChange: "filter",
     transition: "0.2s",

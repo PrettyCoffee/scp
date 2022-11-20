@@ -4,6 +4,7 @@
     "node": true
   },
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "ecmaFeatures": {
       "jsx": true
@@ -11,7 +12,9 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
     "plugin:react/recommended",
     "plugin:react-prefer-function-component/recommended",
     "plugin:import/recommended",
@@ -78,6 +81,8 @@
     "react/jsx-no-useless-fragment": ["error", { "allowExpressions": true }],
     "react/jsx-pascal-case":["error", { "allowNamespace": true }],
     "react/no-array-index-key": "error",
+
+    "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }],
 
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-use-before-define": ["error"],

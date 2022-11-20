@@ -8,7 +8,11 @@ import "./index.css"
 // load global styles, imported in `theme/index.ts`
 import "./theme"
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+const root = document.getElementById("root")
+
+if (!root) throw new Error(`ERROR: Node with id "root" is missing.`)
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
