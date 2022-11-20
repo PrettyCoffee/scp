@@ -71,12 +71,11 @@
       "namedComponents": "arrow-function",
       "unnamedComponents": "arrow-function"
     }],
-    "react/forbid-dom-props": ["warn", { "forbid": ["style"] }],
-    "react/forbid-elements": ["warn", { "forbid": ["iframe"] }],
-    "react/hook-use-state": "warn",
+    "react/forbid-elements": ["error", { "forbid": ["iframe"] }],
+    "react/hook-use-state": "error",
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-max-depth": ["error", { "max": 4 }],
-    "react/jsx-no-useless-fragment": "error",
+    "react/jsx-no-useless-fragment": ["error", { "allowExpressions": true }],
     "react/jsx-pascal-case":["error", { "allowNamespace": true }],
     "react/no-array-index-key": "error",
 
