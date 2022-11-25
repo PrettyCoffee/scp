@@ -89,12 +89,12 @@
       "error",
       {
         "**/!(main).tsx": "PASCAL_CASE",
-        "**/!(*.{css,d}).ts": "CAMEL_CASE"
+        "**/!(*.{config,d}).ts": "CAMEL_CASE"
       }
     ],
     "check-file/folder-naming-convention": [
       "error",
-      { "src/**/": "KEBAB_CASE" }
+      { "src/**": "KEBAB_CASE" }
     ],
 
     "unused-imports/no-unused-imports": "error",
@@ -109,5 +109,13 @@
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/@types/**"],
+      "rules": {
+        "check-file/folder-naming-convention": "off"
+      }
+    }
+  ]
 }
