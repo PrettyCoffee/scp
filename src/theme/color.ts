@@ -5,13 +5,14 @@ const secondary = (lightness: number) => hsl(193, 50, lightness)
 
 export const tokens = {
   text: {
-    default: neutral(85),
-    muted: neutral(50),
+    default: neutral(85), // default text color
+    muted: neutral(50), // text with less priority, e.g. when disabled
   },
   background: {
-    default: neutral(10),
-    input: neutral(5),
-    hover: neutral(2.5),
+    base: neutral(15), // global (body) background
+    surface: neutral(10), // background of surfaces above base, e.g. tiles
+    input: neutral(5), // background of clickable input elements, e.g. buttons
+    hover: neutral(2.5), // hover background of clickable input elements
   },
 }
 

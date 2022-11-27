@@ -83,7 +83,7 @@
     "react/jsx-pascal-case":["error", { "allowNamespace": true }],
     "react/no-array-index-key": "error",
 
-    "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "never" }],
+    "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }],
 
     "check-file/filename-naming-convention": [
       "error",
