@@ -1,4 +1,7 @@
 import { Page } from "./page"
+import { spacing } from "./theme/spacing"
+
+export const gridSize = spacing.px.xl
 
 const AppWrapper = styled.div`
   ${({ theme: { space, tokens } }) => css`
