@@ -45,8 +45,12 @@ export const Tile = ({ children }: PropsWithChildren) => {
         y: pos.y - top,
       })
 
+    const newHeight = height + top + bottom
+    const newWidth = width + left + right
+    if (newHeight <= 0 || newWidth <= 0) return
+
     setSize({
-      height: height + top + bottom,
+      height: newHeight,
       width: width + left + right,
     })
   }
