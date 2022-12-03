@@ -1,7 +1,8 @@
 import { PropsWithChildren } from "react"
 
 import { DisabledProp, Side } from "../../base/baseProps"
-import { ResizeHandle } from "./ResizeHandle"
+import { CornerHandle } from "./fragments/CornerHandle"
+import { SideHandle } from "./fragments/SideHandle"
 
 export type ResizeItem = Record<Side, number>
 
@@ -26,10 +27,16 @@ export const Resizable = ({
       {children}
       {!disabled && (
         <>
-          <ResizeHandle side="top" {...shared} />
-          <ResizeHandle side="right" {...shared} />
-          <ResizeHandle side="bottom" {...shared} />
-          <ResizeHandle side="left" {...shared} />
+          <CornerHandle side={["top", "left"]} {...shared} />
+          <SideHandle side="top" {...shared} />
+          <CornerHandle side={["top", "right"]} {...shared} />
+
+          <SideHandle side="left" {...shared} />
+          <SideHandle side="right" {...shared} />
+
+          <CornerHandle side={["bottom", "left"]} {...shared} />
+          <SideHandle side="bottom" {...shared} />
+          <CornerHandle side={["bottom", "right"]} {...shared} />
         </>
       )}
     </>

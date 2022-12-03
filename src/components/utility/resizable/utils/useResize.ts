@@ -1,9 +1,9 @@
 import { RefObject } from "react"
 
-import { Position, Side, SideProp } from "../../base/baseProps"
-import { useDragging, DragMoveArgs } from "../../hooks"
-import { ResizableProps } from "./Resizable"
-import { getHandleBySide } from "./ResizeHandle"
+import { Position, Side } from "../../../base"
+import { useDragging, DragMoveArgs } from "../../../hooks"
+import { ResizableProps } from "../Resizable"
+import { getCursorBySide } from "./getCursorBySide"
 
 const getDeltaBySide = (delta: Position, side: Side) => {
   if (side === "bottom") return delta.y
@@ -21,24 +21,29 @@ const noResize = {
 
 export type ResizeItem = Record<Side, number>
 
-export interface ResizeArgs
-  extends SideProp,
-    Pick<ResizableProps, "onResize" | "snap"> {
+export interface ResizeArgs extends Pick<ResizableProps, "onResize" | "snap"> {
   ref: RefObject<HTMLElement>
+  side: Side | [Side, Side]
 }
 
 export const useResize = ({ ref, side, snap, onResize }: ResizeArgs) => {
+  const sides = Array.isArray(side) ? side : [side]
+
   const move = ({ deltaSinceLast }: DragMoveArgs) => {
-    onResize?.({
-      ...noResize,
-      [side]: getDeltaBySide(deltaSinceLast, side),
-    })
+    const resize = sides.reduce(
+      (result, side) => ({
+        ...result,
+        [side]: getDeltaBySide(deltaSinceLast, side),
+      }),
+      noResize
+    )
+    onResize?.(resize)
   }
 
   const { isDragging } = useDragging({
     ref,
     snap,
-    cursor: getHandleBySide(side),
+    cursor: getCursorBySide(side),
     onMove: move,
   })
 
