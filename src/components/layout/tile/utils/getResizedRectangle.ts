@@ -1,16 +1,19 @@
+import { RefObject } from "react"
+
 import { exceedsWindow, Position, Side, Size } from "../../../base"
 import { ResizeItem } from "../../../utility"
+import { Anchor } from "./useAnchor"
 
 const resizeExceedsWindow = (
-  { top, bottom, left, right }: ResizeItem,
-  pos: Position,
-  size: Size
+  element: Element,
+  { top, bottom, left, right }: ResizeItem
 ) => {
+  const rect = element.getBoundingClientRect()
   const newRect: Record<Side, number> = {
-    top: pos.y - top,
-    left: pos.x - left,
-    bottom: pos.y + size.height + bottom,
-    right: pos.x + size.width + right,
+    top: rect.top - top,
+    left: rect.left - left,
+    bottom: rect.bottom + bottom,
+    right: rect.right + right,
   }
   return exceedsWindow(newRect)
 }
@@ -19,19 +22,28 @@ interface Args {
   resize: ResizeItem
   size: Size
   pos: Position
+  ref: RefObject<Element>
+  anchor: Anchor
 }
 
-export const getResizedRectangle = ({ resize, pos, size }: Args) => {
+export const getResizedRectangle = ({
+  ref,
+  resize,
+  pos,
+  size,
+  anchor,
+}: Args) => {
   const { top, bottom, left, right } = resize
 
-  if (resizeExceedsWindow(resize, pos, size))
+  const movable = ref.current
+  if (!movable || resizeExceedsWindow(movable, resize))
     return {
       ...size,
       ...pos,
     }
 
-  const x = pos.x - left
-  const y = pos.y - top
+  const x = anchor.sideX === "right" ? pos.x + right : pos.x - left
+  const y = anchor.sideY === "bottom" ? pos.y + bottom : pos.y - top
 
   const height = size.height + top + bottom
   const width = size.width + left + right

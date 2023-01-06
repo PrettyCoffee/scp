@@ -1,9 +1,10 @@
-import { PropsWithChildren, useState } from "react"
+import { PropsWithChildren, useRef, useState } from "react"
 
 import { gridSize } from "../../../App"
 import { Position } from "../../base"
 import { Resizable, ResizeItem, Movable } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
+import { useAnchor, Orientation } from "./utils/useAnchor"
 
 const MovableContainer = styled(Movable)`
   ${({ theme: { space } }) => css`
@@ -23,7 +24,19 @@ const Content = styled.div`
   `}
 `
 
-export const Tile = ({ children }: PropsWithChildren) => {
+interface TileProps {
+  orientation?: Orientation
+}
+
+export const Tile = ({
+  orientation = {
+    vertical: "center",
+    horizontal: "center",
+  },
+  children,
+}: PropsWithChildren<TileProps>) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const anchor = useAnchor(orientation)
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [size, setSize] = useState({
     height: gridSize * 2,
@@ -32,11 +45,12 @@ export const Tile = ({ children }: PropsWithChildren) => {
 
   const handleResize = (resize: ResizeItem) => {
     const { height, width, x, y } = getResizedRectangle({
+      ref,
       pos,
       resize,
       size,
+      anchor,
     })
-
     setPos({
       x,
       y,
@@ -51,8 +65,10 @@ export const Tile = ({ children }: PropsWithChildren) => {
     setPos(old => ({ x: old.x + x, y: old.y + y }))
 
   const position = {
-    top: pos.y,
-    left: pos.x,
+    [anchor.sideX]:
+      anchor.sideX === "right" ? anchor.x - pos.x : anchor.x + pos.x,
+    [anchor.sideY]:
+      anchor.sideY === "bottom" ? anchor.y - pos.y : anchor.y + pos.y,
   }
 
   return (
@@ -61,7 +77,7 @@ export const Tile = ({ children }: PropsWithChildren) => {
       onMove={handleMove}
       style={{ ...size, ...position }}
     >
-      <Content>
+      <Content ref={ref}>
         <Resizable snap={gridSize} onResize={handleResize}>
           {children}
         </Resizable>
