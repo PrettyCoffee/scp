@@ -35,8 +35,8 @@ export const Tile = ({
     vertical: "center",
     horizontal: "center",
   },
-  minHeight = gridSize * 2,
-  minWidth = gridSize * 2,
+  minHeight = gridSize * 4,
+  minWidth = gridSize * 4,
   children,
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)

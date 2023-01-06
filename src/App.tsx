@@ -1,8 +1,9 @@
 import { Page } from "./page"
 import { spacing } from "./theme/spacing"
 
-export const gridSize = spacing.px.xl
+export const gridSize = spacing.px.lg
 
+/*
 const GridBackground = styled.div`
   position: relative;
   ::before {
@@ -35,6 +36,8 @@ const GridBackground = styled.div`
       );
   }
 `
+*/
+
 const AppWrapper = styled.div`
   ${({ theme: { tokens } }) => css`
     text-align: center;
@@ -45,7 +48,7 @@ const AppWrapper = styled.div`
   `}
 `
 
-const Relative = styled(GridBackground)`
+const Relative = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
