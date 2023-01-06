@@ -30,34 +30,64 @@ const Cross = styled.div(
 )
 
 export const Page = () => {
+  const sharedProps = { editing: true }
   return (
     <>
-      <Cross />
-      <Tile orientation={{ horizontal: "left", vertical: "top" }}>Tile #1</Tile>
-      <Tile orientation={{ horizontal: "center", vertical: "top" }}>
+      {sharedProps.editing && <Cross />}
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "left", vertical: "top" }}
+      >
+        Tile #1
+      </Tile>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "center", vertical: "top" }}
+      >
         Tile #2
       </Tile>
-      <Tile orientation={{ horizontal: "right", vertical: "top" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "right", vertical: "top" }}
+      >
         Tile #3
       </Tile>
 
-      <Tile orientation={{ horizontal: "left", vertical: "center" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "left", vertical: "center" }}
+      >
         Tile #4
       </Tile>
-      <Tile orientation={{ horizontal: "center", vertical: "center" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "center", vertical: "center" }}
+      >
         Tile #5
       </Tile>
-      <Tile orientation={{ horizontal: "right", vertical: "center" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "right", vertical: "center" }}
+      >
         Tile #6
       </Tile>
 
-      <Tile orientation={{ horizontal: "left", vertical: "bottom" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "left", vertical: "bottom" }}
+      >
         Tile #7
       </Tile>
-      <Tile orientation={{ horizontal: "center", vertical: "bottom" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "center", vertical: "bottom" }}
+      >
         Tile #8
       </Tile>
-      <Tile orientation={{ horizontal: "right", vertical: "bottom" }}>
+      <Tile
+        {...sharedProps}
+        orientation={{ horizontal: "right", vertical: "bottom" }}
+      >
         Tile #9
       </Tile>
     </>

@@ -20,7 +20,6 @@ const Positioning = styled(Layout)<PositioningProps>`
     width: max-content;
     height: max-content;
     cursor: ${isDragging ? "grabbing" : "grab"};
-    transition: 0.1s;
   `}
 `
 

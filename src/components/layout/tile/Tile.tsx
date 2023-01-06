@@ -28,6 +28,7 @@ export interface TileProps {
   orientation?: Orientation
   minHeight?: number
   minWidth?: number
+  editing?: boolean
 }
 
 export const Tile = ({
@@ -37,6 +38,7 @@ export const Tile = ({
   },
   minHeight = gridSize * 4,
   minWidth = gridSize * 4,
+  editing,
   children,
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -82,9 +84,14 @@ export const Tile = ({
       snap={gridSize}
       onMove={handleMove}
       style={{ ...size, ...position }}
+      disabled={!editing}
     >
       <Content ref={ref}>
-        <Resizable snap={gridSize} onResize={handleResize} />
+        <Resizable
+          snap={gridSize}
+          onResize={handleResize}
+          disabled={!editing}
+        />
         {children}
       </Content>
     </MovableContainer>
