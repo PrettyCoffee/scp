@@ -24,8 +24,10 @@ const Content = styled.div`
   `}
 `
 
-interface TileProps {
+export interface TileProps {
   orientation?: Orientation
+  minHeight?: number
+  minWidth?: number
 }
 
 export const Tile = ({
@@ -33,14 +35,16 @@ export const Tile = ({
     vertical: "center",
     horizontal: "center",
   },
+  minHeight = gridSize * 2,
+  minWidth = gridSize * 2,
   children,
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation)
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const [size, setSize] = useState({
-    height: gridSize * 2,
-    width: gridSize * 2,
+    height: minHeight,
+    width: minWidth,
   })
 
   const handleResize = (resize: ResizeItem) => {
@@ -50,6 +54,8 @@ export const Tile = ({
       resize,
       size,
       anchor,
+      minHeight,
+      minWidth,
     })
     setPos({
       x,

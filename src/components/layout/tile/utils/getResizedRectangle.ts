@@ -24,6 +24,8 @@ interface Args {
   pos: Position
   ref: RefObject<Element>
   anchor: Anchor
+  minHeight: number
+  minWidth: number
 }
 
 export const getResizedRectangle = ({
@@ -32,6 +34,8 @@ export const getResizedRectangle = ({
   pos,
   size,
   anchor,
+  minHeight,
+  minWidth,
 }: Args) => {
   const { top, bottom, left, right } = resize
 
@@ -49,9 +53,10 @@ export const getResizedRectangle = ({
   const width = size.width + left + right
 
   return {
-    x,
-    y,
-    height,
-    width,
+    x: width >= minWidth ? x : pos.x,
+    width: width >= minWidth ? width : size.width,
+
+    y: height >= minHeight ? y : pos.y,
+    height: height >= minHeight ? height : size.height,
   }
 }
