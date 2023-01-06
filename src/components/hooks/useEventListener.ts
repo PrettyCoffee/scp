@@ -9,12 +9,12 @@ type EventListener<T extends keyof WindowEventMap> = (
 interface UseEventListenerArgs<T extends keyof WindowEventMap> {
   type: T
   listener: EventListener<T>
-  ref?: RefObject<Element>
+  ref?: RefObject<Element | Window>
   disabled?: boolean
 }
 
 export const useEventListener = <T extends keyof WindowEventMap>({
-  ref,
+  ref = { current: window },
   listener,
   type,
   disabled,
@@ -22,7 +22,9 @@ export const useEventListener = <T extends keyof WindowEventMap>({
   const listenerRef = useLatest(listener)
 
   useLayoutEffect(() => {
-    const element = ref?.current ?? window
+    const element = ref.current
+    if (!element) return
+
     const handler = (event: Event) =>
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       listenerRef.current(event as WindowEventMap[T])
