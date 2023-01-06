@@ -78,9 +78,8 @@ export const Tile = ({
       style={{ ...size, ...position }}
     >
       <Content ref={ref}>
-        <Resizable snap={gridSize} onResize={handleResize}>
-          {children}
-        </Resizable>
+        <Resizable snap={gridSize} onResize={handleResize} />
+        {children}
       </Content>
     </MovableContainer>
   )

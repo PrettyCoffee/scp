@@ -1,5 +1,3 @@
-import { PropsWithChildren } from "react"
-
 import { DisabledProp, Side } from "../../base/baseProps"
 import { CornerHandle } from "./fragments/CornerHandle"
 import { SideHandle } from "./fragments/SideHandle"
@@ -11,12 +9,7 @@ export interface ResizableProps extends DisabledProp {
   snap?: number
 }
 
-export const Resizable = ({
-  children,
-  onResize,
-  snap = 0,
-  disabled,
-}: PropsWithChildren<ResizableProps>) => {
+export const Resizable = ({ onResize, snap = 0, disabled }: ResizableProps) => {
   const shared = {
     onResize,
     snap,
@@ -24,7 +17,6 @@ export const Resizable = ({
 
   return (
     <>
-      {children}
       {!disabled && (
         <>
           <CornerHandle side={["top", "left"]} {...shared} />
