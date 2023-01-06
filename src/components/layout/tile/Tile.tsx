@@ -1,8 +1,9 @@
 import { PropsWithChildren, useState } from "react"
 
-import { gridSize } from "../../App"
-import { exceedsWindow, Position, Side } from "../base"
-import { Resizable, ResizeItem, Movable } from "../utility"
+import { gridSize } from "../../../App"
+import { Position } from "../../base"
+import { Resizable, ResizeItem, Movable } from "../../utility"
+import { getResizedRectangle } from "./utils/getResizedRectangle"
 
 const MovableContainer = styled(Movable)`
   ${({ theme: { space } }) => css`
@@ -29,29 +30,20 @@ export const Tile = ({ children }: PropsWithChildren) => {
     width: gridSize * 2,
   })
 
-  const handleResize = ({ top, bottom, left, right }: ResizeItem) => {
-    const { height, width } = size
-    const boundaries: Record<Side, number> = {
-      top: pos.y - top,
-      left: pos.x - left,
-      bottom: pos.y + height + bottom,
-      right: pos.x + width + right,
-    }
-    if (exceedsWindow(boundaries)) return
+  const handleResize = (resize: ResizeItem) => {
+    const { height, width, x, y } = getResizedRectangle({
+      pos,
+      resize,
+      size,
+    })
 
-    if (top !== 0 || left !== 0)
-      setPos({
-        x: pos.x - left,
-        y: pos.y - top,
-      })
-
-    const newHeight = height + top + bottom
-    const newWidth = width + left + right
-    if (newHeight <= 0 || newWidth <= 0) return
-
+    setPos({
+      x,
+      y,
+    })
     setSize({
-      height: newHeight,
-      width: width + left + right,
+      height,
+      width,
     })
   }
 
