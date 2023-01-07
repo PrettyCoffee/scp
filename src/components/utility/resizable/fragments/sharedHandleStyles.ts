@@ -2,7 +2,7 @@ import { Side, ThemeProp } from "../../../base"
 import { getCursorBySide, isHorizontal } from "../utils/getCursorBySide"
 
 const attatchHandle = ({ side, theme: { space } }: HandleProps) => {
-  const margin = `-${space.sm}`
+  const margin = `calc(-1 * ${space.sm})`
   const clickSize = "1.75rem"
 
   if (Array.isArray(side))
