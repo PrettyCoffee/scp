@@ -24,6 +24,8 @@ const Content = styled.div`
   `}
 `
 
+export type TileRect = Pick<DOMRect, "height" | "width" | "x" | "y">
+
 export interface TileProps {
   orientation?: Orientation
   minHeight?: number
@@ -43,40 +45,38 @@ export const Tile = ({
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation)
-  const [pos, setPos] = useState({ x: 0, y: 0 })
-  const [size, setSize] = useState({
+  const [rect, setRect] = useState<TileRect>({
+    x: 0,
+    y: 0,
     height: minHeight,
     width: minWidth,
   })
 
-  const handleResize = (resize: ResizeItem) => {
-    const { height, width, x, y } = getResizedRectangle({
-      ref,
-      pos,
-      resize,
-      size,
-      anchor,
-      minHeight,
-      minWidth,
-    })
-    setPos({
-      x,
-      y,
-    })
-    setSize({
-      height,
-      width,
-    })
-  }
+  const handleResize = (resize: ResizeItem) =>
+    setRect(rect =>
+      getResizedRectangle({
+        ref,
+        rect,
+        resize,
+        anchor,
+        minHeight,
+        minWidth,
+      })
+    )
 
   const handleMove = ({ x, y }: Position) =>
-    setPos(old => ({ x: old.x + x, y: old.y + y }))
+    setRect(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
+
+  const size = {
+    height: rect.height,
+    width: rect.width,
+  }
 
   const position = {
     [anchor.sideX]:
-      anchor.sideX === "right" ? anchor.x - pos.x : anchor.x + pos.x,
+      anchor.sideX === "right" ? anchor.x - rect.x : anchor.x + rect.x,
     [anchor.sideY]:
-      anchor.sideY === "bottom" ? anchor.y - pos.y : anchor.y + pos.y,
+      anchor.sideY === "bottom" ? anchor.y - rect.y : anchor.y + rect.y,
   }
 
   return (

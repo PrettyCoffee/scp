@@ -1,7 +1,8 @@
 import { RefObject } from "react"
 
-import { exceedsWindow, Position, Side, Size } from "../../../base"
+import { exceedsWindow, Side } from "../../../base"
 import { ResizeItem } from "../../../utility"
+import { TileRect } from "../Tile"
 import { Anchor } from "./useAnchor"
 
 const resizeExceedsWindow = (
@@ -20,8 +21,7 @@ const resizeExceedsWindow = (
 
 interface Args {
   resize: ResizeItem
-  size: Size
-  pos: Position
+  rect: TileRect
   ref: RefObject<Element>
   anchor: Anchor
   minHeight: number
@@ -31,8 +31,7 @@ interface Args {
 export const getResizedRectangle = ({
   ref,
   resize,
-  pos,
-  size,
+  rect,
   anchor,
   minHeight,
   minWidth,
@@ -40,23 +39,19 @@ export const getResizedRectangle = ({
   const { top, bottom, left, right } = resize
 
   const movable = ref.current
-  if (!movable || resizeExceedsWindow(movable, resize))
-    return {
-      ...size,
-      ...pos,
-    }
+  if (!movable || resizeExceedsWindow(movable, resize)) return rect
 
-  const x = anchor.sideX === "right" ? pos.x + right : pos.x - left
-  const y = anchor.sideY === "bottom" ? pos.y + bottom : pos.y - top
+  const x = anchor.sideX === "right" ? rect.x + right : rect.x - left
+  const y = anchor.sideY === "bottom" ? rect.y + bottom : rect.y - top
 
-  const height = size.height + top + bottom
-  const width = size.width + left + right
+  const height = rect.height + top + bottom
+  const width = rect.width + left + right
 
   return {
-    x: width >= minWidth ? x : pos.x,
-    width: width >= minWidth ? width : size.width,
+    x: width >= minWidth ? x : rect.x,
+    width: width >= minWidth ? width : rect.width,
 
-    y: height >= minHeight ? y : pos.y,
-    height: height >= minHeight ? height : size.height,
+    y: height >= minHeight ? y : rect.y,
+    height: height >= minHeight ? height : rect.height,
   }
 }
