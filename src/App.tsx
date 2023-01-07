@@ -1,7 +1,4 @@
 import { Page } from "./page"
-import { spacing } from "./theme/spacing"
-
-export const gridSize = spacing.px.lg
 
 /*
 const GridBackground = styled.div`

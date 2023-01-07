@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react"
+import { Dispatch, HTMLAttributes, SetStateAction } from "react"
 
 import { Theme } from "@emotion/react"
 
@@ -31,3 +31,5 @@ export interface DisabledProp {
 }
 
 export type DivProps = HTMLAttributes<HTMLDivElement>
+
+export type SetState<T> = Dispatch<SetStateAction<T>>

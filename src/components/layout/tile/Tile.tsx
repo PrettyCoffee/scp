@@ -1,7 +1,7 @@
-import { PropsWithChildren, useRef, useState } from "react"
+import { PropsWithChildren, useRef } from "react"
 
-import { gridSize } from "../../../App"
-import { Position } from "../../base"
+import { gridSize } from "../../../config"
+import { Position, SetState } from "../../base"
 import { Resizable, ResizeItem, Movable } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
@@ -26,18 +26,31 @@ const Content = styled.div`
 
 export type TileRect = Pick<DOMRect, "height" | "width" | "x" | "y">
 
+const defaultRect: TileRect = {
+  height: 32 * 4,
+  width: 32 * 4,
+  x: 0,
+  y: 0,
+}
+
+const defaultOrientation: Orientation = {
+  vertical: "center",
+  horizontal: "center",
+}
+
 export interface TileProps {
-  orientation?: Orientation
+  rect: TileRect
+  onRectChange: SetState<TileRect>
+  orientation: Orientation
   minHeight?: number
   minWidth?: number
   editing?: boolean
 }
 
 export const Tile = ({
-  orientation = {
-    vertical: "center",
-    horizontal: "center",
-  },
+  orientation = defaultOrientation,
+  rect = defaultRect,
+  onRectChange,
   minHeight = gridSize * 4,
   minWidth = gridSize * 4,
   editing,
@@ -45,15 +58,9 @@ export const Tile = ({
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation)
-  const [rect, setRect] = useState<TileRect>({
-    x: 0,
-    y: 0,
-    height: minHeight,
-    width: minWidth,
-  })
 
   const handleResize = (resize: ResizeItem) =>
-    setRect(rect =>
+    onRectChange(rect =>
       getResizedRectangle({
         ref,
         rect,
@@ -65,7 +72,7 @@ export const Tile = ({
     )
 
   const handleMove = ({ x, y }: Position) =>
-    setRect(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
+    onRectChange(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
 
   const size = {
     height: rect.height,
