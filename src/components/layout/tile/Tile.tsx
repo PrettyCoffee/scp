@@ -14,13 +14,15 @@ const MovableContainer = styled(Movable)`
 `
 
 const Content = styled.div`
-  ${({ theme: { space, border, tokens } }) => css`
+  ${({ theme: { space, border, tokens, shadow } }) => css`
     position: relative;
     border-radius: ${space.sm};
     border: ${border} ${tokens.text.muted};
     background-color: ${tokens.background.surface};
     height: 100%;
     width: 100%;
+
+    box-shadow: ${shadow.medium};
 
     :hover,
     :focus-within {
