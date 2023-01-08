@@ -34,30 +34,36 @@ export interface HandleProps extends ThemeProp {
   isResizing: boolean
 }
 
-export const sharedHandleStyles = (props: HandleProps) => css`
-  --border: 0.1875rem solid ${props.theme.color.secondary};
-  --handle-offset: 0.75rem;
+export const sharedHandleStyles = (props: HandleProps) => {
+  const {
+    theme: { tokens },
+  } = props
+  return css`
+    --border: 0.1875rem solid ${tokens.accent};
+    --handle-offset: 0.75rem;
 
-  ${attatchHandle(props)}
-  background: transparent;
-  padding: 0;
-  border: none;
-  position: absolute;
-  cursor: ${getCursorBySide(props.side)};
-
-  ::before,
-  ::after {
+    ${attatchHandle(props)}
+    background: transparent;
+    padding: 0;
+    border: none;
     position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    border-radius: 50vh;
-    border-color: ${props.theme.color.secondary};
-  }
+    cursor: ${getCursorBySide(props.side)};
 
-  transition: opacity 0.2s ease;
-  opacity: ${props.isResizing ? "1" : "0.3"};
-  :hover {
-    opacity: 1;
-  }
-`
+    ::before,
+    ::after {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 50vh;
+      border-color: ${tokens.accent};
+    }
+
+    transition: opacity 0.2s ease;
+    opacity: ${props.isResizing ? "1" : "0.3"};
+    :hover,
+    :focus-visible {
+      opacity: 1;
+    }
+  `
+}

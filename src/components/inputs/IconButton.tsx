@@ -1,7 +1,7 @@
 import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
 
 const Button = styled.button(
-  ({ theme: { border, space } }) => css`
+  ({ theme: { border, space, tokens } }) => css`
     position: relative;
 
     --button-size: ${space.lg};
@@ -14,7 +14,7 @@ const Button = styled.button(
     align-items: center;
     justify-content: center;
 
-    color: #cdd6f4;
+    color: ${tokens.text.default};
     border-radius: 50%;
     overflow: hidden;
     isolation: isolate;
@@ -24,7 +24,7 @@ const Button = styled.button(
     cursor: pointer;
 
     &:focus-visible {
-      outline: ${border.primary};
+      outline: ${border} ${tokens.accent};
     }
 
     &::before {
@@ -34,18 +34,18 @@ const Button = styled.button(
       border-radius: 50%;
       z-index: -1;
 
-      background-color: #313244;
+      background-color: ${tokens.background.input};
       transition: 0.2s solid;
       transition-property: inset, background-color;
     }
     &:hover::before,
     &:focus-visible::before {
       inset: 0;
-      background-color: #45475a;
+      background-color: ${tokens.background.hover};
     }
     &:active::before {
       inset: 0;
-      background-color: #585b70;
+      background-color: ${tokens.background.press};
     }
   `
 )

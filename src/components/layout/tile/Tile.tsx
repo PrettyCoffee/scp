@@ -17,10 +17,15 @@ const Content = styled.div`
   ${({ theme: { space, border, tokens } }) => css`
     position: relative;
     border-radius: ${space.sm};
-    border: ${border.primary};
+    border: ${border} ${tokens.text.muted};
     background-color: ${tokens.background.surface};
     height: 100%;
     width: 100%;
+
+    :hover,
+    :focus-within {
+      border: ${border} ${tokens.accent};
+    }
   `}
 `
 

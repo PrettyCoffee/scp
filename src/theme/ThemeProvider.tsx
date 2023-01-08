@@ -7,17 +7,11 @@ import { createCssVariables } from "./createCssVariables"
 import { GlobalStyles } from "./GlobalStyles"
 import { spacing } from "./spacing"
 
-const border = (color: string) => `${spacing.rem.xxs} solid ${color}`
-
 export const theme = {
   space: { ...spacing.rem },
   color,
   tokens,
-  border: {
-    neutral: border(tokens.text.default),
-    primary: border(color.primary),
-    secondary: border(color.secondary),
-  },
+  border: `${spacing.rem["3xs"]} solid`,
 }
 
 const { css, theme: cssTheme } = createCssVariables(theme)
