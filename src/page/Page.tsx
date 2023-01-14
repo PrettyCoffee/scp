@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react"
 
 import { css as createStyles } from "@emotion/css"
 
-import { SetState, Tile, TileRect } from "../components"
+import { Edit, SetState, Tile, TileRect, ToggleButton } from "../components"
 import { gridSize } from "../config"
 import { theme } from "../theme/ThemeProvider"
 import {
@@ -170,11 +170,19 @@ const Widgets = ({ editing }: { editing: boolean }) => {
 }
 
 export const Page = () => {
-  const editing = true
+  const [editing, setEditing] = useState(false)
 
   return (
     <WidgetStoreProvider initial={defaultTiles}>
       {editing && <Cross />}
+      <div style={{ position: "fixed", zIndex: 1, right: 8, top: 8 }}>
+        <ToggleButton
+          pressed={editing}
+          onClick={setEditing}
+          icon={Edit}
+          caption="Start editing widgets"
+        />
+      </div>
       <Widgets editing={editing} />
     </WidgetStoreProvider>
   )
