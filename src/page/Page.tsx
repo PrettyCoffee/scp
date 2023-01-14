@@ -1,7 +1,12 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
-import { Tile, TileProps } from "../components"
+import { SetState, Tile, TileRect } from "../components"
 import { gridSize } from "../config"
+import {
+  useWidgetStore,
+  WidgetConfig,
+  WidgetStoreProvider,
+} from "./WidgetStore"
 
 const Cross = styled.div(
   ({ theme: { tokens } }) => css`
@@ -32,20 +37,32 @@ const Cross = styled.div(
   `
 )
 
-interface UserTileProps extends Required<Omit<TileProps, "onRectChange">> {
-  id: string
+interface UserTileProps extends WidgetConfig {
+  editing: boolean
 }
 
-const UserTile = ({ id, rect: configRect, ...delegated }: UserTileProps) => {
-  const [rect, setRect] = useState(configRect)
+const UserTile = ({ editing, ...widget }: UserTileProps) => {
+  const { updateWidget } = useWidgetStore()
+  const [state, setState] = useState(widget)
+
+  const setRect: SetState<TileRect> = useCallback(
+    value => {
+      setState(state => {
+        const rect = typeof value === "function" ? value(state.rect) : value
+        const newState = { ...state, rect }
+        updateWidget(newState)
+        return newState
+      })
+    },
+    [updateWidget]
+  )
+
   return (
-    <Tile {...delegated} onRectChange={setRect} rect={rect}>
-      Tile {`#${id}`}
+    <Tile {...state} onRectChange={setRect} editing={editing}>
+      Tile {`#${state.id}`}
     </Tile>
   )
 }
-
-type UserTileConfig = Omit<UserTileProps, "editing">
 
 const sharedProps = {
   minHeight: gridSize * 4,
@@ -59,7 +76,7 @@ const defaultRect = {
   y: 0,
 }
 
-const defaultTiles: UserTileConfig[] = [
+const defaultTiles: WidgetConfig[] = [
   {
     id: "1",
     orientation: { horizontal: "left", vertical: "top" },
@@ -118,16 +135,25 @@ const defaultTiles: UserTileConfig[] = [
   },
 ]
 
-export const Page = () => {
-  const editing = true
-  const [tiles, setTiles] = useState<UserTileConfig[]>(defaultTiles)
+const Widgets = ({ editing }: { editing: boolean }) => {
+  const { widgets } = useWidgetStore()
 
   return (
     <>
-      {editing && <Cross />}
-      {tiles.map(tile => (
-        <UserTile key={tile.id} editing={editing} {...tile} />
+      {widgets.map(widget => (
+        <UserTile key={widget.id} editing={editing} {...widget} />
       ))}
     </>
+  )
+}
+
+export const Page = () => {
+  const editing = true
+
+  return (
+    <WidgetStoreProvider initial={defaultTiles}>
+      {editing && <Cross />}
+      <Widgets editing={editing} />
+    </WidgetStoreProvider>
   )
 }
