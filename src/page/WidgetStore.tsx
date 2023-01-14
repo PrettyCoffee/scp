@@ -12,7 +12,7 @@ export interface WidgetConfig {
   id: string
   rect: TileRect
   orientation: Orientation
-  css?: string
+  customCss?: string
   minHeight?: number
   minWidth?: number
 }

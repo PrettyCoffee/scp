@@ -1,7 +1,7 @@
 import { PropsWithChildren, useRef } from "react"
 
 import { gridSize } from "../../../config"
-import { Position, SetState } from "../../base"
+import { ClassNameProp, Position, SetState } from "../../base"
 import { Resizable, ResizeItem, Movable } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
@@ -45,7 +45,7 @@ const defaultOrientation: Orientation = {
   horizontal: "center",
 }
 
-export interface TileProps {
+export interface TileProps extends ClassNameProp {
   rect: TileRect
   onRectChange: SetState<TileRect>
   orientation: Orientation
@@ -62,6 +62,7 @@ export const Tile = ({
   minWidth = gridSize * 4,
   editing,
   children,
+  ...delegated
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation)
@@ -95,6 +96,7 @@ export const Tile = ({
 
   return (
     <MovableContainer
+      {...delegated}
       snap={gridSize}
       onMove={handleMove}
       style={{ ...size, ...position }}

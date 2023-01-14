@@ -1,7 +1,10 @@
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
+
+import { css as createStyles } from "@emotion/css"
 
 import { SetState, Tile, TileRect } from "../components"
 import { gridSize } from "../config"
+import { theme } from "../theme/ThemeProvider"
 import {
   useWidgetStore,
   WidgetConfig,
@@ -57,8 +60,18 @@ const UserTile = ({ editing, ...widget }: UserTileProps) => {
     [updateWidget]
   )
 
+  const className = useMemo(
+    () => createStyles`${state.customCss}`,
+    [state.customCss]
+  )
+
   return (
-    <Tile {...state} onRectChange={setRect} editing={editing}>
+    <Tile
+      className={className}
+      {...state}
+      onRectChange={setRect}
+      editing={editing}
+    >
       Tile {`#${state.id}`}
     </Tile>
   )
@@ -82,18 +95,27 @@ const defaultTiles: WidgetConfig[] = [
     orientation: { horizontal: "left", vertical: "top" },
     rect: defaultRect,
     ...sharedProps,
+    customCss: `
+      --tokens-accent: ${theme.color.red};
+    `,
   },
   {
     id: "2",
     orientation: { horizontal: "center", vertical: "top" },
     rect: { ...defaultRect, x: gridSize * -2 },
     ...sharedProps,
+    customCss: `
+      --tokens-accent: ${theme.color.flamingo};
+    `,
   },
   {
     id: "3",
     orientation: { horizontal: "right", vertical: "top" },
     rect: defaultRect,
     ...sharedProps,
+    customCss: `
+      --tokens-accent: ${theme.color.yellow};
+    `,
   },
 
   {
