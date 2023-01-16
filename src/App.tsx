@@ -1,3 +1,4 @@
+import { windowPadding } from "./config"
 import { Page } from "./page"
 
 /*
@@ -42,6 +43,7 @@ const AppWrapper = styled.div`
     background-color: ${tokens.background.base};
     height: 100%;
     width: 100%;
+    padding: ${windowPadding}px;
   `}
 `
 

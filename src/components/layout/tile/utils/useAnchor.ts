@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { windowPadding } from "../../../../config"
 import { useEventListener } from "../../../hooks"
 
 export interface Orientation {
@@ -14,11 +15,13 @@ export interface Anchor {
   sideY: "top" | "bottom"
 }
 
+const getCenter = (size: number) => (size - 2 * windowPadding) / 2
+
 const getAnchorPosition = (orientation: Orientation): Anchor => {
   const { innerHeight, innerWidth } = window
   return {
-    x: orientation.horizontal === "center" ? innerWidth / 2 : 0,
-    y: orientation.vertical === "center" ? innerHeight / 2 : 0,
+    x: orientation.horizontal === "center" ? getCenter(innerWidth) : 0,
+    y: orientation.vertical === "center" ? getCenter(innerHeight) : 0,
     sideX: orientation.horizontal === "right" ? "right" : "left",
     sideY: orientation.vertical === "bottom" ? "bottom" : "top",
   }
