@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react"
 import { css as createStyles } from "@emotion/css"
 
 import { Edit, SetState, Tile, TileRect, ToggleButton } from "../components"
-import { Store } from "../store"
+import { useGeneralStore } from "../store"
 import { useWidgetStore, WidgetConfig } from "../store/WidgetStore"
 
 const Cross = styled.div(
@@ -42,6 +42,7 @@ interface UserTileProps extends WidgetConfig {
 const UserTile = ({ editing, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
+  const [{ gridSize, windowPadding }] = useGeneralStore()
 
   const setRect: SetState<TileRect> = useCallback(
     value => {
@@ -62,6 +63,8 @@ const UserTile = ({ editing, ...widget }: UserTileProps) => {
 
   return (
     <Tile
+      gridSize={gridSize}
+      windowPadding={windowPadding}
       className={className}
       {...state}
       onRectChange={setRect}
@@ -88,7 +91,7 @@ export const Page = () => {
   const [editing, setEditing] = useState(false)
 
   return (
-    <Store>
+    <>
       {editing && <Cross />}
       <div style={{ position: "fixed", zIndex: 1, right: 8, top: 8 }}>
         <ToggleButton
@@ -99,6 +102,6 @@ export const Page = () => {
         />
       </div>
       <Widgets editing={editing} />
-    </Store>
+    </>
   )
 }

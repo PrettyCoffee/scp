@@ -1,6 +1,5 @@
 import { PropsWithChildren, useRef } from "react"
 
-import { gridSize } from "../../../config"
 import { ClassNameProp, Position, SetState } from "../../base"
 import { Resizable, ResizeItem, Movable } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
@@ -49,12 +48,16 @@ export interface TileProps extends ClassNameProp {
   rect: TileRect
   onRectChange: SetState<TileRect>
   orientation: Orientation
+  gridSize: number
   minHeight?: number
   minWidth?: number
   editing?: boolean
+  windowPadding?: number
 }
 
 export const Tile = ({
+  windowPadding = 0,
+  gridSize,
   orientation = defaultOrientation,
   rect = defaultRect,
   onRectChange,
@@ -65,7 +68,7 @@ export const Tile = ({
   ...delegated
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
-  const anchor = useAnchor(orientation)
+  const anchor = useAnchor(orientation, windowPadding)
 
   const handleResize = (resize: ResizeItem) =>
     onRectChange(rect =>

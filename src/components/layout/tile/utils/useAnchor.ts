@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-import { windowPadding } from "../../../../config"
 import { useEventListener } from "../../../hooks"
 
 export interface Orientation {
@@ -15,23 +14,33 @@ export interface Anchor {
   sideY: "top" | "bottom"
 }
 
-const getCenter = (size: number) => (size - 2 * windowPadding) / 2
+const getCenter = (size: number, windowPadding: number) =>
+  (size - 2 * windowPadding) / 2
 
-const getAnchorPosition = (orientation: Orientation): Anchor => {
+const getAnchorPosition = (
+  orientation: Orientation,
+  windowPadding: number
+): Anchor => {
   const { innerHeight, innerWidth } = window
+
+  const xCenter = getCenter(innerWidth, windowPadding)
+  const yCenter = getCenter(innerHeight, windowPadding)
+
   return {
-    x: orientation.horizontal === "center" ? getCenter(innerWidth) : 0,
-    y: orientation.vertical === "center" ? getCenter(innerHeight) : 0,
+    x: orientation.horizontal === "center" ? xCenter : 0,
+    y: orientation.vertical === "center" ? yCenter : 0,
     sideX: orientation.horizontal === "right" ? "right" : "left",
     sideY: orientation.vertical === "bottom" ? "bottom" : "top",
   }
 }
 
-export const useAnchor = (anchors: Orientation) => {
-  const [position, setPosition] = useState(getAnchorPosition(anchors))
+export const useAnchor = (anchors: Orientation, windowPadding: number) => {
+  const [position, setPosition] = useState(
+    getAnchorPosition(anchors, windowPadding)
+  )
   useEventListener({
     type: "resize",
-    listener: () => setPosition(getAnchorPosition(anchors)),
+    listener: () => setPosition(getAnchorPosition(anchors, windowPadding)),
   })
   return position
 }

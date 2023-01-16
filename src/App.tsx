@@ -1,5 +1,6 @@
-import { windowPadding } from "./config"
 import { Page } from "./page"
+import { Store } from "./store"
+import { GeneralStoreConsumer } from "./store/General"
 
 /*
 const GridBackground = styled.div`
@@ -36,8 +37,8 @@ const GridBackground = styled.div`
 `
 */
 
-const AppWrapper = styled.div`
-  ${({ theme: { tokens } }) => css`
+const AppWrapper = styled.div<{ windowPadding: number }>`
+  ${({ theme: { tokens }, windowPadding }) => css`
     text-align: center;
     color: ${tokens.text.default};
     background-color: ${tokens.background.base};
@@ -55,10 +56,16 @@ const Relative = styled.div`
 
 export const App = () => {
   return (
-    <AppWrapper>
-      <Relative>
-        <Page />
-      </Relative>
-    </AppWrapper>
+    <Store>
+      <GeneralStoreConsumer>
+        {([value]) => (
+          <AppWrapper windowPadding={value.windowPadding}>
+            <Relative>
+              <Page />
+            </Relative>
+          </AppWrapper>
+        )}
+      </GeneralStoreConsumer>
+    </Store>
   )
 }
