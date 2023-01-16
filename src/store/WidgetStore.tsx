@@ -3,8 +3,9 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
-  useState,
 } from "react"
+
+import { useStorage } from "@startpage/local-storage"
 
 import { TileRect, Orientation } from "../components"
 
@@ -41,12 +42,12 @@ export const WidgetStoreProvider = ({
   initial = [],
   children,
 }: PropsWithChildren<{ initial?: WidgetConfig[] }>) => {
-  const [widgets, setWidgets] = useState<WidgetConfig[]>(initial)
+  const [widgets, setWidgets] = useStorage<WidgetConfig[]>("widgets", initial)
 
   const addWidget: WidgetStoreState["addWidget"] = useCallback(
     config =>
       setWidgets(widgets => [...widgets, { id: nextId(widgets), ...config }]),
-    []
+    [setWidgets]
   )
 
   const updateWidget: WidgetStoreState["updateWidget"] = useCallback(
@@ -54,12 +55,12 @@ export const WidgetStoreProvider = ({
       setWidgets(widgets =>
         widgets.map(widget => (widget.id === config.id ? config : widget))
       ),
-    []
+    [setWidgets]
   )
 
   const removeWidget: WidgetStoreState["removeWidget"] = useCallback(
     id => setWidgets(widgets => widgets.filter(widget => widget.id !== id)),
-    []
+    [setWidgets]
   )
 
   return (
