@@ -31,27 +31,33 @@ You can list available widgets or start a widget in there.
 
 Features:
 
-- Resizable tiles
-- Positioning of tiles
-- Background can be chosen
-- Different usable widgets:
-  - Link tree (like terminal filemanager)
-  - Weather
-  - Clock
-  - Todo list
-  - System fetcher
+- [x] Resizable tiles
+- [x] Positioning of tiles
+- [ ] Background can be chosen
+- [ ] Different usable widgets:
+  - [ ] Link tree (like terminal filemanager)
+  - [ ] Weather
+  - [ ] Clock
+  - [ ] Todo list
+  - [ ] System fetcher
 
 ### Stretch goals
 
-- Full keyboard support
-- More widgets
-- More commands
-- Terminal autocomplete
-- Customizable color theme
-- Custom CSS for all tiles
-- Custom CSS for individual tiles
-- Web extension
-- [Hero Patterns](https://heropatterns.com/) as background
+- [ ] Full keyboard support
+- [ ] More widgets, e.g.:
+  - [ ] Calendar
+  - [ ] Planner
+  - [ ] Shortcut bar
+  - [ ] Spotify widget
+  - ...
+- [ ] More commands
+- [ ] Custom icons (pasted svg paths)
+- [ ] Terminal autocomplete
+- [ ] Customizable color theme
+- [ ] Custom CSS for all tiles
+- [ ] Custom CSS for individual tiles
+- [ ] Web extension
+- [ ] [Hero Patterns](https://heropatterns.com/) as background
 
 ## Contributing
 
