@@ -16,7 +16,7 @@ export const theme = {
   border: `${spacing.rem["3xs"]} solid`,
 }
 
-const { css, theme: cssTheme } = createCssVariables(theme)
+export const { css, theme: cssTheme } = createCssVariables(theme)
 
 export type Theme = typeof theme
 

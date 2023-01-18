@@ -1,6 +1,5 @@
 import { Page } from "./page"
-import { Store } from "./store"
-import { GeneralStoreConsumer } from "./store/General"
+import { Background, useGeneralStore } from "./store/General"
 
 /*
 const GridBackground = styled.div`
@@ -37,14 +36,20 @@ const GridBackground = styled.div`
 `
 */
 
-const AppWrapper = styled.div<{ windowPadding: number }>`
-  ${({ theme: { tokens }, windowPadding }) => css`
+interface AppProps {
+  windowPadding: number
+  bg: Background
+}
+
+const AppWrapper = styled.div<AppProps>`
+  ${({ theme: { tokens }, windowPadding, bg }) => css`
     text-align: center;
     color: ${tokens.text.default};
-    background-color: ${tokens.background.base};
     height: 100%;
     width: 100%;
     padding: ${windowPadding}px;
+
+    background-color: ${bg.base};
   `}
 `
 
@@ -55,17 +60,13 @@ const Relative = styled.div`
 `
 
 export const App = () => {
+  const [general] = useGeneralStore()
+
   return (
-    <Store>
-      <GeneralStoreConsumer>
-        {([value]) => (
-          <AppWrapper windowPadding={value.windowPadding}>
-            <Relative>
-              <Page />
-            </Relative>
-          </AppWrapper>
-        )}
-      </GeneralStoreConsumer>
-    </Store>
+    <AppWrapper windowPadding={general.windowPadding} bg={general.background}>
+      <Relative>
+        <Page />
+      </Relative>
+    </AppWrapper>
   )
 }
