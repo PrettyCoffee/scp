@@ -33,3 +33,12 @@ export const imageBg: Background = {
   src: "https://3.bp.blogspot.com/--XA3iMvaJLY/Tw_GykPs-eI/AAAAAAAAEgU/EmFKS7Cz5xQ/s1600/Duck-04.jpg",
   filter: "blur(8px)",
 }
+
+export const customBg: Background = {
+  type: "custom",
+  base,
+  css: `
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5));
+    filter: blur(80px);
+  `,
+}

@@ -27,6 +27,7 @@ export type Background =
       "image",
       { base: string; opacity: number; src: string; filter: string }
     >
+  | BgVariant<"custom", { base: string; css: string }>
 
 interface GeneralStoreState {
   windowPadding: number

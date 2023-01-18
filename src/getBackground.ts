@@ -55,15 +55,22 @@ export const normalizeBackground = (bg: Background): BgConfig => {
       filter: bg.filter,
     }
 
+  if (bg.type === "pattern")
+    return {
+      ...shared,
+      opacity: bg.opacity,
+      image: getHeroPattern(bg),
+    }
+
   return {
     ...shared,
-    opacity: bg.opacity,
-    image: getHeroPattern(bg),
+    cssString: bg.css,
   }
 }
 
 export const getBackground = (bg: Background) => {
-  const { type, base, filter, image, opacity } = normalizeBackground(bg)
+  const { type, base, filter, image, opacity, cssString } =
+    normalizeBackground(bg)
 
   if (type === "solid")
     return css`
@@ -85,6 +92,8 @@ export const getBackground = (bg: Background) => {
       ${filter && `filter: ${filter};`}
     ${opacity && `opacity: ${opacity};`}
     ${image && `background-image: ${image};`}
+
+    ${cssString}
     }
   `
 }
