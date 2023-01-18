@@ -1,4 +1,35 @@
-import { Background } from "./store/General"
+import { Background, HeroPattern } from "./store/General"
+
+const escapeString = (value: string) =>
+  value
+    .replaceAll("<", "%3C")
+    .replaceAll(">", "%3E")
+    .replaceAll("#", "%23")
+    .replaceAll(/\s+/gi, " ")
+
+const getHeroPattern = ({
+  pathColor,
+  path,
+  height,
+  width,
+  scale,
+}: HeroPattern) =>
+  escapeString(
+    `url("data:image/svg+xml,
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        width='${width * scale}'
+        height='${height * scale}'
+        viewBox='0 0 ${width} ${height}'
+      >
+        <path
+          fill='${pathColor}'
+          fill-opacity='1'
+          d='${path}'
+        />
+      </svg>
+    ")`
+  )
 
 interface BgConfig {
   type: Background["type"]
@@ -6,6 +37,7 @@ interface BgConfig {
   opacity?: number
   image?: string
   filter?: string
+  cssString?: string
 }
 
 export const normalizeBackground = (bg: Background): BgConfig => {
@@ -15,11 +47,18 @@ export const normalizeBackground = (bg: Background): BgConfig => {
   }
   if (bg.type === "solid") return shared
 
+  if (bg.type === "image")
+    return {
+      ...shared,
+      opacity: bg.opacity,
+      image: `url("${bg.src}")`,
+      filter: bg.filter,
+    }
+
   return {
     ...shared,
     opacity: bg.opacity,
-    image: `url("${bg.src}")`,
-    filter: bg.filter,
+    image: getHeroPattern(bg),
   }
 }
 
@@ -44,8 +83,8 @@ export const getBackground = (bg: Background) => {
       ${type === "image" && "background-size: cover;"}
 
       ${filter && `filter: ${filter};`}
-      ${opacity && `opacity: ${opacity};`}
-      ${image && `background-image: ${image};`}
+    ${opacity && `opacity: ${opacity};`}
+    ${image && `background-image: ${image};`}
     }
   `
 }

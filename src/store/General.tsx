@@ -7,7 +7,21 @@ type BgVariant<Type extends string, T> = T & {
   type: Type
 }
 
+export type HeroPattern = BgVariant<
+  "pattern",
+  {
+    base: string
+    opacity: number
+    path: string
+    pathColor: string
+    width: number
+    height: number
+    scale: number
+  }
+>
+
 export type Background =
+  | HeroPattern
   | BgVariant<"solid", { base: string }>
   | BgVariant<
       "image",

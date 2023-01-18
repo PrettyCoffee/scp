@@ -57,7 +57,7 @@ Features:
 - [ ] Custom CSS for all tiles
 - [ ] Custom CSS for individual tiles
 - [ ] Web extension
-- [ ] [Hero Patterns](https://heropatterns.com/) as background
+- [x] [Hero Patterns](https://heropatterns.com/) as background
 
 ## Contributing
 
