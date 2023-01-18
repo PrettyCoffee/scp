@@ -7,7 +7,12 @@ type BgVariant<Type extends string, T> = T & {
   type: Type
 }
 
-export type Background = BgVariant<"solid", { base: string }>
+export type Background =
+  | BgVariant<"solid", { base: string }>
+  | BgVariant<
+      "image",
+      { base: string; opacity: number; src: string; filter: string }
+    >
 
 interface GeneralStoreState {
   windowPadding: number

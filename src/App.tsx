@@ -1,3 +1,4 @@
+import { getBackground } from "./getBackground"
 import { Page } from "./page"
 import { Background, useGeneralStore } from "./store/General"
 
@@ -49,7 +50,7 @@ const AppWrapper = styled.div<AppProps>`
     width: 100%;
     padding: ${windowPadding}px;
 
-    background-color: ${bg.base};
+    ${getBackground(bg)}
   `}
 `
 
