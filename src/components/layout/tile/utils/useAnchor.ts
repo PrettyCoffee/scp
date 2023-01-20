@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useMemo } from "react"
 
-import { useEventListener } from "../../../hooks"
+import { Measurement } from "../../../base"
 
 export interface Orientation {
   vertical: "top" | "center" | "bottom"
@@ -14,17 +14,12 @@ export interface Anchor {
   sideY: "top" | "bottom"
 }
 
-const getCenter = (size: number, windowPadding: number) =>
-  (size - 2 * windowPadding) / 2
-
 const getAnchorPosition = (
   orientation: Orientation,
-  windowPadding: number
+  parentSize: Measurement
 ): Anchor => {
-  const { innerHeight, innerWidth } = window
-
-  const xCenter = getCenter(innerWidth, windowPadding)
-  const yCenter = getCenter(innerHeight, windowPadding)
+  const xCenter = parentSize.width / 2
+  const yCenter = parentSize.height / 2
 
   return {
     x: orientation.horizontal === "center" ? xCenter : 0,
@@ -34,13 +29,5 @@ const getAnchorPosition = (
   }
 }
 
-export const useAnchor = (anchors: Orientation, windowPadding: number) => {
-  const [position, setPosition] = useState(
-    getAnchorPosition(anchors, windowPadding)
-  )
-  useEventListener({
-    type: "resize",
-    listener: () => setPosition(getAnchorPosition(anchors, windowPadding)),
-  })
-  return position
-}
+export const useAnchor = (anchors: Orientation, parentSize: Measurement) =>
+  useMemo(() => getAnchorPosition(anchors, parentSize), [anchors, parentSize])

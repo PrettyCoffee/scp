@@ -8,9 +8,9 @@ export interface SideProp {
   side: Side
 }
 
-export interface Size {
-  height: number
+export interface Measurement {
   width: number
+  height: number
 }
 
 export interface Position {

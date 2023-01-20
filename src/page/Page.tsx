@@ -1,8 +1,16 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 
 import { css as createStyles } from "@emotion/css"
 
-import { Edit, SetState, Tile, TileRect, ToggleButton } from "../components"
+import {
+  Edit,
+  Measurement,
+  SetState,
+  Tile,
+  TileRect,
+  ToggleButton,
+  useResizeObserver,
+} from "../components"
 import { useGeneralStore } from "../store"
 import { useWidgetStore, WidgetConfig } from "../store/WidgetStore"
 
@@ -37,12 +45,13 @@ const Cross = styled.div(
 
 interface UserTileProps extends WidgetConfig {
   editing: boolean
+  parentSize: Measurement
 }
 
-const UserTile = ({ editing, ...widget }: UserTileProps) => {
+const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
-  const [{ gridSize, windowPadding }] = useGeneralStore()
+  const [{ gridSize }] = useGeneralStore()
 
   const setRect: SetState<TileRect> = useCallback(
     value => {
@@ -64,7 +73,7 @@ const UserTile = ({ editing, ...widget }: UserTileProps) => {
   return (
     <Tile
       gridSize={gridSize}
-      windowPadding={windowPadding}
+      parentSize={parentSize}
       className={className}
       {...state}
       onRectChange={setRect}
@@ -75,23 +84,45 @@ const UserTile = ({ editing, ...widget }: UserTileProps) => {
   )
 }
 
-const Widgets = ({ editing }: { editing: boolean }) => {
+interface WidgetsProps {
+  editing: boolean
+  parentSize: Measurement
+}
+
+const Widgets = ({ editing, parentSize }: WidgetsProps) => {
   const { widgets } = useWidgetStore()
+
+  // prevent transition to initial position
+  if (parentSize.height === 0 && parentSize.width === 0) return null
 
   return (
     <>
       {widgets.map(widget => (
-        <UserTile key={widget.id} editing={editing} {...widget} />
+        <UserTile
+          key={widget.id}
+          editing={editing}
+          parentSize={parentSize}
+          {...widget}
+        />
       ))}
     </>
   )
 }
 
+const Relative = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`
+
 export const Page = () => {
   const [editing, setEditing] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const parentSize = useResizeObserver(ref)
 
   return (
-    <>
+    <Relative ref={ref}>
       {editing && <Cross />}
       <div style={{ position: "fixed", zIndex: 1, right: 8, top: 8 }}>
         <ToggleButton
@@ -101,7 +132,7 @@ export const Page = () => {
           caption="Start editing widgets"
         />
       </div>
-      <Widgets editing={editing} />
-    </>
+      <Widgets editing={editing} parentSize={parentSize} />
+    </Relative>
   )
 }
