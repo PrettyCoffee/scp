@@ -26,19 +26,17 @@ const Handle = styled.button<DiagonalHandleProps & { isResizing: boolean }>`
   `}
 `
 
-interface DiagonalHandleProps
-  extends Pick<ResizableProps, "onResize" | "snap"> {
+interface DiagonalHandleProps extends Omit<ResizableProps, "disabled"> {
   side: [Side, Side]
 }
 
-export const CornerHandle = ({ side, onResize, snap }: DiagonalHandleProps) => {
+export const CornerHandle = ({ side, ...rest }: DiagonalHandleProps) => {
   const ref = useRef<HTMLButtonElement>(null)
 
   const { isResizing } = useResize({
+    ...rest,
     ref,
-    onResize,
     side,
-    snap,
   })
 
   return <Handle ref={ref} side={side} isResizing={isResizing} />

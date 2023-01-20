@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { css as createStyles } from "@emotion/css"
 
@@ -53,17 +53,16 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const [state, setState] = useState(widget)
   const [{ gridSize }] = useGeneralStore()
 
-  const setRect: SetState<TileRect> = useCallback(
-    value => {
-      setState(state => {
-        const rect = typeof value === "function" ? value(state.rect) : value
-        const newState = { ...state, rect }
-        updateWidget(newState)
-        return newState
-      })
-    },
-    [updateWidget]
-  )
+  useEffect(() => {
+    updateWidget(state)
+  }, [state, updateWidget])
+
+  const setRect: SetState<TileRect> = useCallback(value => {
+    setState(state => {
+      const rect = typeof value === "function" ? value(state.rect) : value
+      return { ...state, rect }
+    })
+  }, [])
 
   const className = useMemo(
     () => createStyles`${state.customCss}`,

@@ -28,16 +28,14 @@ const Handle = styled.button<SideProp & { isResizing: boolean }>`
 
 export const SideHandle = ({
   side,
-  onResize,
-  snap,
-}: SideProp & Pick<ResizableProps, "onResize" | "snap">) => {
+  ...rest
+}: SideProp & Omit<ResizableProps, "disabled">) => {
   const ref = useRef<HTMLButtonElement>(null)
 
   const { isResizing } = useResize({
+    ...rest,
     ref,
-    onResize,
     side,
-    snap,
   })
 
   return <Handle ref={ref} side={side} isResizing={isResizing} />

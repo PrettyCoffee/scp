@@ -1,7 +1,8 @@
-import { RefObject, useRef, useState } from "react"
+import { RefObject, useEffect, useRef, useState } from "react"
 
 import { Position } from "../base/baseProps"
 import { useEventListener } from "./useEventListener"
+import { useLatest } from "./useLatest"
 import { useThrottle } from "./useThrottle"
 
 const applySnap = (value: number, snap = 1) => {
@@ -37,6 +38,33 @@ const resetCursor = () => {
   body.style.removeProperty("cursor")
 }
 
+interface DragEvents {
+  onDragStart?: () => void
+  onDragEnd?: () => void
+}
+interface DragEventsProps extends DragEvents {
+  isDragging: boolean
+}
+const useDragEvents = ({
+  isDragging,
+  onDragEnd,
+  onDragStart,
+}: DragEventsProps) => {
+  const didMoveOnce = useRef(false)
+  const callbacks = useLatest({
+    onDragStart,
+    onDragEnd,
+  })
+  useEffect(() => {
+    if (!isDragging && !didMoveOnce.current) return
+
+    if (isDragging) {
+      didMoveOnce.current = true
+      callbacks.current.onDragStart?.()
+    } else callbacks.current.onDragEnd?.()
+  }, [callbacks, isDragging])
+}
+
 export interface DragMoveArgs {
   /** Native mouse event */
   event: MouseEvent
@@ -53,11 +81,20 @@ export interface DragMoveArgs {
 export interface DraggingArgs {
   ref: RefObject<HTMLElement>
   snap?: number
-  onMove?: (args: DragMoveArgs) => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
+  onDrag?: (args: DragMoveArgs) => void
   cursor?: string
 }
 
-export const useDragging = ({ ref, snap, onMove, cursor }: DraggingArgs) => {
+export const useDragging = ({
+  ref,
+  snap,
+  onDragStart,
+  onDragEnd,
+  onDrag: onMove,
+  cursor,
+}: DraggingArgs) => {
   const [isDragging, setIsDragging] = useState(false)
   const startPosition = useRef<Position | null>(null)
   const lastPosition = useRef<Position | null>(null)
@@ -115,6 +152,12 @@ export const useDragging = ({ ref, snap, onMove, cursor }: DraggingArgs) => {
       lastPosition.current = null
       resetCursor()
     },
+  })
+
+  useDragEvents({
+    isDragging,
+    onDragEnd,
+    onDragStart,
   })
 
   return { isDragging }

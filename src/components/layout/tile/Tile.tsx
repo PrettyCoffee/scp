@@ -1,4 +1,4 @@
-import { PropsWithChildren, useRef } from "react"
+import { PropsWithChildren, useRef, useState } from "react"
 
 import { ClassNameProp, Measurement, Position, SetState } from "../../base"
 import { Resizable, ResizeItem, Movable } from "../../utility"
@@ -7,7 +7,6 @@ import { useAnchor, Orientation } from "./utils/useAnchor"
 
 const MovableContainer = styled(Movable)`
   ${({ theme: { space } }) => css`
-    transition: 0.1s;
     padding: ${space.xs};
   `}
 `
@@ -69,6 +68,7 @@ export const Tile = ({
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation, parentSize)
+  const [transition, setTransition] = useState("0s")
 
   const handleResize = (resize: ResizeItem) =>
     onRectChange(rect =>
@@ -102,14 +102,18 @@ export const Tile = ({
       {...delegated}
       snap={gridSize}
       onMove={handleMove}
-      style={{ ...size, ...position }}
+      style={{ ...size, ...position, transition }}
       disabled={!editing}
+      onMoveStart={() => setTransition("0.1s")}
+      onMoveEnd={() => setTransition("0s")}
     >
       <Content ref={ref}>
         <Resizable
           snap={gridSize}
           onResize={handleResize}
           disabled={!editing}
+          onResizeStart={() => setTransition("0.1s")}
+          onResizeEnd={() => setTransition("0s")}
         />
         {children}
       </Content>

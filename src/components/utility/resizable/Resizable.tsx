@@ -6,12 +6,14 @@ export type ResizeItem = Record<Side, number>
 
 export interface ResizableProps extends DisabledProp {
   onResize?: (args: ResizeItem) => void
+  onResizeStart?: () => void
+  onResizeEnd?: () => void
   snap?: number
 }
 
-export const Resizable = ({ onResize, snap = 0, disabled }: ResizableProps) => {
+export const Resizable = ({ snap = 0, disabled, ...rest }: ResizableProps) => {
   const shared = {
-    onResize,
+    ...rest,
     snap,
   }
 

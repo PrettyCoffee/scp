@@ -21,12 +21,19 @@ const noResize = {
 
 export type ResizeItem = Record<Side, number>
 
-export interface ResizeArgs extends Pick<ResizableProps, "onResize" | "snap"> {
+export interface ResizeArgs extends Omit<ResizableProps, "disabled"> {
   ref: RefObject<HTMLElement>
   side: Side | [Side, Side]
 }
 
-export const useResize = ({ ref, side, snap, onResize }: ResizeArgs) => {
+export const useResize = ({
+  ref,
+  side,
+  snap,
+  onResize,
+  onResizeStart,
+  onResizeEnd,
+}: ResizeArgs) => {
   const sides = Array.isArray(side) ? side : [side]
 
   const move = ({ deltaSinceLast }: DragMoveArgs) => {
@@ -44,7 +51,9 @@ export const useResize = ({ ref, side, snap, onResize }: ResizeArgs) => {
     ref,
     snap,
     cursor: getCursorBySide(side),
-    onMove: move,
+    onDrag: move,
+    onDragStart: onResizeStart,
+    onDragEnd: onResizeEnd,
   })
 
   return { isResizing: isDragging }

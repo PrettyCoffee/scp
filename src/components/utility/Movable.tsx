@@ -31,14 +31,18 @@ const initialPosition: Position = {
 interface MovableProps
   extends Pick<DivProps, "className" | "style">,
     DisabledProp {
-  onMove?: (change: Position) => void
   snap?: number
+  onMove?: (change: Position) => void
+  onMoveStart?: () => void
+  onMoveEnd?: () => void
 }
 
 const EnabledMovable = ({
   children,
   onMove,
   snap = 0,
+  onMoveStart,
+  onMoveEnd,
   ...delegated
 }: PropsWithChildren<MovableProps>) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -65,7 +69,9 @@ const EnabledMovable = ({
     ref,
     snap,
     cursor: "grabbing",
-    onMove: move,
+    onDrag: move,
+    onDragStart: onMoveStart,
+    onDragEnd: onMoveEnd,
   })
 
   useEffect(() => {
@@ -100,11 +106,19 @@ const EnabledMovable = ({
 export const Movable = ({
   disabled,
   onMove,
+  onMoveEnd,
+  onMoveStart,
   snap,
   ...delegated
 }: PropsWithChildren<MovableProps>) =>
   disabled ? (
     <Layout {...delegated} />
   ) : (
-    <EnabledMovable onMove={onMove} snap={snap} {...delegated} />
+    <EnabledMovable
+      onMove={onMove}
+      onMoveStart={onMoveStart}
+      onMoveEnd={onMoveEnd}
+      snap={snap}
+      {...delegated}
+    />
   )
