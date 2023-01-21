@@ -3,11 +3,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { css as createStyles } from "@emotion/css"
 
 import {
-  Cross,
-  Edit,
+  Grid,
   Header,
   Measurement,
   SetState,
+  Settings,
   Tile,
   TileRect,
   ToggleButton,
@@ -137,13 +137,13 @@ export const Page = () => {
           <ToggleButton
             pressed={editing}
             onClick={setEditing}
-            icon={Edit}
+            icon={Grid}
             caption="Start editing widgets"
           />
           <ToggleButton
             pressed={editing}
             onClick={setEditing}
-            icon={Cross}
+            icon={Settings}
             caption="Start editing widgets"
           />
         </Header.End>
