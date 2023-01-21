@@ -3,7 +3,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { css as createStyles } from "@emotion/css"
 
 import {
+  Cross,
   Edit,
+  Header,
   Measurement,
   SetState,
   Tile,
@@ -14,21 +16,21 @@ import {
 import { useGeneralStore } from "../store"
 import { useWidgetStore, WidgetConfig } from "../store/WidgetStore"
 
-const Cross = styled.div(
-  ({ theme: { tokens } }) => css`
+const BgCross = styled.div(
+  ({ theme: { tokens, space } }) => css`
     --border: 1px solid ${tokens.text.muted};
 
     ::before,
     ::after {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
     }
 
     ::before {
       border-top: var(--border);
       border-bottom: var(--border);
-      top: 50vh;
+      top: 50%;
       height: 0;
       margin-top: -1px;
     }
@@ -36,7 +38,8 @@ const Cross = styled.div(
     ::after {
       border-left: var(--border);
       border-right: var(--border);
-      left: 50vw;
+      top: calc(${space.md} * -2.5);
+      left: 50%;
       margin-left: -1px;
       width: 0px;
     }
@@ -114,6 +117,13 @@ const Relative = styled.div`
   width: 100%;
 `
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
 export const Page = () => {
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -121,17 +131,27 @@ export const Page = () => {
   const parentSize = useResizeObserver(ref)
 
   return (
-    <Relative ref={ref}>
-      {editing && <Cross />}
-      <div style={{ position: "fixed", zIndex: 1, right: 8, top: 8 }}>
-        <ToggleButton
-          pressed={editing}
-          onClick={setEditing}
-          icon={Edit}
-          caption="Start editing widgets"
-        />
-      </div>
-      <Widgets editing={editing} parentSize={parentSize} />
-    </Relative>
+    <Wrapper>
+      <Header.Root>
+        <Header.End>
+          <ToggleButton
+            pressed={editing}
+            onClick={setEditing}
+            icon={Edit}
+            caption="Start editing widgets"
+          />
+          <ToggleButton
+            pressed={editing}
+            onClick={setEditing}
+            icon={Cross}
+            caption="Start editing widgets"
+          />
+        </Header.End>
+      </Header.Root>
+      <Relative ref={ref}>
+        {editing && <BgCross />}
+        <Widgets editing={editing} parentSize={parentSize} />
+      </Relative>
+    </Wrapper>
   )
 }
