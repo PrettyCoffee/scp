@@ -55,15 +55,18 @@ const EndContent = styled(HeaderLayoutItem)`
 
 const HeaderItem = styled.div(
   ({ theme: { tokens, space, shadow, border } }) => css`
-    background-color: ${tokens.background.alt};
-    padding: 0 ${space.xs};
-    border: ${tokens.text.muted} ${border};
-    border-radius: 50vh;
-    box-shadow: ${shadow.medium};
     height: calc(${space.md} * 2.5);
+    min-width: max-content;
+    padding: 0 ${space.xs};
+
     display: flex;
     align-items: center;
     gap: ${space.xs};
+
+    border: ${tokens.text.muted} ${border};
+    background-color: ${tokens.background.alt};
+    border-radius: 50vh;
+    box-shadow: ${shadow.medium};
   `
 )
 
