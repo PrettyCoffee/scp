@@ -111,6 +111,42 @@ const Widgets = ({ editing, parentSize }: WidgetsProps) => {
   )
 }
 
+const Padding = styled.div(
+  ({ theme: { space } }) => css`
+    padding: ${space.sm};
+    font-size: calc(${space.md} * 0.8);
+  `
+)
+
+const Clock = () => {
+  const [now, setNow] = useState(new Date())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date())
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const time = now.toLocaleString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+
+  const date = now.toLocaleString(undefined, {
+    month: "short",
+    day: "2-digit",
+    weekday: "short",
+  })
+
+  return (
+    <Padding>
+      {time} | {date}
+    </Padding>
+  )
+}
+
 const Relative = styled.div`
   position: relative;
   height: 100%;
@@ -133,6 +169,9 @@ export const Page = () => {
   return (
     <Wrapper>
       <Header.Root>
+        <Header.Center>
+          <Clock />
+        </Header.Center>
         <Header.End>
           <ToggleButton
             pressed={editing}
