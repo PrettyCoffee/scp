@@ -1,5 +1,6 @@
 import { spacing } from "../../../theme/spacing"
 import { ClassNameProp } from "../../base"
+import { ErrorBoundary } from "../../utility"
 import { IconDefinition, IconBaseProps } from "./icons/_IconBase"
 
 type IconSize = "sm" | "md" | "lg" | "xl"
@@ -20,5 +21,7 @@ export interface IconProps extends Pick<IconBaseProps, "color">, ClassNameProp {
 }
 
 export const Icon = ({ icon: Icon, size, ...delegated }: IconProps) => (
-  <Icon size={getIconSize(size)} {...delegated} />
+  <ErrorBoundary>
+    <Icon size={getIconSize(size)} {...delegated} />
+  </ErrorBoundary>
 )

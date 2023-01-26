@@ -1,5 +1,7 @@
 import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 
+import { ErrorBoundary } from "../utility"
+
 const Start = ({ children }: PropsWithChildren) => <>{children}</>
 const Center = ({ children }: PropsWithChildren) => <>{children}</>
 const End = ({ children }: PropsWithChildren) => <>{children}</>
@@ -82,17 +84,19 @@ const Root = ({ children }: PropsWithChildren) => {
   const { start, center, end } = getComponents(children)
 
   return (
-    <Container>
-      <StartContent>
-        {start.length > 0 && <HeaderItem>{start}</HeaderItem>}
-      </StartContent>
-      <CenterContent>
-        {center.length > 0 && <HeaderItem>{center}</HeaderItem>}
-      </CenterContent>
-      <EndContent>
-        {end.length > 0 && <HeaderItem>{end}</HeaderItem>}
-      </EndContent>
-    </Container>
+    <ErrorBoundary>
+      <Container>
+        <StartContent>
+          {start.length > 0 && <HeaderItem>{start}</HeaderItem>}
+        </StartContent>
+        <CenterContent>
+          {center.length > 0 && <HeaderItem>{center}</HeaderItem>}
+        </CenterContent>
+        <EndContent>
+          {end.length > 0 && <HeaderItem>{end}</HeaderItem>}
+        </EndContent>
+      </Container>
+    </ErrorBoundary>
   )
 }
 

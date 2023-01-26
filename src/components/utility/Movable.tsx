@@ -3,6 +3,7 @@ import { PropsWithChildren, useEffect, useRef, useState } from "react"
 import { DisabledProp, DivProps, Position } from "../base/baseProps"
 import { exceedsWindow } from "../base/exceedsWindow"
 import { DragMoveArgs, useDragging } from "../hooks"
+import { ErrorBoundary } from "./ErrorBoundary"
 
 interface PositioningProps {
   change: Position
@@ -110,15 +111,18 @@ export const Movable = ({
   onMoveStart,
   snap,
   ...delegated
-}: PropsWithChildren<MovableProps>) =>
-  disabled ? (
-    <Layout {...delegated} />
-  ) : (
-    <EnabledMovable
-      onMove={onMove}
-      onMoveStart={onMoveStart}
-      onMoveEnd={onMoveEnd}
-      snap={snap}
-      {...delegated}
-    />
-  )
+}: PropsWithChildren<MovableProps>) => (
+  <ErrorBoundary>
+    {disabled ? (
+      <Layout {...delegated} />
+    ) : (
+      <EnabledMovable
+        onMove={onMove}
+        onMoveStart={onMoveStart}
+        onMoveEnd={onMoveEnd}
+        snap={snap}
+        {...delegated}
+      />
+    )}
+  </ErrorBoundary>
+)

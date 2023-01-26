@@ -2,6 +2,7 @@ import { PropsWithChildren, useState } from "react"
 
 import { ClassNameProp } from "../base"
 import { useEventListener } from "../hooks"
+import { ErrorBoundary } from "../utility"
 
 const Hidden = styled.span`
   display: inline-block;
@@ -34,9 +35,9 @@ export const VisuallyHidden = ({
     })
   }
 
-  return forceShow ? (
-    <>{children}</>
-  ) : (
-    <Hidden {...delegated}>{children}</Hidden>
+  return (
+    <ErrorBoundary>
+      {forceShow ? <>{children}</> : <Hidden {...delegated}>{children}</Hidden>}
+    </ErrorBoundary>
   )
 }

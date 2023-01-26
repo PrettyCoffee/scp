@@ -1,6 +1,7 @@
 import { Root } from "@radix-ui/react-toggle"
 
 import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
+import { ErrorBoundary } from "../utility"
 import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
 
 const Toggle = styled(Root)<ButtonStyleProps>(
@@ -26,8 +27,10 @@ export const ToggleButton = ({
   onClick,
   ...rest
 }: ToggleButtonProps) => (
-  <Toggle onPressedChange={onClick} {...rest}>
-    <Icon icon={icon} size="md" />
-    <VisuallyHidden>{caption}</VisuallyHidden>
-  </Toggle>
+  <ErrorBoundary>
+    <Toggle onPressedChange={onClick} {...rest}>
+      <Icon icon={icon} size="md" />
+      <VisuallyHidden>{caption}</VisuallyHidden>
+    </Toggle>
+  </ErrorBoundary>
 )

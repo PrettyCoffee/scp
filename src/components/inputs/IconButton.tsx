@@ -1,5 +1,6 @@
 import { RefProp } from "../base"
 import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
+import { ErrorBoundary } from "../utility"
 import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
 
 const Button = styled.button<ButtonStyleProps>`
@@ -20,13 +21,15 @@ export const IconButton = ({
   setRef,
   ...rest
 }: IconButtonProps) => (
-  <Button
-    as={"href" in rest ? "a" : "button"}
-    ref={ref => setRef?.(ref)}
-    title={caption}
-    {...rest}
-  >
-    <Icon icon={icon} size="md" />
-    <VisuallyHidden>{caption}</VisuallyHidden>
-  </Button>
+  <ErrorBoundary>
+    <Button
+      as={"href" in rest ? "a" : "button"}
+      ref={ref => setRef?.(ref)}
+      title={caption}
+      {...rest}
+    >
+      <Icon icon={icon} size="md" />
+      <VisuallyHidden>{caption}</VisuallyHidden>
+    </Button>
+  </ErrorBoundary>
 )

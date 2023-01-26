@@ -1,7 +1,7 @@
 import { PropsWithChildren, useRef, useState } from "react"
 
 import { ClassNameProp, Measurement, Position, SetState } from "../../base"
-import { Resizable, ResizeItem, Movable } from "../../utility"
+import { Resizable, ResizeItem, Movable, ErrorBoundary } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
 
@@ -99,25 +99,27 @@ export const Tile = ({
   }
 
   return (
-    <MovableContainer
-      {...delegated}
-      snap={gridSize}
-      onMove={handleMove}
-      style={{ ...size, ...position, transition }}
-      disabled={!editing}
-      onMoveStart={() => setTransition("0.1s")}
-      onMoveEnd={() => setTransition("0s")}
-    >
-      <Content ref={ref} className={className}>
-        <Resizable
-          snap={gridSize}
-          onResize={handleResize}
-          disabled={!editing}
-          onResizeStart={() => setTransition("0.1s")}
-          onResizeEnd={() => setTransition("0s")}
-        />
-        {children}
-      </Content>
-    </MovableContainer>
+    <ErrorBoundary>
+      <MovableContainer
+        {...delegated}
+        snap={gridSize}
+        onMove={handleMove}
+        style={{ ...size, ...position, transition }}
+        disabled={!editing}
+        onMoveStart={() => setTransition("0.1s")}
+        onMoveEnd={() => setTransition("0s")}
+      >
+        <Content ref={ref} className={className}>
+          <Resizable
+            snap={gridSize}
+            onResize={handleResize}
+            disabled={!editing}
+            onResizeStart={() => setTransition("0.1s")}
+            onResizeEnd={() => setTransition("0s")}
+          />
+          {children}
+        </Content>
+      </MovableContainer>
+    </ErrorBoundary>
   )
 }
