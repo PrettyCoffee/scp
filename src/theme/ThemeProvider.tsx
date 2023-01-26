@@ -21,7 +21,7 @@ export const { css, theme: cssTheme } = createCssVariables(theme)
 export type Theme = typeof theme
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => (
-  <EmotionThemeProvider theme={cssTheme}>
+  <EmotionThemeProvider theme={{ ...cssTheme, raw: theme }}>
     <Global styles={`:root{${css}}`} />
     <GlobalStyles />
     {children}
