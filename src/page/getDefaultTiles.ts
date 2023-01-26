@@ -2,7 +2,7 @@ import { WidgetConfig } from "../store/WidgetStore"
 import { theme } from "../theme/ThemeProvider"
 
 export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
-  const sharedProps = {
+  const sharedProps: Partial<WidgetConfig> = {
     minHeight: gridSize * 4,
     minWidth: gridSize * 4,
   }
@@ -21,8 +21,9 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: defaultRect,
       ...sharedProps,
       customCss: `
-      --tokens-accent: ${theme.color.red};
-    `,
+        --tokens-accent: ${theme.color.red};
+        outline-color: transparent;
+      `,
     },
     {
       id: "2",
@@ -30,8 +31,9 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: { ...defaultRect, x: gridSize * -2 },
       ...sharedProps,
       customCss: `
-      --tokens-accent: ${theme.color.flamingo};
-    `,
+        --tokens-accent: ${theme.color.flamingo};
+        outline-color: transparent;
+      `,
     },
     {
       id: "3",
@@ -39,8 +41,9 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: defaultRect,
       ...sharedProps,
       customCss: `
-      --tokens-accent: ${theme.color.yellow};
-    `,
+        --tokens-accent: ${theme.color.yellow};
+        outline-color: transparent;
+      `,
     },
 
     {

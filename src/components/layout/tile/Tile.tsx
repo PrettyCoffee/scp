@@ -15,7 +15,7 @@ const Content = styled.div`
   ${({ theme: { space, border, tokens, shadow } }) => css`
     position: relative;
     border-radius: ${space.sm};
-    border: ${border} ${tokens.text.muted};
+    outline: ${border} ${tokens.text.muted};
     background-color: ${tokens.background.surface};
     height: 100%;
     width: 100%;
@@ -24,7 +24,7 @@ const Content = styled.div`
 
     :hover,
     :focus-within {
-      border: ${border} ${tokens.accent};
+      outline: ${border} ${tokens.accent};
     }
   `}
 `
@@ -64,6 +64,7 @@ export const Tile = ({
   minWidth = gridSize * 4,
   editing,
   children,
+  className,
   ...delegated
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -107,7 +108,7 @@ export const Tile = ({
       onMoveStart={() => setTransition("0.1s")}
       onMoveEnd={() => setTransition("0s")}
     >
-      <Content ref={ref}>
+      <Content ref={ref} className={className}>
         <Resizable
           snap={gridSize}
           onResize={handleResize}
