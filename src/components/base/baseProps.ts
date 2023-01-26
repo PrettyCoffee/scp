@@ -33,3 +33,7 @@ export interface DisabledProp {
 export type DivProps = HTMLAttributes<HTMLDivElement>
 
 export type SetState<T> = Dispatch<SetStateAction<T>>
+
+export interface RefProp {
+  setRef?: (ref: Element | null) => void
+}

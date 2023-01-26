@@ -1,3 +1,4 @@
+import { RefProp } from "../base"
 import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
 import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
 
@@ -6,48 +7,26 @@ const Button = styled.button<ButtonStyleProps>`
   text-decoration: none;
 `
 
-interface IconButtonProps extends ButtonStyleProps {
+interface IconButtonProps extends RefProp, ButtonStyleProps {
   icon: IconDefinition
   caption: string
-  onClick: () => void
+  onClick?: () => void
+  href?: string
 }
-
-interface IconLinkProps extends Omit<IconButtonProps, "onClick"> {
-  href: string
-}
-
-const Content = ({
-  caption,
-  icon,
-}: Pick<IconButtonProps, "caption" | "icon">) => (
-  <>
-    <Icon icon={icon} size="md" />
-    <VisuallyHidden>{caption}</VisuallyHidden>
-  </>
-)
 
 export const IconButton = ({
   caption,
   icon,
+  setRef,
   ...rest
-}: IconButtonProps | IconLinkProps) => {
-  const commonProps = {
-    title: caption,
-  }
-
-  const content = <Content caption={caption} icon={icon} />
-
-  return (
-    <>
-      {"onClick" in rest ? (
-        <Button {...commonProps} {...rest}>
-          {content}
-        </Button>
-      ) : (
-        <Button as="a" {...commonProps} {...rest}>
-          {content}
-        </Button>
-      )}
-    </>
-  )
-}
+}: IconButtonProps) => (
+  <Button
+    as={"href" in rest ? "a" : "button"}
+    ref={ref => setRef?.(ref)}
+    title={caption}
+    {...rest}
+  >
+    <Icon icon={icon} size="md" />
+    <VisuallyHidden>{caption}</VisuallyHidden>
+  </Button>
+)
