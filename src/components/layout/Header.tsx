@@ -55,7 +55,7 @@ const EndContent = styled(HeaderLayoutItem)`
 
 const HeaderItem = styled.div(
   ({ theme: { tokens, space, shadow, border } }) => css`
-    height: calc(${space.md} * 2.5);
+    height: ${space.lg};
     min-width: max-content;
     padding: 0 ${space.xs};
 

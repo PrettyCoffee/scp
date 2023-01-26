@@ -139,12 +139,14 @@ export const Page = () => {
             onClick={setEditing}
             icon={Grid}
             caption="Start editing widgets"
+            look="compact"
           />
           <ToggleButton
             pressed={editing}
             onClick={setEditing}
             icon={Settings}
             caption="Start editing widgets"
+            look="compact"
           />
         </Header.End>
       </Header.Root>
