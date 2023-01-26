@@ -1,14 +1,12 @@
 import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
-import { buttonStyles } from "./utils/buttonStyles"
+import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
 
-const Button = styled.button(
-  ({ theme }) => css`
-    ${buttonStyles({ theme })}
-    text-decoration: none;
-  `
-)
+const Button = styled.button<ButtonStyleProps>`
+  ${buttonStyles}
+  text-decoration: none;
+`
 
-interface IconButtonProps {
+interface IconButtonProps extends ButtonStyleProps {
   icon: IconDefinition
   caption: string
   onClick: () => void

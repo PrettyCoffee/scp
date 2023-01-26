@@ -1,11 +1,16 @@
 import { ThemeProp } from "../../base"
 
+export interface ButtonStyleProps {
+  look?: "compact" | "default"
+}
+
 export const buttonStyles = ({
   theme: { border, space, tokens },
-}: ThemeProp) => css`
+  look,
+}: ThemeProp & ButtonStyleProps) => css`
   position: relative;
 
-  --size: ${space.lg};
+  --size: ${look === "compact" ? `calc(${space.md} * 1.5)` : space.lg};
   height: var(--size);
   width: var(--size);
   min-height: var(--size);
@@ -30,12 +35,12 @@ export const buttonStyles = ({
   &::before {
     content: "";
     position: absolute;
-    inset: ${space.xxs};
+    inset: ${look === "compact" ? "50%" : space.xxs};
     border-radius: 50%;
     z-index: -1;
 
     background-color: ${tokens.background.input};
-    transition: 0.2s solid;
+    transition: ${look === "compact" ? "0.1s" : "0.2s"} solid;
     transition-property: inset, background-color;
   }
   &:hover::before,
