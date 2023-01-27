@@ -15,7 +15,9 @@ const sizes: Record<IconSize, number> = {
 const getIconSize = (size?: IconSize | number) =>
   typeof size === "number" ? size : sizes[size ?? "md"]
 
-export interface IconProps extends Pick<IconBaseProps, "color">, ClassNameProp {
+export interface IconProps
+  extends Pick<IconBaseProps, "color" | "fill">,
+    ClassNameProp {
   icon: IconDefinition
   size?: IconSize | number
 }

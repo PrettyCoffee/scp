@@ -1,5 +1,5 @@
 import { RefProp } from "../base"
-import { Icon, IconDefinition, VisuallyHidden } from "../primitives"
+import { Icon, IconProps, VisuallyHidden } from "../primitives"
 import { ErrorBoundary } from "../utility"
 import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
 
@@ -8,8 +8,10 @@ const Button = styled.button<ButtonStyleProps>`
   text-decoration: none;
 `
 
-interface IconButtonProps extends RefProp, ButtonStyleProps {
-  icon: IconDefinition
+interface IconButtonProps
+  extends Pick<IconProps, "icon" | "fill">,
+    RefProp,
+    ButtonStyleProps {
   caption: string
   onClick?: () => void
   href?: string
@@ -19,6 +21,7 @@ export const IconButton = ({
   caption,
   icon,
   setRef,
+  fill,
   ...rest
 }: IconButtonProps) => (
   <ErrorBoundary>
@@ -28,7 +31,7 @@ export const IconButton = ({
       title={caption}
       {...rest}
     >
-      <Icon icon={icon} size="md" />
+      <Icon icon={icon} fill={fill} size="md" />
       <VisuallyHidden>{caption}</VisuallyHidden>
     </Button>
   </ErrorBoundary>

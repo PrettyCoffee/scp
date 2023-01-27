@@ -5,6 +5,7 @@ export interface IconBaseProps {
   color?: string
   size?: number
   className?: string
+  fill?: boolean
 }
 
 export type IconDefinition = FC<IconBaseProps>
@@ -20,12 +21,13 @@ export const IconBase = ({
   color = "currentColor",
   size = 24,
   children,
+  fill,
   ...rest
 }: PropsWithChildren<IconBaseProps>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    fill="none"
+    fill={fill ? "currentColor" : "none"}
     stroke={color}
     strokeWidth={2}
     strokeLinecap="round"
