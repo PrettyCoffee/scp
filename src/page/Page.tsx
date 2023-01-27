@@ -5,7 +5,9 @@ import { css as createStyles } from "@emotion/css"
 import {
   Grid,
   Header,
+  IconButton,
   Measurement,
+  Menu,
   SetState,
   Settings,
   Text,
@@ -119,6 +121,26 @@ const Padding = styled.div(
   `
 )
 
+const SettingsMenu = () => (
+  <Menu.Root>
+    <Menu.Trigger>
+      {(ref, props) => (
+        <IconButton
+          setRef={ref}
+          {...props}
+          icon={Settings}
+          caption="Open settings"
+          look="compact"
+        />
+      )}
+    </Menu.Trigger>
+    <Menu.Content>
+      <Menu.Header title="Settings" />
+      <Text.Medium>Here are going to be some settings!</Text.Medium>
+    </Menu.Content>
+  </Menu.Root>
+)
+
 const Clock = () => {
   const [now, setNow] = useState(new Date())
 
@@ -180,16 +202,10 @@ export const Page = () => {
             pressed={editing}
             onClick={setEditing}
             icon={Grid}
-            caption="Start editing widgets"
+            caption="Edit widget positions and sizes"
             look="compact"
           />
-          <ToggleButton
-            pressed={editing}
-            onClick={setEditing}
-            icon={Settings}
-            caption="Start editing widgets"
-            look="compact"
-          />
+          <SettingsMenu />
         </Header.End>
       </Header.Root>
       <Relative ref={ref}>

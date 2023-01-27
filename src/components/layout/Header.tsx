@@ -1,5 +1,6 @@
 import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 
+import { HEADER_Z_INDEX } from "../base/z-index"
 import { ErrorBoundary } from "../utility"
 
 const Start = ({ children }: PropsWithChildren) => <>{children}</>
@@ -77,7 +78,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
 
-  z-index: 2;
+  z-index: ${HEADER_Z_INDEX};
 `
 
 const Root = ({ children }: PropsWithChildren) => {
