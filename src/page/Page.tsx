@@ -180,12 +180,15 @@ const Relative = styled.div`
   width: 100%;
 `
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`
+const Wrapper = styled.div<{ gap?: number }>(
+  ({ gap }) => css`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: ${gap}px;
+  `
+)
 
 const WorkspaceNavigation = () => {
   const [workspaces, setWorkspaces] = useState([
@@ -218,13 +221,14 @@ const WorkspaceNavigation = () => {
 }
 
 export const Page = () => {
+  const [{ windowPadding }] = useGeneralStore()
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const parentSize = useResizeObserver(ref)
 
   return (
-    <Wrapper>
+    <Wrapper gap={windowPadding}>
       <Header.Root>
         <Header.Start>
           <WorkspaceNavigation />
