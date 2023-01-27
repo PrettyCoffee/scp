@@ -15,6 +15,7 @@ interface IconButtonProps
   caption: string
   onClick?: () => void
   href?: string
+  target?: "_self" | "_blank"
 }
 
 export const IconButton = ({

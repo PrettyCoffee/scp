@@ -4,6 +4,7 @@ import { css as createStyles } from "@emotion/css"
 
 import {
   Circle,
+  Github,
   Grid,
   Header,
   IconButton,
@@ -232,6 +233,13 @@ export const Page = () => {
           <Clock />
         </Header.Center>
         <Header.End>
+          <IconButton
+            icon={Github}
+            caption="Github repository"
+            href="https://github.com/PrettyCoffee/scp"
+            look="compact"
+            target="_blank"
+          />
           <ToggleButton
             pressed={editing}
             onClick={setEditing}
