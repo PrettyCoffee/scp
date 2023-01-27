@@ -26,8 +26,10 @@ For further details, have a look at the associated posts:
 ### Refined concept
 
 A startpage with different customizable tiles.
-Each time you create a tile, it will start off as a terminal like text area.
+~~Each time you create a tile, it will start off as a terminal like text area.~~
 You can list available widgets or start a widget in there.
+
+Edit: I decided to go with a full blown UI editor instead of terminals.
 
 Features:
 
@@ -50,14 +52,15 @@ Features:
   - [ ] Shortcut bar
   - [ ] Spotify widget
   - ...
-- [ ] More commands
+- [ ] ~~More commands~~
 - [ ] Custom icons (pasted svg paths)
-- [ ] Terminal autocomplete
+- [ ] ~~Terminal autocomplete~~
 - [ ] Customizable color theme
 - [ ] Custom CSS for all tiles
 - [ ] Custom CSS for individual tiles
 - [ ] Web extension
 - [x] [Hero Patterns](https://heropatterns.com/) as background
+- [ ] Workspaces as pages for different topics
 
 ## Contributing
 
