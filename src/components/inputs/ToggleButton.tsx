@@ -28,7 +28,7 @@ export const ToggleButton = ({
   ...rest
 }: ToggleButtonProps) => (
   <ErrorBoundary>
-    <Toggle onPressedChange={onClick} {...rest}>
+    <Toggle title={caption} onPressedChange={onClick} {...rest}>
       <Icon icon={icon} size="md" />
       <VisuallyHidden>{caption}</VisuallyHidden>
     </Toggle>
