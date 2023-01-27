@@ -24,7 +24,7 @@ export const IconButton = ({
   <ErrorBoundary>
     <Button
       as={"href" in rest ? "a" : "button"}
-      ref={ref => setRef?.(ref)}
+      ref={setRef}
       title={caption}
       {...rest}
     >
