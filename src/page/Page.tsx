@@ -8,6 +8,7 @@ import {
   Measurement,
   SetState,
   Settings,
+  Text,
   Tile,
   TileRect,
   ToggleButton,
@@ -81,7 +82,7 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
       onRectChange={setRect}
       editing={editing}
     >
-      Tile {`#${state.id}`}
+      <Text.Medium color="muted">Tile {`#${state.id}`}</Text.Medium>
     </Tile>
   )
 }
@@ -142,7 +143,9 @@ const Clock = () => {
 
   return (
     <Padding>
-      {time} | {date}
+      <Text.Small>{time}</Text.Small>
+      <Text.Small color="muted"> | </Text.Small>
+      <Text.Small>{date}</Text.Small>
     </Padding>
   )
 }
