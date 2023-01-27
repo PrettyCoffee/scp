@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { css as createStyles } from "@emotion/css"
 
 import {
+  Circle,
   Grid,
   Header,
   IconButton,
@@ -185,6 +186,36 @@ const Wrapper = styled.div`
   height: 100%;
 `
 
+const WorkspaceNavigation = () => {
+  const [workspaces, setWorkspaces] = useState([
+    { name: "Work", active: true },
+    { name: "Private", active: false },
+    { name: "Planning", active: false },
+    { name: "Horny Jail", active: false },
+  ])
+
+  const setActive = (name: string) =>
+    setWorkspaces(workspaces =>
+      workspaces.map(w => ({ ...w, active: w.name === name }))
+    )
+
+  return (
+    <>
+      {workspaces.map(({ name, active }) => (
+        <ToggleButton
+          key={name}
+          onClick={() => setActive(name)}
+          icon={Circle}
+          caption={name}
+          look="compact"
+          fill={active}
+          pressed={active}
+        />
+      ))}
+    </>
+  )
+}
+
 export const Page = () => {
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -194,6 +225,9 @@ export const Page = () => {
   return (
     <Wrapper>
       <Header.Root>
+        <Header.Start>
+          <WorkspaceNavigation />
+        </Header.Start>
         <Header.Center>
           <Clock />
         </Header.Center>
