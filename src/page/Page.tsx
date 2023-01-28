@@ -9,6 +9,7 @@ import {
   Header,
   IconButton,
   Measurement,
+  Plus,
   SetState,
   Text,
   Tile,
@@ -198,6 +199,7 @@ const WorkspaceNavigation = () => {
           pressed={active}
         />
       ))}
+      <IconButton icon={Plus} caption="Create a workspace" look="compact" />
     </>
   )
 }
