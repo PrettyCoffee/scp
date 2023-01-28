@@ -6,6 +6,18 @@ import { useLatest } from "../components"
 import { spacing } from "../theme"
 import { solidBg } from "./exampleBackground"
 
+const defaultTileCss = `/* * * * * * * * * *
+ * Example Styles  *
+ * * * * * * * * * */
+
+outline-color: transparent;
+background-color: var(--tokens-background-surface);
+opacity: 0.7;
+:hover {
+  opacity: 1;
+}
+`
+
 type BgVariant<Type extends string, T> = T & {
   type: Type
 }
@@ -36,6 +48,7 @@ interface GeneralStoreState {
   windowPadding: number
   gridSize: number
   background: Background
+  globalTileCss: string
 }
 
 export const {
@@ -46,6 +59,7 @@ export const {
   windowPadding: spacing.px.sm,
   gridSize: spacing.px.lg,
   background: solidBg,
+  globalTileCss: defaultTileCss,
 })
 
 export const useGeneralStore = () => {

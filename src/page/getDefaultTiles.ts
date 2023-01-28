@@ -22,7 +22,6 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       ...sharedProps,
       customCss: `
         --tokens-accent: ${theme.color.red};
-        outline-color: transparent;
       `,
     },
     {
@@ -32,7 +31,6 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       ...sharedProps,
       customCss: `
         --tokens-accent: ${theme.color.flamingo};
-        outline-color: transparent;
       `,
     },
     {
@@ -42,7 +40,6 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       ...sharedProps,
       customCss: `
         --tokens-accent: ${theme.color.yellow};
-        outline-color: transparent;
       `,
     },
 

@@ -59,7 +59,7 @@ interface UserTileProps extends WidgetConfig {
 const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
-  const { gridSize } = useGeneralStore()
+  const { gridSize, globalTileCss } = useGeneralStore()
 
   useEffect(() => {
     updateWidget(state)
@@ -73,8 +73,11 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   }, [])
 
   const className = useMemo(
-    () => createStyles`${state.customCss}`,
-    [state.customCss]
+    () => createStyles`
+      ${globalTileCss}
+      ${state.customCss}
+    `,
+    [state.customCss, globalTileCss]
   )
 
   return (
