@@ -94,6 +94,7 @@ export const TextInput = ({
         applyShake={applyShake}
         onChange={({ target: { value } }) => handleChange(value)}
         onAnimationEnd={() => setApplyShake("off")}
+        onBlur={() => setValid(true)}
         {...delegated}
       />
     </Layout>
