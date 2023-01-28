@@ -2,13 +2,6 @@ import { PropsOf } from "@emotion/react"
 
 import { ThemeProp } from "../base"
 
-export interface FontProps {
-  color?: "default" | "active" | "muted"
-  weight?: "regular" | "medium" | "bold"
-  size?: "small" | "medium" | "large" | "headline"
-  style?: "sans-serif" | "monospace"
-}
-
 const fontSize = {
   small: 0.8,
   medium: 1,
@@ -27,9 +20,29 @@ const fontStyle = {
   "sans-serif": "'Quicksand', sans-serif",
 }
 
-export const fontStyles = ({
-  theme: { space, tokens },
+const getFontColor = ({
+  theme: {
+    tokens,
+    color: { red },
+  },
   color = "default",
+}: ThemeProp & Pick<FontProps, "color">) => {
+  if (color === "active") return tokens.accent
+  if (color === "danger") return red
+  return tokens.text[color]
+}
+
+export interface FontProps {
+  color?: "default" | "active" | "muted" | "danger"
+  weight?: "regular" | "medium" | "bold"
+  size?: "small" | "medium" | "large" | "headline"
+  style?: "sans-serif" | "monospace"
+}
+
+export const fontStyles = ({
+  theme,
+  theme: { space, tokens },
+  color,
   weight = "medium",
   size = "medium",
   style = "sans-serif",
@@ -37,7 +50,7 @@ export const fontStyles = ({
   font-family: ${fontStyle[style]};
   font-size: calc(${space.md} * ${fontSize[size]});
   font-weight: ${weightLookup[weight]};
-  color: ${color === "active" ? tokens.accent : tokens.text[color]};
+  color: ${getFontColor({ theme, color })};
 
   ::selection {
     background-color: ${tokens.background.input};
