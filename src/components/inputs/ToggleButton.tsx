@@ -2,11 +2,11 @@ import { Root } from "@radix-ui/react-toggle"
 
 import { Icon, IconProps, VisuallyHidden } from "../primitives"
 import { ErrorBoundary } from "../utility"
-import { ButtonStyleProps, buttonStyles } from "./utils/buttonStyles"
+import { ButtonStyleProps, iconButtonStyles } from "./utils/iconButtonStyles"
 
 const Toggle = styled(Root)<ButtonStyleProps>(
   ({ theme, theme: { tokens }, look }) => css`
-    ${buttonStyles({ theme, look })}
+    ${iconButtonStyles({ theme, look })}
 
     &[data-state="on"] {
       color: ${tokens.accent};

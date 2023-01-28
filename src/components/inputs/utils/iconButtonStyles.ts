@@ -4,7 +4,7 @@ export interface ButtonStyleProps {
   look?: "compact" | "default"
 }
 
-export const buttonStyles = ({
+export const iconButtonStyles = ({
   theme: { border, space, tokens },
   look,
 }: ThemeProp & ButtonStyleProps) => css`
