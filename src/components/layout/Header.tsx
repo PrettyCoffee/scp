@@ -64,7 +64,7 @@ const HeaderItem = styled.div(
 
     display: flex;
     align-items: center;
-    gap: ${space.xs};
+    gap: ${space.xxs};
 
     border: ${tokens.text.muted} ${border};
     background-color: ${tokens.background.alt};
