@@ -6,6 +6,7 @@ export interface FontProps {
   color?: "default" | "active" | "muted"
   weight?: "regular" | "medium" | "bold"
   size?: "small" | "medium" | "large" | "headline"
+  style?: "sans-serif" | "monospace"
 }
 
 const fontSize = {
@@ -21,13 +22,19 @@ const weightLookup = {
   bold: 700,
 }
 
+const fontStyle = {
+  monospace: "'Fira Code', monospace",
+  "sans-serif": "'Quicksand', sans-serif",
+}
+
 export const fontStyles = ({
   theme: { space, tokens },
   color = "default",
   weight = "medium",
   size = "medium",
+  style = "sans-serif",
 }: ThemeProp & FontProps) => css`
-  font-family: Quicksand;
+  font-family: ${fontStyle[style]};
   font-size: calc(${space.md} * ${fontSize[size]});
   font-weight: ${weightLookup[weight]};
   color: ${color === "active" ? tokens.accent : tokens.text[color]};
