@@ -30,7 +30,7 @@ const SharedVars = styled.div(
 const Backdrop = styled(FloatingOverlay)<TransitionStatus>(
   ({ theme: { raw }, status }) => css`
     position: fixed;
-    background-color: ${Color(raw.tokens.background.base).fade(0.5).string()};
+    background-color: ${Color(raw.tokens.background.base).alpha(0.5).string()};
     inset: 0;
     z-index: ${MODAL_Z_INDEX - 1};
 
