@@ -1,10 +1,18 @@
-export interface TextProps {
-  children: string
+import { PropsOf } from "@emotion/react"
+
+import { ThemeProp } from "../base"
+
+export interface FontProps {
   color?: "default" | "active" | "muted"
-  ellipsis?: boolean
-  noWrap?: boolean
-  display?: "inline" | "inline-block" | "block"
   weight?: "regular" | "medium" | "bold"
+  size?: "small" | "medium" | "large" | "headline"
+}
+
+const fontSize = {
+  small: 0.8,
+  medium: 1,
+  large: 1.2,
+  headline: 1.5,
 }
 
 const weightLookup = {
@@ -13,23 +21,37 @@ const weightLookup = {
   bold: 700,
 }
 
-const TextBase = styled.span<Omit<TextProps, "children">>(
-  ({
-    theme: { space, tokens },
-    color = "default",
-    ellipsis,
-    noWrap,
-    display = "inline",
-    weight = "medium",
-  }) => css`
+export const fontStyles = ({
+  theme: { space, tokens },
+  color = "default",
+  weight = "medium",
+  size = "medium",
+}: ThemeProp & FontProps) => css`
+  font-family: Quicksand;
+  font-size: calc(${space.md} * ${fontSize[size]});
+  font-weight: ${weightLookup[weight]};
+  color: ${color === "active" ? tokens.accent : tokens.text[color]};
+
+  ::selection {
+    background-color: ${tokens.background.input};
+  }
+`
+
+export interface TextProps extends Omit<FontProps, "size"> {
+  children: string | string[]
+  ellipsis?: boolean
+  noWrap?: boolean
+  display?: "inline" | "inline-block" | "block"
+}
+
+const TextBase = styled.span<Omit<TextProps, "children"> & FontProps>(
+  ({ theme, display = "inline", weight, color, ellipsis, noWrap, size }) => css`
+    ${fontStyles({ theme, color, weight, size })}
+
     display: ${display};
     margin: 0;
     padding: 0;
-    font-size: calc(${space.md} * var(--font-size));
-    font-family: Quicksand;
-    font-weight: ${weightLookup[weight]};
 
-    color: ${color === "active" ? tokens.accent : tokens.text[color]};
     ${noWrap && "white-space: nowrap;"}
     ${ellipsis &&
     css`
@@ -39,21 +61,26 @@ const TextBase = styled.span<Omit<TextProps, "children">>(
   `
 )
 
-const Small = styled(TextBase)`
-  --font-size: 0.8;
-`
+type ElementAttributes = Pick<
+  PropsOf<typeof TextBase>,
+  "id" | "as" | "style" | "className"
+>
 
-const Medium = styled(TextBase)`
-  --font-size: 1;
-`
+const Small = (props: TextProps & ElementAttributes) => (
+  <TextBase size="small" {...props} />
+)
 
-const Large = styled(TextBase)`
-  --font-size: 1.2;
-`
+const Medium = (props: TextProps & ElementAttributes) => (
+  <TextBase size="medium" {...props} />
+)
 
-const Headline = styled(TextBase)`
-  --font-size: 1.5;
-`
+const Large = (props: TextProps & ElementAttributes) => (
+  <TextBase size="large" {...props} />
+)
+
+const Headline = (props: TextProps & ElementAttributes) => (
+  <TextBase size="headline" {...props} />
+)
 
 export const Text = {
   Small,
