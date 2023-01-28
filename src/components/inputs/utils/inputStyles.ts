@@ -3,14 +3,19 @@ import { fontStyles } from "../../primitives"
 
 export interface InputStyleProps {
   valid: boolean
+  contentType?: "code" | "text"
 }
 
 export const inputStyles = ({
   theme,
   theme: { tokens, space, border, color },
   valid,
+  contentType = "text",
 }: ThemeProp & InputStyleProps) => css`
-  ${fontStyles({ theme })}
+  ${fontStyles({
+    theme,
+    style: contentType === "code" ? "monospace" : "sans-serif",
+  })}
 
   display: inline-block;
   padding: ${space.sm};
