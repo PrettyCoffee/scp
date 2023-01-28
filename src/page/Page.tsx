@@ -9,9 +9,7 @@ import {
   Header,
   IconButton,
   Measurement,
-  Menu,
   SetState,
-  Settings,
   Text,
   Tile,
   TileRect,
@@ -20,6 +18,7 @@ import {
 } from "../components"
 import { useGeneralStore } from "../store"
 import { useWidgetStore, WidgetConfig } from "../store/WidgetStore"
+import { GeneralSettingsMenu } from "./GeneralSettingsMenu"
 
 const BgCross = styled.div(
   ({ theme: { tokens, space } }) => css`
@@ -124,26 +123,6 @@ const Padding = styled.div(
     padding: ${space.sm};
     font-size: calc(${space.md} * 0.8);
   `
-)
-
-const SettingsMenu = () => (
-  <Menu.Root>
-    <Menu.Trigger>
-      {(ref, props) => (
-        <IconButton
-          setRef={ref}
-          {...props}
-          icon={Settings}
-          caption="Open settings"
-          look="compact"
-        />
-      )}
-    </Menu.Trigger>
-    <Menu.Content>
-      <Menu.Header title="Settings" />
-      <Text.Medium>Here are going to be some settings!</Text.Medium>
-    </Menu.Content>
-  </Menu.Root>
 )
 
 const Clock = () => {
@@ -254,7 +233,7 @@ export const Page = () => {
             caption="Edit widget positions and sizes"
             look="compact"
           />
-          <SettingsMenu />
+          <GeneralSettingsMenu />
         </Header.End>
       </Header.Root>
       <Relative ref={ref}>
