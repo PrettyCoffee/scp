@@ -20,10 +20,10 @@ const AppWrapper = styled.div<AppProps>`
 `
 
 export const App = () => {
-  const [general] = useGeneralStore()
+  const { windowPadding, background } = useGeneralStore()
 
   return (
-    <AppWrapper windowPadding={general.windowPadding} bg={general.background}>
+    <AppWrapper windowPadding={windowPadding} bg={background}>
       <Page />
     </AppWrapper>
   )

@@ -59,7 +59,7 @@ interface UserTileProps extends WidgetConfig {
 const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
-  const [{ gridSize }] = useGeneralStore()
+  const { gridSize } = useGeneralStore()
 
   useEffect(() => {
     updateWidget(state)
@@ -221,7 +221,7 @@ const WorkspaceNavigation = () => {
 }
 
 export const Page = () => {
-  const [{ windowPadding }] = useGeneralStore()
+  const { windowPadding } = useGeneralStore()
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 

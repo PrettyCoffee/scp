@@ -1,5 +1,8 @@
+import { useCallback } from "react"
+
 import { createStorageContext } from "@startpage/local-storage"
 
+import { useLatest } from "../components"
 import { spacing } from "../theme"
 import { solidBg } from "./exampleBackground"
 
@@ -37,10 +40,32 @@ interface GeneralStoreState {
 
 export const {
   StorageProvider: GeneralStore,
-  useStorage: useGeneralStore,
+  useStorage,
   StorageConsumer: GeneralStoreConsumer,
 } = createStorageContext<GeneralStoreState>("general", {
   windowPadding: spacing.px.sm,
   gridSize: spacing.px.lg,
   background: solidBg,
 })
+
+export const useGeneralStore = () => {
+  const [store, setStore] = useStorage()
+  const latest = useLatest(store)
+
+  const setStoreKey = useCallback(
+    <Key extends keyof GeneralStoreState>(
+      key: Key,
+      value: GeneralStoreState[Key]
+    ) =>
+      setStore({
+        ...latest.current,
+        [key]: value,
+      }),
+    [setStore, latest]
+  )
+
+  return {
+    ...store,
+    setStoreKey,
+  }
+}
