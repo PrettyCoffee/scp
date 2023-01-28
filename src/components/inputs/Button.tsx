@@ -1,17 +1,15 @@
 import Color from "color"
 
 import { fontStyles, Icon, IconProps } from "../primitives"
+import { inputBorder } from "./utils/inputBorder"
 
 const opacity = (color: string, opacity: number) =>
   Color(color).alpha(opacity).string()
 
 const ButtonBase = styled.button<Pick<ButtonProps, "look">>(
-  ({
-    theme,
-    theme: { border, space, tokens, color, raw },
-    look = "default",
-  }) => css`
+  ({ theme, theme: { border, space, tokens, raw }, look = "default" }) => css`
     ${fontStyles({ theme, color: look === "danger" ? "danger" : "default" })}
+    ${inputBorder({ theme, color: "none" })}
 
     height: ${space.lg};
     min-height: ${space.lg};
@@ -21,11 +19,8 @@ const ButtonBase = styled.button<Pick<ButtonProps, "look">>(
     align-items: center;
     gap: ${space.sm};
 
-    border-radius: ${space.sm};
     cursor: pointer;
-    border: ${border};
 
-    border-color: transparent;
     background-color: ${tokens.background.input};
     &:focus-visible {
       outline: ${border} ${tokens.accent};
@@ -41,7 +36,7 @@ const ButtonBase = styled.button<Pick<ButtonProps, "look">>(
 
     ${look === "danger" &&
     css`
-      border-color: ${color.red};
+      ${inputBorder({ theme, color: "danger" })}
       background-color: transparent;
 
       &:focus-visible {
