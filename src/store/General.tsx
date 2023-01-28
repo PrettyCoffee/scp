@@ -51,16 +51,18 @@ interface GeneralStoreState {
   globalTileCss: string
 }
 
-export const {
-  StorageProvider: GeneralStore,
-  useStorage,
-  StorageConsumer: GeneralStoreConsumer,
-} = createStorageContext<GeneralStoreState>("general", {
+const defaultState: GeneralStoreState = {
   windowPadding: spacing.px.sm,
   gridSize: spacing.px.lg,
   background: solidBg,
   globalTileCss: defaultTileCss,
-})
+}
+
+export const {
+  StorageProvider: GeneralStore,
+  useStorage,
+  StorageConsumer: GeneralStoreConsumer,
+} = createStorageContext<GeneralStoreState>("general", defaultState)
 
 export const useGeneralStore = () => {
   const [store, setStore] = useStorage()
@@ -78,8 +80,11 @@ export const useGeneralStore = () => {
     [setStore, latest]
   )
 
+  const resetStore = useCallback(() => setStore(defaultState), [setStore])
+
   return {
     ...store,
     setStoreKey,
+    resetStore,
   }
 }
