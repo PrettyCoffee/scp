@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-import { fontStyles, Text } from "../primitives"
+import { Text } from "../primitives"
+import { inputStyles } from "./utils/inputStyles"
 
 const shakeOn = keyframes`
   0% {
@@ -32,22 +33,11 @@ const Input = styled.input<{
   applyShake: ShakeState
   valid: boolean
 }>(
-  ({
-    theme,
-    theme: { tokens, space, border, color },
-    applyShake,
-    valid,
-  }) => css`
-    ${fontStyles({ theme })}
+  ({ theme, theme: { space }, applyShake, valid }) => css`
+    ${inputStyles({ theme, valid })}
 
-    display: inline-block;
     height: ${space.lg};
-    width: 100%;
     padding: 0 ${space.sm};
-
-    border: ${border} ${tokens.text.default};
-    border-radius: ${space.sm};
-    background-color: ${tokens.background.alt};
 
     animation-name: ${applyShake === "on"
       ? shakeOn
@@ -56,22 +46,6 @@ const Input = styled.input<{
       : ""};
     animation-duration: 0.1s;
     animation-timing-function: ease-in-out;
-
-    ::placeholder {
-      color: ${tokens.text.muted};
-    }
-
-    :focus-visible {
-      border-color: ${tokens.accent};
-    }
-
-    ${!valid &&
-    css`
-      &,
-      :focus-visible {
-        border-color: ${color.red};
-      }
-    `}
   `
 )
 
