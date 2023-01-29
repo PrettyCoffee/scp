@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { Text } from "../primitives"
+import { InputLabel } from "./fragments/InputLabel"
 import { InputStyleProps, inputStyles } from "./utils/inputStyles"
 
 const Area = styled.textarea<InputStyleProps>(
@@ -9,15 +9,6 @@ const Area = styled.textarea<InputStyleProps>(
 
     height: calc(${space["3xl"]} * 4);
     resize: vertical;
-  `
-)
-
-const Layout = styled.div(
-  ({ theme: { space } }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${space.sm};
-    width: 100%;
   `
 )
 
@@ -44,13 +35,12 @@ export const TextArea = ({
   }
 
   return (
-    <Layout>
-      {label && <Text.Small color="muted">{label}</Text.Small>}
+    <InputLabel label={label} display="block">
       <Area
         valid={valid}
         onChange={({ target: { value } }) => handleChange(value)}
         {...delegated}
       />
-    </Layout>
+    </InputLabel>
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { Text } from "../primitives"
+import { InputLabel } from "./fragments/InputLabel"
 import { inputStyles } from "./utils/inputStyles"
 
 const shakeOn = keyframes`
@@ -49,15 +49,6 @@ const Input = styled.input<{
   `
 )
 
-const Layout = styled.div(
-  ({ theme: { space } }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${space.sm};
-    max-width: calc(${space["3xl"]} * 3);
-  `
-)
-
 export interface TextInputProps {
   value: string
   onChange: (value: string) => void
@@ -87,8 +78,7 @@ export const TextInput = ({
   }
 
   return (
-    <Layout>
-      {label && <Text.Small color="muted">{label}</Text.Small>}
+    <InputLabel label={label}>
       <Input
         valid={valid}
         applyShake={applyShake}
@@ -97,6 +87,6 @@ export const TextInput = ({
         onBlur={() => setValid(true)}
         {...delegated}
       />
-    </Layout>
+    </InputLabel>
   )
 }
