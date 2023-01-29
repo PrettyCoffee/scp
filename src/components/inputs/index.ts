@@ -1,5 +1,6 @@
 export * from "./Button"
 export * from "./IconButton"
+export * from "./select"
 export * from "./ToggleButton"
 export * from "./TextInput"
 export * from "./TextArea"
