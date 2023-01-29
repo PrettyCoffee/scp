@@ -1,5 +1,6 @@
 export type { IconDefinition } from "./_IconBase"
 
+export { Check } from "./Check"
 export { Chevron } from "./Chevron"
 export { Circle } from "./Circle"
 export { Close } from "./Close"
