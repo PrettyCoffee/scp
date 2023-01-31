@@ -24,9 +24,16 @@ export const Header = ({ title }: HeaderProps) => {
   return (
     <ErrorBoundary>
       <Layout>
-        <Text.Large id={labelId} as="h2" noWrap ellipsis weight="bold">
+        <Text.Headline
+          id={labelId}
+          as="h2"
+          noWrap
+          ellipsis
+          color="muted"
+          weight="medium"
+        >
           {title}
-        </Text.Large>
+        </Text.Headline>
         <IconButton
           caption="Close menu"
           icon={Close}
