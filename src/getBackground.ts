@@ -1,4 +1,4 @@
-import { Background, HeroPattern } from "./store/General"
+import { Background, PatternBackground } from "./store/General"
 
 const escapeString = (value: string) =>
   value
@@ -13,7 +13,7 @@ const getHeroPattern = ({
   height,
   width,
   scale,
-}: HeroPattern) =>
+}: PatternBackground) =>
   escapeString(
     `url("data:image/svg+xml,
       <svg

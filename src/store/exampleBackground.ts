@@ -3,12 +3,12 @@ import { Background } from "./General"
 
 const base = cssTheme.tokens.background.base
 
-export const solidBg: Background = {
+export const solidBg: Background<"solid"> = {
   type: "solid",
   base: cssTheme.tokens.background.base,
 }
 
-export const heroPatternBg: Background = {
+export const heroPatternBg: Background<"pattern"> = {
   type: "pattern",
   base: base,
   height: 96,

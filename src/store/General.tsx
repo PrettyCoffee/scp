@@ -22,7 +22,7 @@ type BgVariant<Type extends string, T> = T & {
   type: Type
 }
 
-export type HeroPattern = BgVariant<
+export type PatternBackground = BgVariant<
   "pattern",
   {
     base: string
@@ -35,14 +35,23 @@ export type HeroPattern = BgVariant<
   }
 >
 
-export type Background =
-  | HeroPattern
-  | BgVariant<"solid", { base: string }>
-  | BgVariant<
-      "image",
-      { base: string; opacity: number; src: string; filter: string }
-    >
-  | BgVariant<"custom", { base: string; css: string }>
+type SolidBackground = BgVariant<"solid", { base: string }>
+type ImageBackground = BgVariant<
+  "image",
+  { base: string; opacity: number; src: string; filter: string }
+>
+type CustomBackground = BgVariant<"custom", { base: string; css: string }>
+
+export interface BackgroundLookup {
+  solid: SolidBackground
+  image: ImageBackground
+  pattern: PatternBackground
+  custom: CustomBackground
+}
+
+export type Background<
+  T extends keyof BackgroundLookup = keyof BackgroundLookup
+> = BackgroundLookup[T]
 
 interface GeneralStoreState {
   windowPadding: number
@@ -67,17 +76,18 @@ export const {
 export const useGeneralStore = () => {
   const [store, setStore] = useStorage()
   const latest = useLatest(store)
+  const setter = useLatest(setStore)
 
   const setStoreKey = useCallback(
     <Key extends keyof GeneralStoreState>(
       key: Key,
       value: GeneralStoreState[Key]
     ) =>
-      setStore({
+      setter.current({
         ...latest.current,
         [key]: value,
       }),
-    [setStore, latest]
+    [latest, setter]
   )
 
   const resetStore = useCallback(() => setStore(defaultState), [setStore])
