@@ -1,4 +1,5 @@
 export * from "./VisuallyHidden"
 export * from "./icon"
+export * from "./Link"
 export * from "./Separator"
 export * from "./Text"
