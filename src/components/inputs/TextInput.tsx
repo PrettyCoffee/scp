@@ -1,51 +1,24 @@
 import { useState } from "react"
 
+import { fontStyles, Text } from "../primitives"
+import { InputBorder, ShakeState } from "./fragments/InputBorder"
 import { InputLabel } from "./fragments/InputLabel"
-import { inputStyles } from "./utils/inputStyles"
 
-const shakeOn = keyframes`
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(1px, -1px);
-  }
-  100% {
-    transform: translate(-1px, 1px);
-  }
-`
+const UnitText = styled(Text.Medium)(
+  ({ theme: { space } }) => css`
+    padding-right: ${space.sm};
+  `
+)
 
-const shakeOff = keyframes`
-  0% {
-    transform: translate(-1px, 1px);
-  }
-  50% {
-    transform: translate(1px, -1px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-`
-
-type ShakeState = "initial" | "on" | "off"
-
-const Input = styled.input<{
-  applyShake: ShakeState
-  valid: boolean
-}>(
-  ({ theme, theme: { space }, applyShake, valid }) => css`
-    ${inputStyles({ theme, valid })}
-
-    height: ${space.lg};
+const Input = styled.input(
+  ({ theme, theme: { space } }) => css`
+    ${fontStyles({ theme })}
     padding: 0 ${space.sm};
-
-    animation-name: ${applyShake === "on"
-      ? shakeOn
-      : applyShake === "off"
-      ? shakeOff
-      : ""};
-    animation-duration: 0.1s;
-    animation-timing-function: ease-in-out;
+    background-color: transparent;
+    border: none;
+    flex: 1 1 0;
+    height: 100%;
+    width: 100%;
   `
 )
 
@@ -55,12 +28,14 @@ export interface TextInputProps {
   validate?: (value: string) => boolean
   label?: string
   placeholder?: string
+  unit?: string
 }
 
 export const TextInput = ({
   onChange,
   validate,
   label,
+  unit,
   ...delegated
 }: TextInputProps) => {
   const [valid, setValid] = useState(true)
@@ -79,14 +54,22 @@ export const TextInput = ({
 
   return (
     <InputLabel label={label}>
-      <Input
+      <InputBorder
         valid={valid}
         applyShake={applyShake}
-        onChange={({ target: { value } }) => handleChange(value)}
         onAnimationEnd={() => setApplyShake("off")}
-        onBlur={() => setValid(true)}
-        {...delegated}
-      />
+      >
+        <Input
+          onChange={({ target: { value } }) => handleChange(value)}
+          onBlur={() => setValid(true)}
+          {...delegated}
+        />
+        {unit && (
+          <UnitText color="muted" display="block">
+            {unit}
+          </UnitText>
+        )}
+      </InputBorder>
     </InputLabel>
   )
 }

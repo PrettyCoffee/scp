@@ -3,14 +3,14 @@ import { fontStyles } from "../../primitives"
 import { inputBorder } from "./inputBorder"
 
 export interface InputStyleProps {
-  valid: boolean
+  valid?: boolean
   contentType?: "code" | "text"
 }
 
 export const inputStyles = ({
   theme,
   theme: { tokens, space },
-  valid,
+  valid = true,
   contentType = "text",
 }: ThemeProp & InputStyleProps) => css`
   ${fontStyles({

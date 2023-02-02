@@ -23,7 +23,7 @@ export const inputBorder = ({
       ? "transparent"
       : tokens.text[color]};
 
-    &:focus-visible {
+    &:focus-within {
       border-color: ${!colorIsDominant && tokens.accent};
     }
   `
