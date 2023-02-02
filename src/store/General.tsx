@@ -3,8 +3,7 @@ import { useCallback } from "react"
 import { createStorageContext } from "@startpage/local-storage"
 
 import { useLatest } from "../components"
-import { spacing } from "../theme"
-import { solidBg } from "./exampleBackground"
+import { cssTheme, spacing } from "../theme"
 
 const defaultTileCss = `/* * * * * * * * * *
  * Example Styles  *
@@ -17,6 +16,11 @@ opacity: 0.7;
   opacity: 1;
 }
 `
+
+const defaultBg: Background<"solid"> = {
+  type: "solid",
+  base: cssTheme.tokens.background.base,
+}
 
 type BgVariant<Type extends string, T> = T & {
   type: Type
@@ -63,7 +67,7 @@ interface GeneralStoreState {
 const defaultState: GeneralStoreState = {
   windowPadding: spacing.px.sm,
   gridSize: spacing.px.lg,
-  background: solidBg,
+  background: defaultBg,
   globalTileCss: defaultTileCss,
 }
 
