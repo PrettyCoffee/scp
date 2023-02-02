@@ -18,8 +18,8 @@ const getHeroPattern = ({
     `url("data:image/svg+xml,
       <svg
         xmlns='http://www.w3.org/2000/svg'
-        width='${width * scale}'
-        height='${height * scale}'
+        width='${(width * scale) / 100}'
+        height='${(height * scale) / 100}'
         viewBox='0 0 ${width} ${height}'
       >
         <path
@@ -50,7 +50,7 @@ export const normalizeBackground = (bg: Background): BgConfig => {
   if (bg.type === "image")
     return {
       ...shared,
-      opacity: bg.opacity,
+      opacity: bg.opacity / 100,
       image: `url("${bg.src}")`,
       filter: bg.filter,
     }
@@ -58,7 +58,7 @@ export const normalizeBackground = (bg: Background): BgConfig => {
   if (bg.type === "pattern")
     return {
       ...shared,
-      opacity: bg.opacity,
+      opacity: bg.opacity / 100,
       image: getHeroPattern(bg),
     }
 
