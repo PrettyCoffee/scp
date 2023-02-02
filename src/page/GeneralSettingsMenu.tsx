@@ -7,7 +7,7 @@ import {
   TextArea,
   Trash,
 } from "../components"
-import { TextInput } from "../components/inputs/TextInput"
+import { NumberInput } from "../components/inputs/NumberInput"
 import { useGeneralStore } from "../store"
 
 const TileCssEditor = () => {
@@ -39,24 +39,24 @@ const ResetButton = () => {
 const GeneralSettings = () => {
   const { gridSize, windowPadding, setStoreKey } = useGeneralStore()
 
-  const setGridSize = (value: string) => setStoreKey("gridSize", Number(value))
-  const setWindowPadding = (value: string) =>
-    setStoreKey("windowPadding", Number(value))
+  const setGridSize = (value: number) => setStoreKey("gridSize", value)
+  const setWindowPadding = (value: number) =>
+    setStoreKey("windowPadding", value)
   return (
     <>
-      <TextInput
+      <NumberInput
         label="Size of grid snapping"
-        placeholder="Number value"
-        value={String(gridSize)}
+        placeholder="32"
+        unit="px"
+        value={gridSize}
         onChange={setGridSize}
-        validate={value => /(\d*)/.exec(value)?.[0] === value}
       />
-      <TextInput
+      <NumberInput
         label="Window padding"
-        placeholder="Number value"
-        value={String(windowPadding)}
+        placeholder="8"
+        unit="px"
+        value={windowPadding}
         onChange={setWindowPadding}
-        validate={value => /(\d*)/.exec(value)?.[0] === value}
       />
       <TileCssEditor />
     </>
