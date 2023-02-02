@@ -24,18 +24,20 @@ export interface SelectOption<T extends string = string> {
 
 export interface SelectProps<T extends string = string>
   extends InputLabelProps {
+  value: T
   options: SelectOption<T>[]
   placeholder?: string
-  onChange?: (value: T) => void
+  onChange: (value: T) => void
 }
 
 export const Select = <T extends string>({
   options,
   placeholder,
   onChange,
+  value,
   ...labelProps
 }: SelectProps<T>) => {
-  const selectState = useSelect({ options, onChange })
+  const selectState = useSelect({ value, options, onChange })
 
   return (
     <SelectContext.Provider value={selectState}>

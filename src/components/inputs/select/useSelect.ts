@@ -20,6 +20,8 @@ import { SelectOption, SelectProps } from "./Select"
 type FloatingProps = UseFloatingReturn
 
 interface SelectInteractionsProps extends Pick<FloatingProps, "context"> {
+  selectedIndex: number
+  setSelectedIndex: (value: number) => void
   options: SelectOption[]
   optionNodes: MutableRefObject<(HTMLElement | null)[]>
 }
@@ -28,9 +30,10 @@ const useSelectInteractions = ({
   context,
   options,
   optionNodes,
+  selectedIndex,
+  setSelectedIndex,
 }: SelectInteractionsProps) => {
   const [focusIndex, setFocusIndex] = useState<number | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   const click = useClick(context, { event: "mousedown" })
   const dismiss = useDismiss(context)
@@ -152,10 +155,24 @@ const middleware = [
   }),
 ]
 
-type Args<T extends string> = Pick<SelectProps<T>, "onChange" | "options">
+const getSelectedIndex = (value: string, options: SelectOption[]) =>
+  options.findIndex(option => option.value === value)
 
-export const useSelect = <T extends string>({ options, onChange }: Args<T>) => {
+type Args<T extends string> = Pick<
+  SelectProps<T>,
+  "onChange" | "options" | "value"
+>
+
+export const useSelect = <T extends string>({
+  options,
+  onChange,
+  value,
+}: Args<T>) => {
   const [open, setOpen] = useState(false)
+
+  const selectedIndex = getSelectedIndex(value, options)
+  const selectedOption = options[selectedIndex]
+  const setSelectedIndex = (index: number) => onChange(options[index].value)
 
   const floating = useFloating({
     placement: "bottom-start",
@@ -168,18 +185,17 @@ export const useSelect = <T extends string>({ options, onChange }: Args<T>) => {
 
   const optionNodes = useRef<(HTMLElement | null)[]>([])
 
-  const { focusIndex, selectedIndex, setSelectedIndex, interactions } =
-    useSelectInteractions({
-      optionNodes,
-      options,
-      context,
-    })
-
-  const selectedOption = selectedIndex != null ? options[selectedIndex] : null
+  const { focusIndex, interactions } = useSelectInteractions({
+    optionNodes,
+    options,
+    context,
+    selectedIndex,
+    setSelectedIndex,
+  })
 
   const selectOption = (index: number) => {
     setSelectedIndex(index)
-    onChange?.(options[index].value)
+    onChange(options[index].value)
     setOpen(false)
   }
   const elementProps = useElementProps({

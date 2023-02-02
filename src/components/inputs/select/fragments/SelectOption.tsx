@@ -45,7 +45,7 @@ export const SelectOption = ({ index, value, label }: SelectOptionProps) => {
   return (
     <Option key={value} {...getOptionProps(index)}>
       {label ?? value}
-      {selectedOption?.value === value && <Icon icon={Check} />}
+      {selectedOption.value === value && <Icon icon={Check} />}
     </Option>
   )
 }
