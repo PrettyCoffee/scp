@@ -5,32 +5,50 @@ import * as Radix from "@radix-ui/react-accordion"
 import { Separator } from "../../primitives"
 import { AccordionItem, AccordionItemProps } from "./AccordionItem"
 
-const getItemProps = (children: AccordionRootProps["children"]) =>
-  Children.map(children, ({ props }) => props)
+type AccordionChild = ReactElement<AccordionItemProps>
 
-const getAllLabels = (children: AccordionRootProps["children"]) =>
+const childrenToArray = (children: AccordionChild | AccordionChild[]) =>
+  Array.isArray(children) ? children : [children]
+
+const getItemProps = (children: AccordionChild[]) =>
+  children.map(({ props }) => props)
+
+const getAllLabels = (children: AccordionChild[]) =>
   getItemProps(children).map(({ label }) => label)
 
-const getInitialOpen = (children: AccordionRootProps["children"]) =>
+const getInitialOpen = (children: AccordionChild[]) =>
   getItemProps(children).reduce<string[]>(
     (result, { initialOpen, label }) =>
       initialOpen ? [...result, label] : result,
     []
   )
 
+const convertState = (
+  open: string[],
+  children: AccordionChild[]
+): AccordionState => {
+  const elements = Children.toArray(children)
+  const opened = open.length
+  const items = elements.length
+
+  return opened === 0 ? "none" : opened === items ? "all" : open
+}
+
 const useInitialOpen = ({
-  children,
+  elements,
   onOpenChange,
-}: Pick<AccordionRootProps, "children" | "onOpenChange">) => {
+}: Pick<AccordionRootProps, "onOpenChange"> & {
+  elements: AccordionChild[]
+}) => {
   const initialRender = useRef(true)
 
   useEffect(() => {
     if (initialRender.current) {
-      const initialOpen = getInitialOpen(children)
-      onOpenChange(initialOpen)
+      const initialOpen = getInitialOpen(elements)
+      onOpenChange(convertState(initialOpen, elements))
       initialRender.current = false
     }
-  }, [children, onOpenChange])
+  }, [elements, onOpenChange])
 }
 
 const Root = styled(Radix.Root)(
@@ -46,9 +64,7 @@ export type AccordionState = string[] | "all" | "none"
 export interface AccordionRootProps {
   open: AccordionState
   onOpenChange: (open: AccordionState) => void
-  children:
-    | ReactElement<AccordionItemProps>
-    | ReactElement<AccordionItemProps>[]
+  children: AccordionChild | AccordionChild[]
 }
 
 const AccordionRoot = ({
@@ -56,19 +72,15 @@ const AccordionRoot = ({
   open,
   onOpenChange,
 }: AccordionRootProps) => {
-  const elements = Array.isArray(children) ? children : [children]
+  const elements = childrenToArray(children)
 
-  useInitialOpen({ children, onOpenChange })
+  useInitialOpen({ elements, onOpenChange })
 
-  const handleChange = (value: string[]) => {
-    const opened = value.length
-    const items = elements.length
-    const newValue = opened === 0 ? "none" : opened === items ? "all" : value
-    onOpenChange(newValue)
-  }
+  const handleChange = (value: string[]) =>
+    onOpenChange(convertState(value, elements))
 
   const openState =
-    open === "all" ? getAllLabels(children) : open === "none" ? [] : open
+    open === "all" ? getAllLabels(elements) : open === "none" ? [] : open
 
   return (
     <Root type="multiple" value={openState} onValueChange={handleChange}>
