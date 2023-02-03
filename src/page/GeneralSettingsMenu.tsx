@@ -17,6 +17,7 @@ import {
 } from "../components"
 import { NumberInput } from "../components/inputs/NumberInput"
 import { useGeneralStore } from "../store"
+import { BackgroundSettings } from "./BackgroundSettings"
 
 export const InputGrid = styled.div<{ columns?: number }>(
   ({ theme: { space }, columns = 2 }) => css`
@@ -91,6 +92,10 @@ const GeneralSettings = (
   <Accordion.Root {...props}>
     <Accordion.Item label="Spacing">
       <SpacingEditor />
+    </Accordion.Item>
+
+    <Accordion.Item label="Background">
+      <BackgroundSettings />
     </Accordion.Item>
 
     <Accordion.Item label="Custom CSS">
