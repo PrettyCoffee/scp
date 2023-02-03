@@ -1,5 +1,6 @@
 import { FloatingFocusManager } from "@floating-ui/react"
 
+import { scrollFocus } from "../../../base"
 import { Select_Z_INDEX } from "../../../base/z-index"
 import { inputBorder } from "../../utils/inputBorder"
 import { useSelectContext } from "../Select"
@@ -8,6 +9,8 @@ import { SelectOption } from "./SelectOption"
 const StyledContent = styled.div(
   ({ theme, theme: { tokens, shadow, space } }) => css`
     ${inputBorder({ theme, color: "none" })}
+    ${scrollFocus({ theme })}
+    
     background-color: ${tokens.background.input};
     z-index: ${Select_Z_INDEX};
     box-shadow: ${shadow.medium};

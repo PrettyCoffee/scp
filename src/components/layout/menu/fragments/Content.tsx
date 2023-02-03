@@ -7,6 +7,7 @@ import {
 } from "@floating-ui/react"
 import Color from "color"
 
+import { scrollFocus } from "../../../base"
 import { MODAL_Z_INDEX } from "../../../base/z-index"
 import { ErrorBoundary } from "../../../utility"
 import { useMenuContext } from "../utils/MenuContext"
@@ -62,7 +63,8 @@ const Surface = styled.div<TransitionStatus>(
 )
 
 const ScrollLayout = styled.div(
-  ({ theme: { space } }) => css`
+  ({ theme, theme: { space } }) => css`
+    ${scrollFocus({ theme })}
     padding: 0 ${space.sm};
     margin-bottom: ${space.md};
     padding-top: ${space.md};
