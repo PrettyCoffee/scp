@@ -1,5 +1,7 @@
 import { Root } from "@radix-ui/react-separator"
 
+import { ErrorBoundary } from "../utility"
+
 const Hr = styled(Root)(
   ({ theme: { tokens, space } }) => css`
     --thiccness: ${space["3xs"]};
@@ -28,5 +30,7 @@ interface SeparatorProps {
 }
 
 export const Separator = ({ orientation = "horizontal" }: SeparatorProps) => (
-  <Hr orientation={orientation} />
+  <ErrorBoundary>
+    <Hr orientation={orientation} />
+  </ErrorBoundary>
 )

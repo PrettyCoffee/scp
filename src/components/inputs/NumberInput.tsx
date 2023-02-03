@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import { useLatest } from "../hooks"
+import { ErrorBoundary } from "../utility"
 import { TextInput, TextInputProps } from "./TextInput"
 
 const validate = (value: string) => !Number.isNaN(Number(value))
@@ -24,11 +25,13 @@ export const NumberInput = ({
   }, [internal, onChangeRef])
 
   return (
-    <TextInput
-      {...delegated}
-      value={internal}
-      onChange={setInternal}
-      validate={validate}
-    />
+    <ErrorBoundary>
+      <TextInput
+        {...delegated}
+        value={internal}
+        onChange={setInternal}
+        validate={validate}
+      />
+    </ErrorBoundary>
   )
 }

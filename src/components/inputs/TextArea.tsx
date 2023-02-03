@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { ErrorBoundary } from "../utility"
 import { InputLabel } from "./fragments/InputLabel"
 import { InputStyleProps, inputStyles } from "./utils/inputStyles"
 
@@ -35,12 +36,14 @@ export const TextArea = ({
   }
 
   return (
-    <InputLabel label={label} display="block">
-      <Area
-        valid={valid}
-        onChange={({ target: { value } }) => handleChange(value)}
-        {...delegated}
-      />
-    </InputLabel>
+    <ErrorBoundary>
+      <InputLabel label={label} display="block">
+        <Area
+          valid={valid}
+          onChange={({ target: { value } }) => handleChange(value)}
+          {...delegated}
+        />
+      </InputLabel>
+    </ErrorBoundary>
   )
 }

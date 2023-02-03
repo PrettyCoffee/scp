@@ -2,6 +2,7 @@ import { createContext, useContext } from "react"
 
 import { FloatingPortal } from "@floating-ui/react"
 
+import { ErrorBoundary } from "../../utility"
 import { InputLabelProps } from "../fragments/InputLabel"
 import { SelectContent } from "./fragments/SelectContent"
 import { SelectTrigger } from "./fragments/SelectTrigger"
@@ -40,11 +41,13 @@ export const Select = <T extends string>({
   const selectState = useSelect({ value, options, onChange })
 
   return (
-    <SelectContext.Provider value={selectState}>
-      <SelectTrigger placeholder={placeholder} {...labelProps} />
-      <FloatingPortal>
-        <SelectContent options={options} />
-      </FloatingPortal>
-    </SelectContext.Provider>
+    <ErrorBoundary>
+      <SelectContext.Provider value={selectState}>
+        <SelectTrigger placeholder={placeholder} {...labelProps} />
+        <FloatingPortal>
+          <SelectContent options={options} />
+        </FloatingPortal>
+      </SelectContext.Provider>
+    </ErrorBoundary>
   )
 }

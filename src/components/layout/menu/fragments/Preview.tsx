@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react"
 
 import { MODAL_Z_INDEX } from "../../../base/z-index"
+import { ErrorBoundary } from "../../../utility"
 import { useMenuContext } from "../utils/MenuContext"
 import { transition, TransitionStatus } from "./Content"
 
@@ -26,11 +27,13 @@ const Layout = styled.div<TransitionStatus>(
 export const Preview = (props: PropsWithChildren) => {
   const { status } = useMenuContext()
   return (
-    <Layout
-      aria-hidden
-      status={status}
-      {...props}
-      onClick={e => e.stopPropagation()}
-    />
+    <ErrorBoundary>
+      <Layout
+        aria-hidden
+        status={status}
+        {...props}
+        onClick={e => e.stopPropagation()}
+      />
+    </ErrorBoundary>
   )
 }

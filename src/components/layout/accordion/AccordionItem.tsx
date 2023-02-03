@@ -4,6 +4,7 @@ import * as Radix from "@radix-ui/react-accordion"
 import Color from "color"
 
 import { Icon, Chevron, Text } from "../../primitives"
+import { ErrorBoundary } from "../../utility"
 
 const Header = styled(Radix.Header)`
   display: block;
@@ -65,8 +66,8 @@ export interface AccordionItemProps {
 export const AccordionItem = ({
   children,
   label,
-}: PropsWithChildren<AccordionItemProps>) => {
-  return (
+}: PropsWithChildren<AccordionItemProps>) => (
+  <ErrorBoundary>
     <Radix.Item value={label}>
       <Header>
         <Trigger>
@@ -76,5 +77,5 @@ export const AccordionItem = ({
       </Header>
       <Content>{children}</Content>
     </Radix.Item>
-  )
-}
+  </ErrorBoundary>
+)

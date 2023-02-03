@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "../utility"
 import { FontProps, fontStyles } from "./Text"
 
 type LinkTextProps = Pick<FontProps, "size">
@@ -26,5 +27,7 @@ export interface LinkProps extends LinkTextProps {
 }
 
 export const Link = ({ children, ...delegated }: LinkProps) => (
-  <LinkText {...delegated}>{children}</LinkText>
+  <ErrorBoundary>
+    <LinkText {...delegated}>{children}</LinkText>
+  </ErrorBoundary>
 )

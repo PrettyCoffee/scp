@@ -1,6 +1,7 @@
 import Color from "color"
 
 import { fontStyles, Icon, IconProps } from "../primitives"
+import { ErrorBoundary } from "../utility"
 import { inputBorder } from "./utils/inputBorder"
 
 const opacity = (color: string, opacity: number) =>
@@ -62,8 +63,10 @@ interface ButtonProps {
 }
 
 export const Button = ({ caption, icon, ...props }: ButtonProps) => (
-  <ButtonBase {...props}>
-    {caption}
-    {icon && <Icon icon={icon} />}
-  </ButtonBase>
+  <ErrorBoundary>
+    <ButtonBase {...props}>
+      {caption}
+      {icon && <Icon icon={icon} />}
+    </ButtonBase>
+  </ErrorBoundary>
 )

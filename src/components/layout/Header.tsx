@@ -3,9 +3,15 @@ import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 import { HEADER_Z_INDEX } from "../base/z-index"
 import { ErrorBoundary } from "../utility"
 
-const Start = ({ children }: PropsWithChildren) => <>{children}</>
-const Center = ({ children }: PropsWithChildren) => <>{children}</>
-const End = ({ children }: PropsWithChildren) => <>{children}</>
+const Start = ({ children }: PropsWithChildren) => (
+  <ErrorBoundary>{children}</ErrorBoundary>
+)
+const Center = ({ children }: PropsWithChildren) => (
+  <ErrorBoundary>{children}</ErrorBoundary>
+)
+const End = ({ children }: PropsWithChildren) => (
+  <ErrorBoundary>{children}</ErrorBoundary>
+)
 
 interface Elements {
   start: ReactNode[]

@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 import { fontStyles, Text } from "../primitives"
+import { ErrorBoundary } from "../utility"
 import { InputBorder, ShakeState } from "./fragments/InputBorder"
 import { InputLabel } from "./fragments/InputLabel"
 
@@ -53,23 +54,25 @@ export const TextInput = ({
   }
 
   return (
-    <InputLabel label={label}>
-      <InputBorder
-        valid={valid}
-        applyShake={applyShake}
-        onAnimationEnd={() => setApplyShake("off")}
-      >
-        <Input
-          onChange={({ target: { value } }) => handleChange(value)}
-          onBlur={() => setValid(true)}
-          {...delegated}
-        />
-        {unit && (
-          <UnitText color="muted" display="block">
-            {unit}
-          </UnitText>
-        )}
-      </InputBorder>
-    </InputLabel>
+    <ErrorBoundary>
+      <InputLabel label={label}>
+        <InputBorder
+          valid={valid}
+          applyShake={applyShake}
+          onAnimationEnd={() => setApplyShake("off")}
+        >
+          <Input
+            onChange={({ target: { value } }) => handleChange(value)}
+            onBlur={() => setValid(true)}
+            {...delegated}
+          />
+          {unit && (
+            <UnitText color="muted" display="block">
+              {unit}
+            </UnitText>
+          )}
+        </InputBorder>
+      </InputLabel>
+    </ErrorBoundary>
   )
 }

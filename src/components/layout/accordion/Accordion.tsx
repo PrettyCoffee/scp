@@ -3,6 +3,7 @@ import { Children, Fragment, ReactElement, useEffect, useRef } from "react"
 import * as Radix from "@radix-ui/react-accordion"
 
 import { Separator } from "../../primitives"
+import { ErrorBoundary } from "../../utility"
 import { AccordionItem, AccordionItemProps } from "./AccordionItem"
 
 type AccordionChild = ReactElement<AccordionItemProps>
@@ -83,14 +84,16 @@ const AccordionRoot = ({
     open === "all" ? getAllLabels(elements) : open === "none" ? [] : open
 
   return (
-    <Root type="multiple" value={openState} onValueChange={handleChange}>
-      {elements.map(element => (
-        <Fragment key={element.props.label}>
-          {element}
-          <Separator />
-        </Fragment>
-      ))}
-    </Root>
+    <ErrorBoundary>
+      <Root type="multiple" value={openState} onValueChange={handleChange}>
+        {elements.map(element => (
+          <Fragment key={element.props.label}>
+            {element}
+            <Separator />
+          </Fragment>
+        ))}
+      </Root>
+    </ErrorBoundary>
   )
 }
 
