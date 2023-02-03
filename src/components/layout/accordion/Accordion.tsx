@@ -5,6 +5,14 @@ import * as Radix from "@radix-ui/react-accordion"
 import { Separator } from "../../primitives"
 import { AccordionItem, AccordionItemProps } from "./AccordionItem"
 
+const Root = styled(Radix.Root)(
+  ({ theme: { space } }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${space.sm};
+  `
+)
+
 export interface AccordionRootProps {
   children:
     | ReactElement<AccordionItemProps>
@@ -21,14 +29,14 @@ const AccordionRoot = ({ children }: AccordionRootProps) => {
   const [open, setOpen] = useState(getInitialOpen(children))
 
   return (
-    <Radix.Root type="multiple" value={open} onValueChange={setOpen}>
-      {elements.map((element, index) => (
+    <Root type="multiple" value={open} onValueChange={setOpen}>
+      {elements.map(element => (
         <Fragment key={element.props.label}>
-          {index > 0 && <Separator />}
           {element}
+          <Separator />
         </Fragment>
       ))}
-    </Radix.Root>
+    </Root>
   )
 }
 

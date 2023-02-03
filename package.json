@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.10.5",
     "@floating-ui/react": "^0.18.0",
     "@radix-ui/react-accordion": "^1.1.0",
+    "@radix-ui/react-separator": "^1.0.1",
     "@radix-ui/react-toggle": "^1.0.1",
     "@startpage/local-storage": "^0.2.6",
     "color": "^4.2.3",
