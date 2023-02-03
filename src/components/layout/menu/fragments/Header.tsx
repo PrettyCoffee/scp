@@ -7,6 +7,7 @@ import { useMenuContext } from "../utils/MenuContext"
 
 const Layout = styled.div(
   ({ theme: { space } }) => css`
+    order: 1;
     display: flex;
     align-items: center;
     height: ${space.xl};

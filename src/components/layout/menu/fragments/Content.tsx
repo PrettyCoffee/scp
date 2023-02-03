@@ -65,6 +65,7 @@ const Surface = styled.div<TransitionStatus>(
 const ScrollLayout = styled.div(
   ({ theme, theme: { space } }) => css`
     ${scrollFocus({ theme })}
+    order: 2;
     padding: 0 ${space.sm};
     margin-bottom: ${space.md};
     padding-top: ${space.md};
@@ -131,8 +132,8 @@ export const Content = ({ children }: PropsWithChildren) => {
             status={status}
             {...getFloatingProps()}
           >
-            {header}
             <ScrollLayout>{content}</ScrollLayout>
+            {header}
           </Surface>
         </SharedVars>
       </Floating>
