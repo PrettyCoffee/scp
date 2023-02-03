@@ -4,8 +4,11 @@ import { useTheme } from "@emotion/react"
 
 import {
   Accordion,
+  AccordionRootProps,
   AccordionState,
   Button,
+  Collapse,
+  Expand,
   IconButton,
   Menu,
   Settings,
@@ -82,39 +85,63 @@ const ResetButton = () => {
   )
 }
 
-const GeneralSettings = () => {
+const GeneralSettings = (
+  props: Pick<AccordionRootProps, "open" | "onOpenChange">
+) => (
+  <Accordion.Root {...props}>
+    <Accordion.Item label="Spacing">
+      <SpacingEditor />
+    </Accordion.Item>
+
+    <Accordion.Item label="Custom CSS">
+      <TileCssEditor />
+    </Accordion.Item>
+  </Accordion.Root>
+)
+
+const ExpandSettings = ({
+  open,
+  onOpenChange,
+}: Pick<AccordionRootProps, "open" | "onOpenChange">) =>
+  open === "none" ? (
+    <IconButton
+      caption="Expand all options"
+      icon={Expand}
+      look="compact"
+      onClick={() => onOpenChange("all")}
+    />
+  ) : (
+    <IconButton
+      caption="Collapse all options"
+      icon={Collapse}
+      look="compact"
+      onClick={() => onOpenChange("none")}
+    />
+  )
+
+export const GeneralSettingsMenu = () => {
   const [open, setOpen] = useState<AccordionState>("all")
 
   return (
-    <Accordion.Root open={open} onOpenChange={setOpen}>
-      <Accordion.Item label="Spacing">
-        <SpacingEditor />
-      </Accordion.Item>
-
-      <Accordion.Item label="Custom CSS">
-        <TileCssEditor />
-      </Accordion.Item>
-    </Accordion.Root>
+    <Menu.Root initialOpen>
+      <Menu.Trigger>
+        {(ref, props) => (
+          <IconButton
+            setRef={ref}
+            {...props}
+            icon={Settings}
+            caption="Open settings"
+            look="compact"
+          />
+        )}
+      </Menu.Trigger>
+      <Menu.Content>
+        <Menu.Header title="General Settings">
+          <ExpandSettings open={open} onOpenChange={setOpen} />
+        </Menu.Header>
+        <GeneralSettings open={open} onOpenChange={setOpen} />
+        <ResetButton />
+      </Menu.Content>
+    </Menu.Root>
   )
 }
-
-export const GeneralSettingsMenu = () => (
-  <Menu.Root initialOpen>
-    <Menu.Trigger>
-      {(ref, props) => (
-        <IconButton
-          setRef={ref}
-          {...props}
-          icon={Settings}
-          caption="Open settings"
-          look="compact"
-        />
-      )}
-    </Menu.Trigger>
-    <Menu.Content>
-      <Menu.Header title="General Settings" />
-      <GeneralSettings />
-      <ResetButton />
-    </Menu.Content>
-  </Menu.Root>
-)
