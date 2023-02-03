@@ -205,14 +205,14 @@ const WorkspaceNavigation = () => {
 }
 
 export const Page = () => {
-  const { windowPadding } = useGeneralStore()
+  const { headerGap } = useGeneralStore()
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const parentSize = useResizeObserver(ref)
 
   return (
-    <Wrapper gap={windowPadding}>
+    <Wrapper gap={headerGap}>
       <Header.Root>
         <Header.Start>
           <WorkspaceNavigation />

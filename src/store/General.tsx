@@ -58,6 +58,7 @@ export type Background<
 > = BackgroundLookup[T]
 
 interface GeneralStoreState {
+  headerGap: number
   windowPadding: number
   gridSize: number
   background: Background
@@ -65,6 +66,7 @@ interface GeneralStoreState {
 }
 
 const defaultState: GeneralStoreState = {
+  headerGap: spacing.px.sm,
   windowPadding: spacing.px.sm,
   gridSize: spacing.px.lg,
   background: defaultBg,

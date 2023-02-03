@@ -31,11 +31,12 @@ export const InputGrid = styled.div<{ columns?: number }>(
 )
 
 const SpacingEditor = () => {
-  const { gridSize, windowPadding, setStoreKey } = useGeneralStore()
+  const { gridSize, windowPadding, headerGap, setStoreKey } = useGeneralStore()
 
   const setGridSize = (value: number) => setStoreKey("gridSize", value)
   const setWindowPadding = (value: number) =>
     setStoreKey("windowPadding", value)
+  const setHeaderGap = (value: number) => setStoreKey("headerGap", value)
 
   return (
     <InputGrid columns={2}>
@@ -52,6 +53,13 @@ const SpacingEditor = () => {
         unit="px"
         value={windowPadding}
         onChange={setWindowPadding}
+      />
+      <NumberInput
+        label="Header gap (to widgets)"
+        placeholder="8"
+        unit="px"
+        value={headerGap}
+        onChange={setHeaderGap}
       />
     </InputGrid>
   )
