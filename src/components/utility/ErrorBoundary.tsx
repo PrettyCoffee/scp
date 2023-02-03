@@ -5,6 +5,8 @@ import {
   ErrorBoundaryProps,
 } from "react-error-boundary"
 
+import { Text } from "../primitives"
+
 const stackFilter = [
   "listenToNativeEvent",
   "withEmotionCache2/<",
@@ -23,7 +25,7 @@ const handleError: ErrorBoundaryProps["onError"] = (error, info) => {
   console.log(`%cStacktrace: %c${stack.join("\n")}`, "font-size: 20px;")
 }
 
-const Error = () => <>💥 CABOOM 💥</>
+const Error = () => <Text.Medium>💥 CABOOM 💥</Text.Medium>
 
 export const ErrorBoundary = ({ children }: PropsWithChildren) => (
   <ReactErrorBoundary FallbackComponent={Error} onError={handleError}>
