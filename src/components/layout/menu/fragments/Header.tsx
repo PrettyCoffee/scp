@@ -1,24 +1,30 @@
+import { PropsWithChildren } from "react"
+
 import { IconButton } from "../../../inputs"
-import { Close, Text } from "../../../primitives"
+import { Close, Separator, Text } from "../../../primitives"
 import { ErrorBoundary } from "../../../utility"
 import { useMenuContext } from "../utils/MenuContext"
+
+const Layout = styled.div(
+  ({ theme: { space } }) => css`
+    display: flex;
+    align-items: center;
+    height: ${space.xl};
+    padding-right: ${space.sm};
+    padding-left: calc(${space.md} + ${space.sm});
+    gap: ${space.xs};
+  `
+)
+
+const Spacer = styled.span`
+  flex: 1 1 0;
+`
 
 interface HeaderProps {
   title: string
 }
 
-const Layout = styled.div(
-  ({ theme: { space } }) => css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: ${space.xl};
-    padding-right: ${space.sm};
-    padding-left: ${space.md};
-  `
-)
-
-export const Header = ({ title }: HeaderProps) => {
+export const Header = ({ title, children }: PropsWithChildren<HeaderProps>) => {
   const { labelId, setOpen } = useMenuContext()
 
   return (
@@ -34,6 +40,14 @@ export const Header = ({ title }: HeaderProps) => {
         >
           {title}
         </Text.Headline>
+        <Spacer />
+        {children && (
+          <>
+            {children}
+            <Separator orientation="vertical" />
+            <span />
+          </>
+        )}
         <IconButton
           caption="Close menu"
           icon={Close}
