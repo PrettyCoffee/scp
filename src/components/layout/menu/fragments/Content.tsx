@@ -63,14 +63,14 @@ const Surface = styled.div<TransitionStatus>(
 
 const ScrollLayout = styled.div(
   ({ theme: { space } }) => css`
+    padding: 0 ${space.sm};
     margin-bottom: ${space.md};
-    padding: 0 ${space.md};
+    padding-top: ${space.md};
     overflow-x: hidden;
     overflow-y: auto;
 
     display: flex;
     flex-direction: column;
-    gap: ${space.sm};
     flex: 1 1 0;
   `
 )
