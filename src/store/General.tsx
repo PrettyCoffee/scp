@@ -105,6 +105,8 @@ export interface GeneralStoreState {
   }
 }
 
+export type GeneralStoreKey = keyof GeneralStoreState
+
 const defaultState: GeneralStoreState = {
   spacing: {
     headerGap: spacing.px.sm,
@@ -147,11 +149,18 @@ export const useGeneralStore = () => {
     [latest, setter]
   )
 
-  const resetStore = useCallback(() => setStore(defaultState), [setStore])
+  const resetStoreKey = useCallback(
+    <Key extends keyof GeneralStoreState>(key: Key) =>
+      setter.current({
+        ...latest.current,
+        [key]: defaultState[key],
+      }),
+    [latest, setter]
+  )
 
   return {
     ...store,
     setStoreKey,
-    resetStore,
+    resetStoreKey,
   }
 }

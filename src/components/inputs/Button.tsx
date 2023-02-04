@@ -55,7 +55,7 @@ const ButtonBase = styled.button<Pick<ButtonProps, "look">>(
   `
 )
 
-interface ButtonProps {
+export interface ButtonProps {
   caption: string
   onClick?: () => void
   icon?: IconProps["icon"]

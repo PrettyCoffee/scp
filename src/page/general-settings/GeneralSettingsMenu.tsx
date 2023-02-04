@@ -22,14 +22,17 @@ const GeneralSettings = (
   <Accordion.Root {...props}>
     <Accordion.Item label="Spacing">
       <SpacingSettings />
+      <ResetButton category="spacing" storeKey="spacing" />
     </Accordion.Item>
 
     <Accordion.Item label="Background">
       <BackgroundSettings />
+      <ResetButton category="background" storeKey="background" />
     </Accordion.Item>
 
     <Accordion.Item label="Custom CSS">
       <CustomCssSettings />
+      <ResetButton category="custom css" storeKey="customCss" />
     </Accordion.Item>
   </Accordion.Root>
 )
@@ -55,7 +58,6 @@ export const GeneralSettingsMenu = () => {
           <ExpandButton open={open} onOpenChange={setOpen} />
         </Menu.Header>
         <GeneralSettings open={open} onOpenChange={setOpen} />
-        <ResetButton />
       </Menu.Content>
     </Menu.Root>
   )
