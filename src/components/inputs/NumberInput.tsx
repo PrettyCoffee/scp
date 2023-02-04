@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { useLatest } from "../hooks"
 import { ErrorBoundary } from "../utility"
@@ -18,11 +18,21 @@ export const NumberInput = ({
   ...delegated
 }: NumberInputProps) => {
   const [internal, setInternal] = useState(String(value))
+  const wasInternalChange = useRef(false)
   const onChangeRef = useLatest(onChange)
 
   useEffect(() => {
     onChangeRef.current(Number(internal))
+    wasInternalChange.current = true
   }, [internal, onChangeRef])
+
+  useEffect(() => {
+    if (wasInternalChange.current) {
+      wasInternalChange.current = false
+      return
+    }
+    setInternal(String(value))
+  }, [value])
 
   return (
     <ErrorBoundary>
