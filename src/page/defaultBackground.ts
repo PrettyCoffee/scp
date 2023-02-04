@@ -34,11 +34,17 @@ export const custom: Background<"custom"> = {
  * Example Styles  *
  * * * * * * * * * */
 
-opacity: 0.5;
+opacity: 0.25;
 background-image: linear-gradient(
-  0deg,
-  hsl(50, 100%, 49%) 50%,
-  hsl(214, 54%, 48%) 50%
+  180deg,
+  #000 0 12.5%,
+  #72501e 12.5% 25%,
+  #ff0018 25% 37.5%,
+  #ffa52c 37.5% 50%,
+  #ffff41 50% 62.5%,
+  #008018 62.5% 75%,
+  #0000f9 75% 87.5%,
+  #86007d 87.5% 100%
 );
 `,
 }

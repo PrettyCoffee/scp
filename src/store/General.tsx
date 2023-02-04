@@ -3,15 +3,26 @@ import { useCallback } from "react"
 import { createStorageContext } from "@startpage/local-storage"
 
 import { useLatest } from "../components"
-import { cssTheme, spacing } from "../theme"
+import { spacing } from "../theme"
 
 const createDefaultStyles = (styles: string) =>
   `/* * * * * * * * * *
  * Example Styles  * <- remove this block
- * * * * * * * * * *
-${styles}
+ * * * * * * * * * *    to apply styles
+${styles}`
 
-`
+const defaultGlobalCss = createDefaultStyles(`
+:root {
+  --tokens-accent: coral;
+}
+
+/** Note:
+ *  Don't try to target the
+ *  css-xxxxxxx class names!
+ *  They are unstable and 
+ *  can change over time. 
+ **/
+`)
 
 const defaultHeaderCss = createDefaultStyles(`
 border-top: none;
@@ -42,7 +53,7 @@ opacity: 0.7;
 
 const defaultBg: Background<"solid"> = {
   type: "solid",
-  base: cssTheme.tokens.background.base,
+  base: "var(--tokens-background-base)",
 }
 
 type BgVariant<Type extends string, T> = T & {
@@ -87,6 +98,7 @@ interface GeneralStoreState {
   background: Background
   globalTileCss: string
   headerCss: string
+  globalCss: string
 }
 
 const defaultState: GeneralStoreState = {
@@ -96,6 +108,7 @@ const defaultState: GeneralStoreState = {
   background: defaultBg,
   globalTileCss: defaultTileCss,
   headerCss: defaultHeaderCss,
+  globalCss: defaultGlobalCss,
 }
 
 export const {
