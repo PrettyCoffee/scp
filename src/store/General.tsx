@@ -94,6 +94,7 @@ export type Background<
 export interface GeneralStoreState {
   spacing: {
     headerGap: number
+    widgetGap: number
     windowPadding: number
     headerPadding: number
     gridSize: number
@@ -111,6 +112,7 @@ export type GeneralStoreKey = keyof GeneralStoreState
 const defaultState: GeneralStoreState = {
   spacing: {
     headerGap: spacing.px.sm,
+    widgetGap: spacing.px.xs,
     windowPadding: spacing.px.sm,
     headerPadding: spacing.px.sm,
     gridSize: spacing.px.lg,

@@ -1,27 +1,31 @@
 import { PropsWithChildren, useRef, useState } from "react"
 
+import { useGeneralStore } from "~/store"
+
 import { ClassNameProp, Measurement, Position, SetState } from "../../base"
 import { Resizable, ResizeItem, Movable, ErrorBoundary } from "../../utility"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
 
-const MovableContainer = styled(Movable)`
-  ${({ theme: { space } }) => css`
-    padding: ${space.xs};
-  `}
-`
+const MovableContainer = styled(Movable)(() => {
+  const { spacing } = useGeneralStore()
+  return css`
+    padding: calc(${spacing.widgetGap}px / 2);
+  `
+})
 
 const Content = styled.div`
   ${({ theme: { space, border, tokens, shadow } }) => css`
     position: relative;
     border-radius: ${space.sm};
-    outline: ${border} ${tokens.text.muted};
     background-color: ${tokens.background.surface};
     height: 100%;
     width: 100%;
 
     box-shadow: ${shadow.medium};
 
+    outline-offset: calc(-1 * ${space["3xs"]});
+    outline: ${border} ${tokens.text.muted};
     :hover,
     :focus-within {
       outline: ${border} ${tokens.accent};
