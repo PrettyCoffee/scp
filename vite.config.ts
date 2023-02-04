@@ -1,9 +1,16 @@
+import path from "path"
+
 import react from "@vitejs/plugin-react"
 // eslint-disable-next-line import/no-unresolved
 import AutoImport from "unplugin-auto-import/vite"
 import { defineConfig } from "vite"
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "src"),
+    },
+  },
   plugins: [
     react({
       jsxImportSource: "@emotion/react",

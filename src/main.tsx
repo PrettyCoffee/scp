@@ -1,6 +1,6 @@
-import React from "react"
+import { StrictMode } from "react"
 
-import ReactDOM from "react-dom/client"
+import { createRoot } from "react-dom/client"
 
 import { App } from "./App"
 import { Store } from "./store"
@@ -10,12 +10,12 @@ const root = document.getElementById("root")
 
 if (!root) throw new Error(`ERROR: Node with id "root" is missing.`)
 
-ReactDOM.createRoot(root).render(
-  <React.StrictMode>
+createRoot(root).render(
+  <StrictMode>
     <Store>
       <ThemeProvider>
         <App />
       </ThemeProvider>
     </Store>
-  </React.StrictMode>
+  </StrictMode>
 )
