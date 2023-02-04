@@ -1,7 +1,7 @@
 import { TextArea } from "~/components"
 import { useGeneralStore } from "~/store"
 
-import { InputGrid } from "./fragments"
+import { InputGrid } from "../fragments"
 
 export const CustomCssSettings = () => {
   const { globalTileCss, headerCss, globalCss, setStoreKey } = useGeneralStore()

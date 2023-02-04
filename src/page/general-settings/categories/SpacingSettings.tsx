@@ -1,7 +1,7 @@
 import { NumberInput } from "~/components"
 import { useGeneralStore } from "~/store"
 
-import { InputGrid } from "./fragments"
+import { InputGrid } from "../fragments"
 
 export const SpacingSettings = () => {
   const { gridSize, windowPadding, headerGap, setStoreKey } = useGeneralStore()

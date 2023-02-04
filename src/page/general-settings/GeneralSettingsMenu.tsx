@@ -9,11 +9,12 @@ import {
   Settings,
 } from "~/components"
 
-import { BackgroundSettings } from "./BackgroundSettings"
-import { CustomCssSettings } from "./CustomCssSettings"
-import { ExpandButton } from "./fragments"
-import { ResetButton } from "./fragments/ResetButton"
-import { SpacingSettings } from "./SpacingSettings"
+import {
+  CustomCssSettings,
+  BackgroundSettings,
+  SpacingSettings,
+} from "./categories"
+import { ExpandButton, ResetButton } from "./fragments"
 
 const GeneralSettings = (
   props: Pick<AccordionRootProps, "open" | "onOpenChange">
