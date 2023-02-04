@@ -91,24 +91,32 @@ export type Background<
   T extends keyof BackgroundLookup = keyof BackgroundLookup
 > = BackgroundLookup[T]
 
-interface GeneralStoreState {
-  headerGap: number
-  windowPadding: number
-  gridSize: number
+export interface GeneralStoreState {
+  spacing: {
+    headerGap: number
+    windowPadding: number
+    gridSize: number
+  }
   background: Background
-  globalTileCss: string
-  headerCss: string
-  globalCss: string
+  customCss: {
+    tile: string
+    header: string
+    global: string
+  }
 }
 
 const defaultState: GeneralStoreState = {
-  headerGap: spacing.px.sm,
-  windowPadding: spacing.px.sm,
-  gridSize: spacing.px.lg,
+  spacing: {
+    headerGap: spacing.px.sm,
+    windowPadding: spacing.px.sm,
+    gridSize: spacing.px.lg,
+  },
   background: defaultBg,
-  globalTileCss: defaultTileCss,
-  headerCss: defaultHeaderCss,
-  globalCss: defaultGlobalCss,
+  customCss: {
+    tile: defaultTileCss,
+    header: defaultHeaderCss,
+    global: defaultGlobalCss,
+  },
 }
 
 export const {
@@ -125,12 +133,17 @@ export const useGeneralStore = () => {
   const setStoreKey = useCallback(
     <Key extends keyof GeneralStoreState>(
       key: Key,
-      value: GeneralStoreState[Key]
-    ) =>
+      value:
+        | GeneralStoreState[Key]
+        | ((prev: GeneralStoreState[Key]) => GeneralStoreState[Key])
+    ) => {
+      const newValue =
+        typeof value === "function" ? value(latest.current[key]) : value
       setter.current({
         ...latest.current,
-        [key]: value,
-      }),
+        [key]: newValue,
+      })
+    },
     [latest, setter]
   )
 

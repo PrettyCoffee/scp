@@ -66,7 +66,7 @@ const EndContent = styled(HeaderLayoutItem)`
 
 const HeaderItem = styled.div(
   ({ theme: { tokens, space, shadow, border } }) => {
-    const { headerCss } = useGeneralStore()
+    const { customCss } = useGeneralStore()
     return css`
       height: ${space.lg};
       min-width: max-content;
@@ -81,7 +81,7 @@ const HeaderItem = styled.div(
       border-radius: 50vh;
       box-shadow: ${shadow.medium};
 
-      ${headerCss}
+      ${customCss.header}
     `
   }
 )

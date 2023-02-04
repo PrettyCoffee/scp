@@ -11,8 +11,8 @@ export const Store = ({ children }: PropsWithChildren) => (
   <StoragePrefixProvider prefix="todo-">
     <GeneralStore>
       <GeneralStoreConsumer>
-        {([{ gridSize }]) => (
-          <WidgetStoreProvider initial={getDefaultTiles(gridSize)}>
+        {([{ spacing }]) => (
+          <WidgetStoreProvider initial={getDefaultTiles(spacing.gridSize)}>
             {children}
           </WidgetStoreProvider>
         )}

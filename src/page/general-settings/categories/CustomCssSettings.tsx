@@ -1,33 +1,34 @@
 import { TextArea } from "~/components"
 import { useGeneralStore } from "~/store"
+import { GeneralStoreState } from "~/store/General"
 
 import { InputGrid } from "../fragments"
 
 export const CustomCssSettings = () => {
-  const { globalTileCss, headerCss, globalCss, setStoreKey } = useGeneralStore()
-  const setGlobalTileCss = (value: string) =>
-    setStoreKey("globalTileCss", value)
-  const setHeaderCss = (value: string) => setStoreKey("headerCss", value)
-  const setGlobalCss = (value: string) => setStoreKey("globalCss", value)
+  const { customCss, setStoreKey } = useGeneralStore()
+
+  const createCssChange =
+    (key: keyof GeneralStoreState["customCss"]) => (value: string) =>
+      setStoreKey("customCss", customCss => ({ ...customCss, [key]: value }))
 
   return (
     <InputGrid columns={1}>
       <TextArea
-        value={globalCss}
+        value={customCss.global}
         label="Global CSS"
-        onChange={setGlobalCss}
+        onChange={createCssChange("global")}
         contentType="code"
       />
       <TextArea
-        value={headerCss}
+        value={customCss.header}
         label="Header CSS"
-        onChange={setHeaderCss}
+        onChange={createCssChange("header")}
         contentType="code"
       />
       <TextArea
-        value={globalTileCss}
+        value={customCss.tile}
         label="Global tile CSS"
-        onChange={setGlobalTileCss}
+        onChange={createCssChange("tile")}
         contentType="code"
       />
     </InputGrid>

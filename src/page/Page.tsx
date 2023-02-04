@@ -59,7 +59,7 @@ interface UserTileProps extends WidgetConfig {
 const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
-  const { gridSize, globalTileCss } = useGeneralStore()
+  const { customCss, spacing } = useGeneralStore()
 
   useEffect(() => {
     updateWidget(state)
@@ -74,15 +74,15 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
 
   const className = useMemo(
     () => createStyles`
-      ${globalTileCss}
+      ${customCss.tile}
       ${state.customCss}
     `,
-    [state.customCss, globalTileCss]
+    [state.customCss, customCss.tile]
   )
 
   return (
     <Tile
-      gridSize={gridSize}
+      gridSize={spacing.gridSize}
       parentSize={parentSize}
       className={className}
       {...state}
@@ -205,14 +205,14 @@ const WorkspaceNavigation = () => {
 }
 
 export const Page = () => {
-  const { headerGap } = useGeneralStore()
+  const { spacing } = useGeneralStore()
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const parentSize = useResizeObserver(ref)
 
   return (
-    <Wrapper gap={headerGap}>
+    <Wrapper gap={spacing.headerGap}>
       <Header.Root>
         <Header.Start>
           <WorkspaceNavigation />

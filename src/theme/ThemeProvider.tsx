@@ -25,12 +25,12 @@ export type Theme = typeof theme
 const joinedTheme = { ...cssTheme, raw: theme }
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const { globalCss } = useGeneralStore()
+  const { customCss } = useGeneralStore()
   return (
     <EmotionThemeProvider theme={joinedTheme}>
       <Global styles={`:root{${css}}`} />
       <GlobalStyles theme={joinedTheme} />
-      <Global styles={globalCss} />
+      <Global styles={customCss.global} />
       {children}
     </EmotionThemeProvider>
   )
