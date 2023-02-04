@@ -8,8 +8,9 @@ import {
   Text,
   Link,
   NumberInput,
-} from "../components"
-import { Background, useGeneralStore } from "../store/General"
+} from "~/components"
+import { Background, useGeneralStore } from "~/store/General"
+
 import { custom, image, pattern, solid } from "./defaultBackground"
 import { InputGrid } from "./GeneralSettingsMenu"
 

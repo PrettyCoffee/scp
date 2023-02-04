@@ -16,9 +16,10 @@ import {
   TileRect,
   ToggleButton,
   useResizeObserver,
-} from "../components"
-import { useGeneralStore } from "../store"
-import { useWidgetStore, WidgetConfig } from "../store/WidgetStore"
+} from "~/components"
+import { useGeneralStore } from "~/store"
+import { useWidgetStore, WidgetConfig } from "~/store/WidgetStore"
+
 import { GeneralSettingsMenu } from "./GeneralSettingsMenu"
 
 const BgCross = styled.div(

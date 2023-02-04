@@ -1,6 +1,7 @@
 import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 
-import { useGeneralStore } from "../../store"
+import { useGeneralStore } from "~/store"
+
 import { HEADER_Z_INDEX } from "../base/z-index"
 import { ErrorBoundary } from "../utility"
 

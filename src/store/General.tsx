@@ -2,8 +2,8 @@ import { useCallback } from "react"
 
 import { createStorageContext } from "@startpage/local-storage"
 
-import { useLatest } from "../components"
-import { spacing } from "../theme"
+import { useLatest } from "~/components"
+import { spacing } from "~/theme"
 
 const createDefaultStyles = (styles: string) =>
   `/* * * * * * * * * *

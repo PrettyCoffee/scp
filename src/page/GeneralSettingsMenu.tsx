@@ -14,9 +14,10 @@ import {
   Settings,
   TextArea,
   Trash,
-} from "../components"
-import { NumberInput } from "../components/inputs/NumberInput"
-import { useGeneralStore } from "../store"
+  NumberInput,
+} from "~/components"
+import { useGeneralStore } from "~/store"
+
 import { BackgroundSettings } from "./BackgroundSettings"
 
 export const InputGrid = styled.div<{ columns?: number }>(

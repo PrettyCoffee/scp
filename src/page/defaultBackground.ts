@@ -1,5 +1,5 @@
-import { Background } from "../store/General"
-import { cssTheme, theme } from "../theme"
+import { Background } from "~/store/General"
+import { cssTheme, theme } from "~/theme"
 
 const base = cssTheme.tokens.background.base
 

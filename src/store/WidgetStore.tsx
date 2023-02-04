@@ -7,7 +7,7 @@ import {
 
 import { useStorage } from "@startpage/local-storage"
 
-import { TileRect, Orientation } from "../components"
+import { TileRect, Orientation } from "~/components"
 
 export interface WidgetConfig {
   id: string

@@ -2,7 +2,8 @@ import { PropsWithChildren } from "react"
 
 import { StoragePrefixProvider } from "@startpage/local-storage"
 
-import { getDefaultTiles } from "../page/getDefaultTiles"
+import { getDefaultTiles } from "~/page/getDefaultTiles"
+
 import { GeneralStore, GeneralStoreConsumer } from "./General"
 import { WidgetStoreProvider } from "./WidgetStore"
 

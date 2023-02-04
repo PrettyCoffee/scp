@@ -14,7 +14,8 @@ import {
   UseFloatingReturn,
 } from "@floating-ui/react"
 
-import { spacing } from "../../../theme"
+import { spacing } from "~/theme"
+
 import { SelectOption, SelectProps } from "./Select"
 
 type FloatingProps = UseFloatingReturn

@@ -2,7 +2,8 @@ import { PropsWithChildren } from "react"
 
 import { Global, ThemeProvider as EmotionThemeProvider } from "@emotion/react"
 
-import { useGeneralStore } from "../store"
+import { useGeneralStore } from "~/store"
+
 import { color, tokens } from "./color"
 import { createCssVariables } from "./createCssVariables"
 import { GlobalStyles } from "./GlobalStyles"

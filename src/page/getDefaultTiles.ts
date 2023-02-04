@@ -1,5 +1,5 @@
-import { WidgetConfig } from "../store/WidgetStore"
-import { theme } from "../theme/ThemeProvider"
+import { WidgetConfig } from "~/store/WidgetStore"
+import { theme } from "~/theme"
 
 export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
   const sharedProps: Partial<WidgetConfig> = {

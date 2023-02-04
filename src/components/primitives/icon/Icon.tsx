@@ -1,4 +1,5 @@
-import { spacing } from "../../../theme/spacing"
+import { spacing } from "~/theme/spacing"
+
 import { ClassNameProp } from "../../base"
 import { ErrorBoundary } from "../../utility"
 import { IconDefinition, IconBaseProps } from "./icons/_IconBase"

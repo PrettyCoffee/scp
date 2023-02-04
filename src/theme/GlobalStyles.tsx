@@ -1,6 +1,6 @@
 import { Global, css, Theme } from "@emotion/react"
 
-import { ThemeProp } from "../components"
+import { ThemeProp } from "~/components"
 
 const styles = (theme: Theme) => css`
   html,
