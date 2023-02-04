@@ -1,4 +1,20 @@
-export const spacing = {
+export type Size =
+  | "3xs"
+  | "xxs"
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "xxl"
+  | "3xl"
+
+interface SpaceLookup {
+  px: Record<Size, number>
+  rem: Record<Size, string>
+}
+
+export const spacing: SpaceLookup = {
   px: {
     "3xs": 1,
     xxs: 2,
