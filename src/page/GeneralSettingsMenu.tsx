@@ -65,17 +65,27 @@ const SpacingEditor = () => {
   )
 }
 
-const TileCssEditor = () => {
-  const { globalTileCss, setStoreKey } = useGeneralStore()
+const CustomCss = () => {
+  const { globalTileCss, headerCss, setStoreKey } = useGeneralStore()
   const setGlobalTileCss = (value: string) =>
     setStoreKey("globalTileCss", value)
+  const setHeaderCss = (value: string) => setStoreKey("headerCss", value)
+
   return (
-    <TextArea
-      value={globalTileCss}
-      label="Global tile CSS"
-      onChange={setGlobalTileCss}
-      contentType="code"
-    />
+    <InputGrid columns={1}>
+      <TextArea
+        value={headerCss}
+        label="Header CSS"
+        onChange={setHeaderCss}
+        contentType="code"
+      />
+      <TextArea
+        value={globalTileCss}
+        label="Global tile CSS"
+        onChange={setGlobalTileCss}
+        contentType="code"
+      />
+    </InputGrid>
   )
 }
 
@@ -107,7 +117,7 @@ const GeneralSettings = (
     </Accordion.Item>
 
     <Accordion.Item label="Custom CSS">
-      <TileCssEditor />
+      <CustomCss />
     </Accordion.Item>
   </Accordion.Root>
 )

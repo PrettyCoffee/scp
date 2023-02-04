@@ -5,17 +5,40 @@ import { createStorageContext } from "@startpage/local-storage"
 import { useLatest } from "../components"
 import { cssTheme, spacing } from "../theme"
 
-const defaultTileCss = `/* * * * * * * * * *
- * Example Styles  *
- * * * * * * * * * */
+const createDefaultStyles = (styles: string) =>
+  `/* * * * * * * * * *
+ * Example Styles  * <- remove this block
+ * * * * * * * * * *
+${styles}
 
+`
+
+const defaultHeaderCss = createDefaultStyles(`
+border-top: none;
+
+&[data-align="start"] {
+  border-radius: 0 0 var(--space-md) 0;
+  border-left: none;
+}
+
+&[data-align="center"] {
+  border-radius: 0 0 var(--space-md) var(--space-md);
+}
+
+&[data-align="end"] {
+  border-radius: 0 0 0 var(--space-md);
+  border-right: none;
+}
+`)
+
+const defaultTileCss = createDefaultStyles(`
 outline-color: transparent;
 background-color: var(--tokens-background-surface);
 opacity: 0.7;
 :hover {
   opacity: 1;
 }
-`
+`)
 
 const defaultBg: Background<"solid"> = {
   type: "solid",
@@ -63,6 +86,7 @@ interface GeneralStoreState {
   gridSize: number
   background: Background
   globalTileCss: string
+  headerCss: string
 }
 
 const defaultState: GeneralStoreState = {
@@ -71,6 +95,7 @@ const defaultState: GeneralStoreState = {
   gridSize: spacing.px.lg,
   background: defaultBg,
   globalTileCss: defaultTileCss,
+  headerCss: defaultHeaderCss,
 }
 
 export const {

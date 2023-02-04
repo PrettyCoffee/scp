@@ -1,5 +1,6 @@
 import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 
+import { useGeneralStore } from "../../store"
 import { HEADER_Z_INDEX } from "../base/z-index"
 import { ErrorBoundary } from "../utility"
 
@@ -63,20 +64,25 @@ const EndContent = styled(HeaderLayoutItem)`
 `
 
 const HeaderItem = styled.div(
-  ({ theme: { tokens, space, shadow, border } }) => css`
-    height: ${space.lg};
-    min-width: max-content;
-    padding: 0 ${space.xs};
+  ({ theme: { tokens, space, shadow, border } }) => {
+    const { headerCss } = useGeneralStore()
+    return css`
+      height: ${space.lg};
+      min-width: max-content;
+      padding: 0 ${space.xs};
 
-    display: flex;
-    align-items: center;
-    gap: ${space.xxs};
+      display: flex;
+      align-items: center;
+      gap: ${space.xxs};
 
-    border: ${tokens.text.muted} ${border};
-    background-color: ${tokens.background.alt};
-    border-radius: 50vh;
-    box-shadow: ${shadow.medium};
-  `
+      border: ${tokens.text.muted} ${border};
+      background-color: ${tokens.background.alt};
+      border-radius: 50vh;
+      box-shadow: ${shadow.medium};
+
+      ${headerCss}
+    `
+  }
 )
 
 const Container = styled.div`
@@ -94,13 +100,17 @@ const Root = ({ children }: PropsWithChildren) => {
     <ErrorBoundary>
       <Container>
         <StartContent>
-          {start.length > 0 && <HeaderItem>{start}</HeaderItem>}
+          {start.length > 0 && (
+            <HeaderItem data-align="start">{start}</HeaderItem>
+          )}
         </StartContent>
         <CenterContent>
-          {center.length > 0 && <HeaderItem>{center}</HeaderItem>}
+          {center.length > 0 && (
+            <HeaderItem data-align="center">{center}</HeaderItem>
+          )}
         </CenterContent>
         <EndContent>
-          {end.length > 0 && <HeaderItem>{end}</HeaderItem>}
+          {end.length > 0 && <HeaderItem data-align="end">{end}</HeaderItem>}
         </EndContent>
       </Container>
     </ErrorBoundary>
