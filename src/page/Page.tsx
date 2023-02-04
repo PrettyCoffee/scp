@@ -17,10 +17,9 @@ import {
   ToggleButton,
   useResizeObserver,
 } from "~/components"
-import { useGeneralStore } from "~/store"
-import { useWidgetStore, WidgetConfig } from "~/store/WidgetStore"
+import { useGeneralStore, useWidgetStore, WidgetConfig } from "~/store"
 
-import { GeneralSettingsMenu } from "./GeneralSettingsMenu"
+import { GeneralSettingsMenu } from "./general-settings"
 
 const BgCross = styled.div(
   ({ theme: { tokens, space } }) => css`

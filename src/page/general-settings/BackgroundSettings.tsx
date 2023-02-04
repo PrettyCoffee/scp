@@ -9,10 +9,10 @@ import {
   Link,
   NumberInput,
 } from "~/components"
-import { Background, useGeneralStore } from "~/store/General"
+import { Background, useGeneralStore } from "~/store"
 
 import { custom, image, pattern, solid } from "./defaultBackground"
-import { InputGrid } from "./GeneralSettingsMenu"
+import { InputGrid } from "./fragments"
 
 const defaults = {
   custom,
