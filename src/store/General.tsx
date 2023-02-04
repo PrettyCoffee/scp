@@ -95,6 +95,7 @@ export interface GeneralStoreState {
   spacing: {
     headerGap: number
     windowPadding: number
+    headerPadding: number
     gridSize: number
   }
   background: Background
@@ -111,6 +112,7 @@ const defaultState: GeneralStoreState = {
   spacing: {
     headerGap: spacing.px.sm,
     windowPadding: spacing.px.sm,
+    headerPadding: spacing.px.sm,
     gridSize: spacing.px.lg,
   },
   background: defaultBg,

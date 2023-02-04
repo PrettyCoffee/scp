@@ -11,6 +11,7 @@ import {
   Measurement,
   Plus,
   SetState,
+  Spacing,
   Text,
   Tile,
   TileRect,
@@ -119,13 +120,6 @@ const Widgets = ({ editing, parentSize }: WidgetsProps) => {
   )
 }
 
-const Padding = styled.div(
-  ({ theme: { space } }) => css`
-    padding: ${space.sm};
-    font-size: calc(${space.md} * 0.8);
-  `
-)
-
 const Clock = () => {
   const [now, setNow] = useState(new Date())
 
@@ -149,11 +143,11 @@ const Clock = () => {
   })
 
   return (
-    <Padding>
+    <Spacing xAxis="sm">
       <Text.Small>{time}</Text.Small>
       <Text.Small color="muted"> | </Text.Small>
       <Text.Small>{date}</Text.Small>
-    </Padding>
+    </Spacing>
   )
 }
 
@@ -204,6 +198,21 @@ const WorkspaceNavigation = () => {
   )
 }
 
+const HeaderPadding = styled.div<{ padding: number }>(
+  ({ padding }) => css`
+    padding: ${padding}px;
+    padding-bottom: 0;
+  `
+)
+
+const WindowPadding = styled.div<{ padding: number }>(
+  ({ padding }) => css`
+    padding: ${padding}px;
+    padding-top: 0;
+    flex: 1;
+  `
+)
+
 export const Page = () => {
   const { spacing } = useGeneralStore()
   const [editing, setEditing] = useState(false)
@@ -213,35 +222,39 @@ export const Page = () => {
 
   return (
     <Wrapper gap={spacing.headerGap}>
-      <Header.Root>
-        <Header.Start>
-          <WorkspaceNavigation />
-        </Header.Start>
-        <Header.Center>
-          <Clock />
-        </Header.Center>
-        <Header.End>
-          <IconButton
-            icon={Github}
-            caption="Github repository"
-            href="https://github.com/PrettyCoffee/scp"
-            look="compact"
-            target="_blank"
-          />
-          <ToggleButton
-            pressed={editing}
-            onClick={setEditing}
-            icon={Grid}
-            caption="Edit widget positions and sizes"
-            look="compact"
-          />
-          <GeneralSettingsMenu />
-        </Header.End>
-      </Header.Root>
-      <Relative ref={ref}>
-        {editing && <BgCross />}
-        <Widgets editing={editing} parentSize={parentSize} />
-      </Relative>
+      <HeaderPadding padding={spacing.headerPadding}>
+        <Header.Root>
+          <Header.Start>
+            <WorkspaceNavigation />
+          </Header.Start>
+          <Header.Center>
+            <Clock />
+          </Header.Center>
+          <Header.End>
+            <IconButton
+              icon={Github}
+              caption="Github repository"
+              href="https://github.com/PrettyCoffee/scp"
+              look="compact"
+              target="_blank"
+            />
+            <ToggleButton
+              pressed={editing}
+              onClick={setEditing}
+              icon={Grid}
+              caption="Edit widget positions and sizes"
+              look="compact"
+            />
+            <GeneralSettingsMenu />
+          </Header.End>
+        </Header.Root>
+      </HeaderPadding>
+      <WindowPadding padding={spacing.windowPadding}>
+        <Relative ref={ref}>
+          {editing && <BgCross />}
+          <Widgets editing={editing} parentSize={parentSize} />
+        </Relative>
+      </WindowPadding>
     </Wrapper>
   )
 }

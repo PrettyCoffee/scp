@@ -6,7 +6,7 @@ import { InputGrid } from "../fragments"
 
 export const SpacingSettings = () => {
   const { spacing, setStoreKey } = useGeneralStore()
-  const { gridSize, headerGap, windowPadding } = spacing
+  const { gridSize, headerGap, windowPadding, headerPadding } = spacing
 
   const createSpacingChange =
     (key: keyof GeneralStoreState["spacing"]) => (value: number) =>
@@ -15,11 +15,11 @@ export const SpacingSettings = () => {
   return (
     <InputGrid columns={2}>
       <NumberInput
-        label="Size of grid snapping"
-        placeholder="32"
+        label="Header padding"
+        placeholder="8"
         unit="px"
-        value={gridSize}
-        onChange={createSpacingChange("gridSize")}
+        value={headerPadding}
+        onChange={createSpacingChange("headerPadding")}
       />
       <NumberInput
         label="Window padding"
@@ -29,11 +29,18 @@ export const SpacingSettings = () => {
         onChange={createSpacingChange("windowPadding")}
       />
       <NumberInput
-        label="Header gap (to widgets)"
+        label="Header/Widgets gap"
         placeholder="8"
         unit="px"
         value={headerGap}
         onChange={createSpacingChange("headerGap")}
+      />
+      <NumberInput
+        label="Size of grid snapping"
+        placeholder="32"
+        unit="px"
+        value={gridSize}
+        onChange={createSpacingChange("gridSize")}
       />
     </InputGrid>
   )
