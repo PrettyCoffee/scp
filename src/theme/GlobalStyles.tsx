@@ -1,6 +1,8 @@
-import { Global, css } from "@emotion/react"
+import { Global, css, Theme } from "@emotion/react"
 
-const styles = css`
+import { ThemeProp } from "../components"
+
+const styles = (theme: Theme) => css`
   html,
   body,
   #root {
@@ -47,6 +49,25 @@ const styles = css`
     outline: none;
   }
 
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: ${theme.space.xs};
+    margin: ${theme.space.xs} 0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.tokens.background.input};
+    border-radius: ${theme.space.xs};
+    :hover {
+      background: ${theme.tokens.background.hover};
+    }
+    :active {
+      background: ${theme.tokens.background.press};
+    }
+  }
+  ::-webkit-scrollbar {
+    width: ${theme.space.sm};
+  }
+
   /* Keyboard focus debugging
   *:focus-visible {
     outline: 2px solid red !important;
@@ -54,4 +75,6 @@ const styles = css`
   */
 `
 
-export const GlobalStyles = () => <Global styles={styles} />
+export const GlobalStyles = ({ theme }: ThemeProp) => (
+  <Global styles={styles(theme)} />
+)
