@@ -1,5 +1,5 @@
 import { WidgetConfig } from "~/store/WidgetStore"
-import { theme } from "~/theme"
+import { cssTheme } from "~/theme"
 
 export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
   const sharedProps: Partial<WidgetConfig> = {
@@ -21,7 +21,7 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: defaultRect,
       ...sharedProps,
       customCss: `
-        --tokens-accent: ${theme.color.red};
+        --tokens-accent: ${cssTheme.color.red};
       `,
     },
     {
@@ -30,7 +30,7 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: { ...defaultRect, x: gridSize * -2 },
       ...sharedProps,
       customCss: `
-        --tokens-accent: ${theme.color.flamingo};
+        --tokens-accent: ${cssTheme.color.flamingo};
       `,
     },
     {
@@ -39,7 +39,7 @@ export const getDefaultTiles = (gridSize: number): WidgetConfig[] => {
       rect: defaultRect,
       ...sharedProps,
       customCss: `
-        --tokens-accent: ${theme.color.yellow};
+        --tokens-accent: ${cssTheme.color.yellow};
       `,
     },
 

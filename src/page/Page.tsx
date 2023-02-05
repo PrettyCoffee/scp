@@ -73,13 +73,11 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
     })
   }, [])
 
-  const className = useMemo(
-    () => createStyles`
-      ${customCss.tile}
-      ${state.customCss}
-    `,
-    [state.customCss, customCss.tile]
-  )
+  const className = useMemo(() => {
+    const shared = createStyles(customCss.tile)
+    const custom = createStyles(state.customCss)
+    return `${shared} ${custom}`
+  }, [customCss.tile, state.customCss])
 
   return (
     <Tile
