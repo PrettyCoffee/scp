@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef, useState } from "react"
 
-import { Position } from "../base/baseProps"
+import { globalCursor, Position } from "../base"
 import { useEventListener } from "./useEventListener"
 import { useLatest } from "./useLatest"
 import { useThrottle } from "./useThrottle"
@@ -133,7 +133,7 @@ export const useDragging = ({
       e.preventDefault()
       setIsDragging(true)
       startPosition.current = { x: e.clientX, y: e.clientY }
-      if (cursor) applyCursor(cursor)
+      if (cursor) globalCursor.apply(cursor)
     },
   })
 
@@ -150,7 +150,7 @@ export const useDragging = ({
       setIsDragging(false)
       startPosition.current = null
       lastPosition.current = null
-      resetCursor()
+      globalCursor.reset()
     },
   })
 
