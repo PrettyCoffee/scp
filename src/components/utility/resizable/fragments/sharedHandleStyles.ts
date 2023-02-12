@@ -1,4 +1,4 @@
-import { Side, ThemeProp } from "../../../base"
+import { RESIZE_HANDLE_Z_INDEX, Side, ThemeProp } from "../../../base"
 import { getCursorBySide, isHorizontal } from "../utils/getCursorBySide"
 
 const attatchHandle = ({ side, theme: { space } }: HandleProps) => {
@@ -11,7 +11,7 @@ const attatchHandle = ({ side, theme: { space } }: HandleProps) => {
       [side[1]]: margin,
       height: clickSize,
       width: clickSize,
-      zIndex: 1,
+      zIndex: RESIZE_HANDLE_Z_INDEX + 1,
     })
 
   const horizontal = isHorizontal(side)
@@ -25,7 +25,7 @@ const attatchHandle = ({ side, theme: { space } }: HandleProps) => {
     [end]: 0,
     [thickness]: clickSize,
     [length]: "100%",
-    zIndex: 0,
+    zIndex: RESIZE_HANDLE_Z_INDEX,
   })
 }
 
