@@ -41,7 +41,7 @@ export const GeneralSettingsMenu = () => {
   const [open, setOpen] = useState<AccordionState>("all")
 
   return (
-    <Menu.Root initialOpen>
+    <Menu.Root>
       <Menu.Trigger>
         {(ref, props) => (
           <IconButton
