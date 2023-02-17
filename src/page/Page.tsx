@@ -153,6 +153,8 @@ const Relative = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+  /* prevents scrolling out of view with @dnd-kit */
+  overflow: hidden;
 `
 
 const Wrapper = styled.div<{ gap?: number }>(
