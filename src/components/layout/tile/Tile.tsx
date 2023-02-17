@@ -1,16 +1,28 @@
-import { PropsWithChildren, useRef, useState } from "react"
+import { PropsWithChildren, useRef } from "react"
 
+import {
+  ClassNameProp,
+  Measurement,
+  Position,
+  SetState,
+} from "~/components/base"
+import {
+  Movable,
+  Resizable,
+  ResizeItem,
+  ErrorBoundary,
+} from "~/components/utility/"
 import { useGeneralStore } from "~/store"
 
-import { ClassNameProp, Measurement, Position, SetState } from "../../base"
-import { Resizable, ResizeItem, Movable, ErrorBoundary } from "../../utility"
+import { EditingOverlay } from "./fragments/EditingOverlay"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
 
-const MovableContainer = styled(Movable)(() => {
+const MovableContainer = styled.div(() => {
   const { spacing } = useGeneralStore()
   return css`
     padding: calc(${spacing.widgetGap}px / 2);
+    position: absolute;
   `
 })
 
@@ -35,13 +47,6 @@ const Content = styled.div`
 
 export type TileRect = Pick<DOMRect, "height" | "width" | "x" | "y">
 
-const defaultRect: TileRect = {
-  height: 32 * 4,
-  width: 32 * 4,
-  x: 0,
-  y: 0,
-}
-
 const defaultOrientation: Orientation = {
   vertical: "center",
   horizontal: "center",
@@ -61,7 +66,7 @@ export interface TileProps extends ClassNameProp {
 export const Tile = ({
   gridSize,
   orientation = defaultOrientation,
-  rect = defaultRect,
+  rect,
   onRectChange,
   parentSize,
   minHeight = gridSize * 4,
@@ -69,11 +74,12 @@ export const Tile = ({
   editing,
   children,
   className,
-  ...delegated
 }: PropsWithChildren<TileProps>) => {
   const ref = useRef<HTMLDivElement>(null)
   const anchor = useAnchor(orientation, parentSize)
-  const [transition, setTransition] = useState("0s")
+
+  const handleMove = ({ x, y }: Position) =>
+    onRectChange(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
 
   const handleResize = (resize: ResizeItem) =>
     onRectChange(rect =>
@@ -86,9 +92,6 @@ export const Tile = ({
         minWidth,
       })
     )
-
-  const handleMove = ({ x, y }: Position) =>
-    onRectChange(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
 
   const size = {
     height: rect.height,
@@ -104,26 +107,32 @@ export const Tile = ({
 
   return (
     <ErrorBoundary>
-      <MovableContainer
-        {...delegated}
-        snap={gridSize}
-        onMove={handleMove}
-        style={{ ...size, ...position, transition }}
-        disabled={!editing}
-        onMoveStart={() => setTransition("0.1s")}
-        onMoveEnd={() => setTransition("0s")}
-      >
-        <Content ref={ref} className={className}>
-          <Resizable
-            snap={gridSize}
-            onResize={handleResize}
-            disabled={!editing}
-            onResizeStart={() => setTransition("0.1s")}
-            onResizeEnd={() => setTransition("0s")}
-          />
-          {children}
-        </Content>
-      </MovableContainer>
+      <Movable snapSize={gridSize} disabled={!editing} onMoveEnd={handleMove}>
+        {({ buttonProps, draggableProps, transform, isDragging }) => (
+          <MovableContainer
+            style={{
+              transform: `translate(${transform.x}px, ${transform.y}px)`,
+              ...size,
+              ...position,
+            }}
+            {...draggableProps}
+          >
+            <Content ref={ref} className={className}>
+              <Resizable
+                snap={gridSize}
+                onResize={handleResize}
+                disabled={!editing}
+              />
+              {children}
+              <EditingOverlay
+                editing={!!editing}
+                draggableButtonProps={buttonProps}
+                isDragging={isDragging}
+              />
+            </Content>
+          </MovableContainer>
+        )}
+      </Movable>
     </ErrorBoundary>
   )
 }

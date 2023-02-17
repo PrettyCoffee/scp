@@ -1,128 +1,99 @@
-import { PropsWithChildren, useEffect, useRef, useState } from "react"
+import { useEffect, useId } from "react"
 
-import { DisabledProp, DivProps, Position } from "../base/baseProps"
-import { exceedsWindow } from "../base/exceedsWindow"
-import { DragMoveArgs, useDragging } from "../hooks"
-import { ErrorBoundary } from "./ErrorBoundary"
+import { DndContext, Modifier, useDraggable } from "@dnd-kit/core"
+import {
+  restrictToParentElement,
+  restrictToWindowEdges,
+} from "@dnd-kit/modifiers"
 
-interface PositioningProps {
-  change: Position
+import { DisabledProp, Position, globalCursor } from "~/components/base"
+
+const createSnapModifier =
+  (gridSize: number): Modifier =>
+  ({ transform }) => ({
+    ...transform,
+    x: Math.round(transform.x / gridSize) * gridSize,
+    y: Math.round(transform.y / gridSize) * gridSize,
+  })
+
+interface MovableState {
+  draggableProps: object
+  buttonProps: object
+  transform: { x: number; y: number }
   isDragging: boolean
 }
-const Layout = styled.div`
-  position: absolute;
-  width: max-content;
-  height: max-content;
-`
-const Positioning = styled(Layout)<PositioningProps>`
-  ${({ change, isDragging }) => css`
-    position: absolute;
-    transform: translate(${change.x}px, ${change.y}px);
-    width: max-content;
-    height: max-content;
-    cursor: ${isDragging ? "grabbing" : "grab"};
-  `}
-`
 
-const initialPosition: Position = {
-  x: 0,
-  y: 0,
+interface DraggableProps extends DisabledProp {
+  children: (movable: MovableState) => JSX.Element
 }
 
-interface MovableProps
-  extends Pick<DivProps, "className" | "style">,
-    DisabledProp {
-  snap?: number
-  onMove?: (change: Position) => void
-  onMoveStart?: () => void
-  onMoveEnd?: () => void
-}
-
-const EnabledMovable = ({
-  children,
-  onMove,
-  snap = 0,
-  onMoveStart,
-  onMoveEnd,
-  ...delegated
-}: PropsWithChildren<MovableProps>) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const start = useRef(initialPosition)
-
-  const [translate, setTranslate] = useState<Position>(initialPosition)
-  const move = ({ delta }: DragMoveArgs) => {
-    const { width = 0, height = 0 } = ref.current?.getBoundingClientRect() ?? {}
-
-    const left = start.current.x + delta.x
-    const right = left + width
-    const top = start.current.y + delta.y
-    const bottom = top + height
-
-    const deltaX = exceedsWindow({ left, right }) ? translate.x : delta.x
-    const deltaY = exceedsWindow({ top, bottom }) ? translate.y : delta.y
-
-    setTranslate({
-      x: deltaX,
-      y: deltaY,
-    })
-  }
-  const { isDragging } = useDragging({
-    ref,
-    snap,
-    cursor: "grabbing",
-    onDrag: move,
-    onDragStart: onMoveStart,
-    onDragEnd: onMoveEnd,
+const DraggableItem = ({ disabled, children }: DraggableProps) => {
+  const id = useId()
+  const {
+    setNodeRef,
+    setActivatorNodeRef,
+    listeners,
+    attributes,
+    transform,
+    isDragging,
+  } = useDraggable({
+    id,
+    disabled,
   })
 
   useEffect(() => {
-    if (isDragging) {
-      const { x, y } = ref.current?.getBoundingClientRect() ?? initialPosition
-      start.current = { x, y }
-    } else {
-      start.current = initialPosition
-    }
+    if (isDragging) globalCursor.apply("grabbing")
+    else globalCursor.reset()
   }, [isDragging])
 
-  useEffect(() => {
-    const { x, y } = translate
-    if (!isDragging && (x != 0 || y != 0)) {
-      onMove?.(translate)
-      setTranslate(initialPosition)
-    }
-  }, [isDragging, onMove, translate])
+  const draggableProps = {
+    ref: setNodeRef,
+  }
 
-  return (
-    <Positioning
-      ref={ref}
-      isDragging={isDragging}
-      change={translate}
-      {...delegated}
-    >
-      {children}
-    </Positioning>
-  )
+  const buttonProps = {
+    ref: setActivatorNodeRef,
+    ...listeners,
+    ...attributes,
+  }
+
+  const movable: MovableState = {
+    draggableProps,
+    buttonProps,
+    transform: {
+      x: transform?.x ?? 0,
+      y: transform?.y ?? 0,
+    },
+    isDragging,
+  }
+
+  return children(movable)
+}
+
+export interface MovableProps extends DraggableProps {
+  snapSize: number
+  onMoveStart?: () => void
+  onMoveEnd?: (change: Position) => void
 }
 
 export const Movable = ({
-  disabled,
-  onMove,
+  snapSize,
   onMoveEnd,
   onMoveStart,
-  snap,
-  ...delegated
-}: PropsWithChildren<MovableProps>) => (
-  <ErrorBoundary>
-    {disabled ? (
-      <Layout {...delegated} />
-    ) : (
-      <EnabledMovable
-        onMove={onMove}
-        onMoveStart={onMoveStart}
-        onMoveEnd={onMoveEnd}
-        snap={snap}
-        {...delegated}
-      />
-    )}
-  </ErrorBoundary>
-)
+  ...draggable
+}: MovableProps) => {
+  const modifiers = [
+    restrictToWindowEdges,
+    restrictToParentElement,
+    createSnapModifier(snapSize),
+  ]
+
+  return (
+    <DndContext
+      onDragStart={onMoveStart}
+      onDragEnd={({ delta }) => onMoveEnd?.(delta)}
+      modifiers={modifiers}
+    >
+      <DraggableItem {...draggable} />
+    </DndContext>
+  )
+}

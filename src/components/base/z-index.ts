@@ -4,3 +4,4 @@ export const MODAL_Z_INDEX = 200
 export const HEADER_Z_INDEX = 100
 
 export const RESIZE_HANDLE_Z_INDEX = 10
+export const TILE_EDITING_Z_INDEX = 9
