@@ -35,7 +35,7 @@ Features:
 
 - [x] Resizable tiles
 - [x] Positioning of tiles
-- [ ] Background can be chosen
+- [x] Background can be chosen
 - [ ] Different usable widgets:
   - [ ] Link tree (like terminal filemanager)
   - [ ] Weather
@@ -56,7 +56,7 @@ Features:
 - [ ] Custom icons (pasted svg paths)
 - [ ] ~~Terminal autocomplete~~
 - [ ] Customizable color theme
-- [ ] Custom CSS for all tiles
+- [x] Custom CSS for all tiles
 - [ ] Custom CSS for individual tiles
 - [ ] Web extension
 - [x] [Hero Patterns](https://heropatterns.com/) as background
