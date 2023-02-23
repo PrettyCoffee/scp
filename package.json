@@ -24,6 +24,7 @@
     "@startpage/local-storage": "^0.2.6",
     "color": "^4.2.3",
     "jotai": "^2.0.2",
+    "jotai-devtools": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4"
