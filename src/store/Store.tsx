@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 
-import { PreloadAtoms } from "./jotai-store/PreloadAtoms"
+import { PreloadAtoms } from "./PreloadAtoms"
 
 export const Store = ({ children }: PropsWithChildren) => (
   <>
