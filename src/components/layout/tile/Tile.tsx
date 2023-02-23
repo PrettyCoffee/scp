@@ -1,11 +1,6 @@
 import { PropsWithChildren, useRef } from "react"
 
-import {
-  ClassNameProp,
-  Measurement,
-  Position,
-  SetState,
-} from "~/components/base"
+import { ClassNameProp, Measurement, Position } from "~/components/base"
 import {
   Movable,
   Resizable,
@@ -54,7 +49,7 @@ const defaultOrientation: Orientation = {
 
 export interface TileProps extends ClassNameProp {
   rect: TileRect
-  onRectChange: SetState<TileRect>
+  onRectChange: (rect: TileRect) => void
   orientation: Orientation
   gridSize: number
   parentSize: Measurement
@@ -79,10 +74,10 @@ export const Tile = ({
   const anchor = useAnchor(orientation, parentSize)
 
   const handleMove = ({ x, y }: Position) =>
-    onRectChange(rect => ({ ...rect, x: rect.x + x, y: rect.y + y }))
+    onRectChange({ ...rect, x: rect.x + x, y: rect.y + y })
 
   const handleResize = (resize: ResizeItem) =>
-    onRectChange(rect =>
+    onRectChange(
       getResizedRectangle({
         ref,
         rect,

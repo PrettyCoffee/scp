@@ -10,7 +10,6 @@ import {
   IconButton,
   Measurement,
   Plus,
-  SetState,
   Spacing,
   Text,
   Tile,
@@ -18,7 +17,7 @@ import {
   ToggleButton,
   useResizeObserver,
 } from "~/components"
-import { useWidgetStore, WidgetConfig, useSpacing, useCustomCss } from "~/store"
+import { WidgetConfig, useSpacing, useCustomCss, useWidgets } from "~/store"
 
 import { GeneralSettingsMenu } from "./general-settings"
 
@@ -58,21 +57,18 @@ interface UserTileProps extends WidgetConfig {
 }
 
 const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
-  const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
+  const { update } = useWidgets()
   const spacing = useSpacing()
   const customCss = useCustomCss()
 
-  useEffect(() => {
-    updateWidget(state)
-  }, [state, updateWidget])
-
-  const setRect: SetState<TileRect> = useCallback(value => {
-    setState(state => {
-      const rect = typeof value === "function" ? value(state.rect) : value
-      return { ...state, rect }
-    })
+  const setRect = useCallback((rect: TileRect) => {
+    setState(state => ({ ...state, rect }))
   }, [])
+
+  useEffect(() => {
+    update(state.id, state)
+  }, [state, update])
 
   const className = useMemo(() => {
     const shared = createStyles(customCss.value.tile)
@@ -100,14 +96,14 @@ interface WidgetsProps {
 }
 
 const Widgets = ({ editing, parentSize }: WidgetsProps) => {
-  const { widgets } = useWidgetStore()
+  const w = useWidgets()
 
   // prevent transition to initial position
   if (parentSize.height === 0 && parentSize.width === 0) return null
 
   return (
     <>
-      {widgets.map(widget => (
+      {w.value.map(widget => (
         <UserTile
           key={widget.id}
           editing={editing}
