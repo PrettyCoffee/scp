@@ -28,16 +28,6 @@ const getSnappedDelta = (
   y: applySnap(newPos.y - oldPos.y, snap),
 })
 
-const applyCursor = (cursor: string) => {
-  const body = document.body
-  body.style.setProperty("cursor", cursor)
-}
-
-const resetCursor = () => {
-  const body = document.body
-  body.style.removeProperty("cursor")
-}
-
 interface DragEvents {
   onDragStart?: () => void
   onDragEnd?: () => void
