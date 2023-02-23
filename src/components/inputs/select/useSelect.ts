@@ -172,7 +172,7 @@ export const useSelect = <T extends string>({
   const [open, setOpen] = useState(false)
 
   const selectedIndex = getSelectedIndex(value, options)
-  const selectedOption = options[selectedIndex]
+  const selectedOption = !options[selectedIndex] ? null : options[selectedIndex]
   const setSelectedIndex = (index: number) => onChange(options[index].value)
 
   const floating = useFloating({

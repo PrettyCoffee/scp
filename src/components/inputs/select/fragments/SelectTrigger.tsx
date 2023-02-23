@@ -47,7 +47,7 @@ export const SelectTrigger = ({
   ...labelProps
 }: SelectTriggerProps) => {
   const { triggerProps, selectedOption } = useSelectContext()
-  const currentLabel = selectedOption.label ?? selectedOption.value ?? null
+  const currentLabel = selectedOption?.label ?? selectedOption?.value ?? null
 
   return (
     <InputLabel {...labelProps}>
