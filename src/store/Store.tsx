@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react"
 
 import { StoragePrefixProvider } from "@startpage/local-storage"
 
-import { getDefaultTiles } from "~/page/getDefaultTiles"
+import { getDefaultWidgets } from "~/store/jotai-store/widgets/utils/getDefaultWidgets"
 
 import { useSpacing, GlobalSpacing } from "./jotai-store"
 import { PreloadAtoms } from "./jotai-store/PreloadAtoms"
@@ -22,7 +22,7 @@ export const Store = ({ children }: PropsWithChildren) => (
     <PreloadAtoms />
     <ConsumeSpacing>
       {spacing => (
-        <WidgetStoreProvider initial={getDefaultTiles(spacing.gridSize)}>
+        <WidgetStoreProvider initial={getDefaultWidgets(spacing.gridSize)}>
           {children}
         </WidgetStoreProvider>
       )}

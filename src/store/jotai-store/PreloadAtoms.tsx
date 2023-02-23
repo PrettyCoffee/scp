@@ -7,12 +7,14 @@ import {
   globalAtom,
   spacingAtom,
 } from "./global"
+import { widgetsAtom } from "./widgets"
 
 const atoms: Atom<unknown>[] = [
   backgroundAtom,
   customCssAtom,
   spacingAtom,
   globalAtom,
+  widgetsAtom,
 ]
 
 const PreloadAtom = ({ atom }: { atom: Atom<unknown> }) => {

@@ -8,7 +8,7 @@ const storePrefix = "todo-"
 const calls: Record<string, number | undefined> = {}
 
 export const createAtom = <T>(
-  scope: "global",
+  scope: "global" | "workspace",
   name: string,
   initialValue: T
 ) => {
