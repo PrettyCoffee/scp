@@ -1,22 +1,17 @@
 import { Button, Spacing, Trash } from "~/components"
-import { useGeneralStore } from "~/store"
-import { GeneralStoreKey } from "~/store/General"
 
 interface ResetButtonProps {
   category: string
-  storeKey: GeneralStoreKey
+  onReset: () => void
 }
 
-export const ResetButton = ({ category, storeKey }: ResetButtonProps) => {
-  const { resetStoreKey } = useGeneralStore()
-  return (
-    <Spacing top="md">
-      <Button
-        look="danger"
-        icon={Trash}
-        caption={`Reset ${category}`}
-        onClick={() => resetStoreKey(storeKey)}
-      />
-    </Spacing>
-  )
-}
+export const ResetButton = ({ category, onReset }: ResetButtonProps) => (
+  <Spacing top="md">
+    <Button
+      look="danger"
+      icon={Trash}
+      caption={`Reset ${category}`}
+      onClick={onReset}
+    />
+  </Spacing>
+)

@@ -1,5 +1,4 @@
-export { useGeneralStore } from "./General"
-export type { Background, BackgroundLookup } from "./General"
+export * from "./jotai-store"
 
 export { useWidgetStore } from "./WidgetStore"
 export type { WidgetConfig } from "./WidgetStore"

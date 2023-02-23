@@ -12,16 +12,16 @@ import {
   ResizeItem,
   ErrorBoundary,
 } from "~/components/utility/"
-import { useGeneralStore } from "~/store"
+import { useSpacing } from "~/store"
 
 import { EditingOverlay } from "./fragments/EditingOverlay"
 import { getResizedRectangle } from "./utils/getResizedRectangle"
 import { useAnchor, Orientation } from "./utils/useAnchor"
 
 const MovableContainer = styled.div(() => {
-  const { spacing } = useGeneralStore()
+  const spacing = useSpacing()
   return css`
-    padding: calc(${spacing.widgetGap}px / 2);
+    padding: calc(${spacing.value.widgetGap}px / 2);
     position: absolute;
   `
 })

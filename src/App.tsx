@@ -1,6 +1,6 @@
 import { getBackground } from "./getBackground"
 import { Page } from "./page"
-import { Background, useGeneralStore } from "./store/General"
+import { Background, useBackground } from "./store"
 
 interface AppProps {
   bg: Background
@@ -18,10 +18,10 @@ const AppWrapper = styled.div<AppProps>`
 `
 
 export const App = () => {
-  const { background } = useGeneralStore()
+  const background = useBackground()
 
   return (
-    <AppWrapper bg={background}>
+    <AppWrapper bg={background.value}>
       <Page />
     </AppWrapper>
   )

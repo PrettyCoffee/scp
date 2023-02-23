@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import {
   Select,
@@ -9,7 +9,7 @@ import {
   Link,
   NumberInput,
 } from "~/components"
-import { Background, useGeneralStore } from "~/store"
+import { Background, useBackground } from "~/store"
 
 import { InputGrid } from "../fragments"
 import { custom, image, pattern, solid } from "./defaultBackground"
@@ -25,28 +25,22 @@ const castBgType = <T extends Background["type"]>(
   type: T,
   bg: Record<string, string | number>
 ) => {
-  const result: Record<string, string | number> = { ...defaults[type] }
-
-  Object.keys(result).forEach(key => {
-    result[key] = bg[key] || result[key]
-  })
-
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- It is taking care that it has this type but I can't convince typescript that it is
-  return { ...result, type } as Background<T>
+  return (bg.type === type ? bg : defaults[type]) as Background<T>
 }
 
 const useBackgroundSettings = <T extends Background["type"]>(type: T) => {
-  const { background, setStoreKey } = useGeneralStore()
-  const [value, setValue] = useState(castBgType(type, background))
+  const background = useBackground()
+  const value = castBgType(type, background.value)
 
   useEffect(() => {
-    setStoreKey("background", value)
-  }, [setStoreKey, value])
+    if (value !== background.value) background.set(value)
+  }, [background, type, value])
 
   const createOnChange =
     <K extends keyof Background<T>>(key: K) =>
     (value: Background<T>[K]) =>
-      setValue(previous => ({ ...previous, [key]: value }))
+      background.set(previous => ({ ...previous, [key]: value }))
 
   return { background: value, createOnChange }
 }
@@ -211,8 +205,10 @@ const Layout = styled.div(
 )
 
 export const BackgroundSettings = () => {
-  const { background } = useGeneralStore()
-  const [type, setType] = useState(background.type)
+  const background = useBackground()
+
+  const type = background.value.type
+  const setType = (type: Background["type"]) => background.set(defaults[type])
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import { Background, PatternBackground } from "./store/General"
+import { Background, PatternBackground } from "./store"
 
 const escapeString = (value: string) =>
   value

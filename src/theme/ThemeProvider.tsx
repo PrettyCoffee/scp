@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react"
 
 import { Global, ThemeProvider as EmotionThemeProvider } from "@emotion/react"
 
-import { useGeneralStore } from "~/store"
+import { useCustomCss } from "~/store"
 
 import { color, tokens } from "./color"
 import { createCssVariables } from "./createCssVariables"
@@ -25,12 +25,12 @@ export type Theme = typeof theme
 const joinedTheme = { ...cssTheme, raw: theme }
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const { customCss } = useGeneralStore()
+  const customCss = useCustomCss()
   return (
     <EmotionThemeProvider theme={joinedTheme}>
       <Global styles={`:root{${css}}`} />
       <GlobalStyles theme={joinedTheme} />
-      <Global styles={customCss.global} />
+      <Global styles={customCss.value.global} />
       {children}
     </EmotionThemeProvider>
   )

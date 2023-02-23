@@ -1,6 +1,6 @@
 import { isValidElement, Children, PropsWithChildren, ReactNode } from "react"
 
-import { useGeneralStore } from "~/store"
+import { useCustomCss } from "~/store"
 
 import { HEADER_Z_INDEX } from "../base/z-index"
 import { ErrorBoundary } from "../utility"
@@ -66,7 +66,7 @@ const EndContent = styled(HeaderLayoutItem)`
 
 const HeaderItem = styled.div(
   ({ theme: { tokens, space, shadow, border } }) => {
-    const { customCss } = useGeneralStore()
+    const customCss = useCustomCss()
     return css`
       height: ${space.lg};
       min-width: max-content;
@@ -81,7 +81,7 @@ const HeaderItem = styled.div(
       border-radius: 50vh;
       box-shadow: ${shadow.medium};
 
-      ${customCss.header}
+      ${customCss.value.header}
     `
   }
 )

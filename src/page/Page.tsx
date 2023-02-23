@@ -18,7 +18,7 @@ import {
   ToggleButton,
   useResizeObserver,
 } from "~/components"
-import { useGeneralStore, useWidgetStore, WidgetConfig } from "~/store"
+import { useWidgetStore, WidgetConfig, useSpacing, useCustomCss } from "~/store"
 
 import { GeneralSettingsMenu } from "./general-settings"
 
@@ -60,7 +60,8 @@ interface UserTileProps extends WidgetConfig {
 const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   const { updateWidget } = useWidgetStore()
   const [state, setState] = useState(widget)
-  const { customCss, spacing } = useGeneralStore()
+  const spacing = useSpacing()
+  const customCss = useCustomCss()
 
   useEffect(() => {
     updateWidget(state)
@@ -74,14 +75,14 @@ const UserTile = ({ editing, parentSize, ...widget }: UserTileProps) => {
   }, [])
 
   const className = useMemo(() => {
-    const shared = createStyles(customCss.tile)
+    const shared = createStyles(customCss.value.tile)
     const custom = createStyles(state.customCss)
     return `${shared} ${custom}`
-  }, [customCss.tile, state.customCss])
+  }, [customCss.value.tile, state.customCss])
 
   return (
     <Tile
-      gridSize={spacing.gridSize}
+      gridSize={spacing.value.gridSize}
       parentSize={parentSize}
       className={className}
       {...state}
@@ -214,15 +215,15 @@ const WindowPadding = styled.div<{ padding: number }>(
 )
 
 export const Page = () => {
-  const { spacing } = useGeneralStore()
+  const spacing = useSpacing()
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const parentSize = useResizeObserver(ref)
 
   return (
-    <Wrapper gap={spacing.headerGap}>
-      <HeaderPadding padding={spacing.headerPadding}>
+    <Wrapper gap={spacing.value.headerGap}>
+      <HeaderPadding padding={spacing.value.headerPadding}>
         <Header.Root>
           <Header.Start>
             <WorkspaceNavigation />
@@ -249,7 +250,7 @@ export const Page = () => {
           </Header.End>
         </Header.Root>
       </HeaderPadding>
-      <WindowPadding padding={spacing.windowPadding}>
+      <WindowPadding padding={spacing.value.windowPadding}>
         <Relative ref={ref}>
           {editing && <BgCross />}
           <Widgets editing={editing} parentSize={parentSize} />

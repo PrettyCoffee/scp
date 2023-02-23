@@ -8,6 +8,7 @@ import {
   Menu,
   Settings,
 } from "~/components"
+import { useBackground, useCustomCss, useSpacing } from "~/store"
 
 import {
   CustomCssSettings,
@@ -18,24 +19,30 @@ import { ExpandButton, ResetButton } from "./fragments"
 
 const GeneralSettings = (
   props: Pick<AccordionRootProps, "open" | "onOpenChange">
-) => (
-  <Accordion.Root {...props}>
-    <Accordion.Item label="Spacing">
-      <SpacingSettings />
-      <ResetButton category="spacing" storeKey="spacing" />
-    </Accordion.Item>
+) => {
+  const spacing = useSpacing()
+  const background = useBackground()
+  const customCss = useCustomCss()
 
-    <Accordion.Item label="Background">
-      <BackgroundSettings />
-      <ResetButton category="background" storeKey="background" />
-    </Accordion.Item>
+  return (
+    <Accordion.Root {...props}>
+      <Accordion.Item label="Spacing">
+        <SpacingSettings />
+        <ResetButton category="spacing" onReset={spacing.reset} />
+      </Accordion.Item>
 
-    <Accordion.Item label="Custom CSS">
-      <CustomCssSettings />
-      <ResetButton category="custom css" storeKey="customCss" />
-    </Accordion.Item>
-  </Accordion.Root>
-)
+      <Accordion.Item label="Background">
+        <BackgroundSettings />
+        <ResetButton category="background" onReset={background.reset} />
+      </Accordion.Item>
+
+      <Accordion.Item label="Custom CSS">
+        <CustomCssSettings />
+        <ResetButton category="custom css" onReset={customCss.reset} />
+      </Accordion.Item>
+    </Accordion.Root>
+  )
+}
 
 export const GeneralSettingsMenu = () => {
   const [open, setOpen] = useState<AccordionState>("all")
