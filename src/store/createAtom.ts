@@ -1,11 +1,9 @@
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 
 import { useAtom, atom, useSetAtom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 
 const storePrefix = "todo-"
-
-const calls: Record<string, number | undefined> = {}
 
 export const createAtom = <T>(
   scope: "global" | "workspace",
@@ -22,11 +20,6 @@ export const createAtom = <T>(
   const useResettableAtom = () => {
     const [value, set] = useAtom(storeAtom)
     const reset = useSetAtom(resetAtom)
-
-    useEffect(() => {
-      calls[name] = (calls[name] ?? 0) + 1
-      console.log(calls)
-    }, [value, set, reset])
 
     return useMemo(
       () => ({
