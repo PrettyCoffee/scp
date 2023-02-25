@@ -17,7 +17,7 @@ import {
   ToggleButton,
   useResizeObserver,
 } from "~/components"
-import { WidgetConfig, useSpacing, useCustomCss, useWidgets } from "~/store"
+import { WidgetUserConfig, useSpacing, useCustomCss, useWidgets } from "~/store"
 
 import { GeneralSettingsMenu } from "./general-settings"
 
@@ -51,7 +51,7 @@ const BgCross = styled.div(
   `
 )
 
-interface UserTileProps extends WidgetConfig {
+interface UserTileProps extends WidgetUserConfig {
   editing: boolean
   parentSize: Measurement
 }

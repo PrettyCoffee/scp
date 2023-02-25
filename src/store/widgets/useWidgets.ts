@@ -1,15 +1,17 @@
 import { atom, useAtomValue, useSetAtom } from "jotai"
 
 import { nextIdAtom } from "./utils/nextIdAtom"
-import { WidgetConfig, widgetsAtom } from "./widgetsAtom"
+import { WidgetUserConfig, widgetsAtom } from "./widgetsAtom"
 
-const addWidgetAtom = atom(null, (get, set, widget: Omit<WidgetConfig, "id">) =>
-  set(widgetsAtom, [...get(widgetsAtom), { ...widget, id: get(nextIdAtom) }])
+const addWidgetAtom = atom(
+  null,
+  (get, set, widget: Omit<WidgetUserConfig, "id">) =>
+    set(widgetsAtom, [...get(widgetsAtom), { ...widget, id: get(nextIdAtom) }])
 )
 
 const updateWidgetAtom = atom(
   null,
-  (get, set, id: string, config: Partial<Omit<WidgetConfig, "id">>) =>
+  (get, set, id: string, config: Partial<Omit<WidgetUserConfig, "id">>) =>
     set(
       widgetsAtom,
       get(widgetsAtom).map(widget =>

@@ -1,7 +1,7 @@
-import { WidgetConfig } from "../widgetsAtom"
+import { WidgetUserConfig } from "../widgetsAtom"
 
-export const getDefaultWidgets = (gridSize: number): WidgetConfig[] => {
-  const sharedProps: Partial<WidgetConfig> = {
+export const getDefaultWidgets = (gridSize: number): WidgetUserConfig[] => {
+  const sharedProps: Partial<WidgetUserConfig> = {
     minHeight: gridSize * 4,
     minWidth: gridSize * 4,
   }

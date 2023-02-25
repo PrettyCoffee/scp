@@ -3,7 +3,7 @@ import { Orientation, TileRect } from "~/components"
 import { createAtom } from "../createAtom"
 import { getDefaultWidgets } from "./utils/getDefaultWidgets"
 
-export interface WidgetConfig {
+export interface WidgetUserConfig {
   id: string
   rect: TileRect
   orientation: Orientation
@@ -12,8 +12,8 @@ export interface WidgetConfig {
   minWidth?: number
 }
 
-export const [widgetsAtom] = createAtom<WidgetConfig[]>(
+export const [widgetsAtom] = createAtom<WidgetUserConfig[]>(
   "workspace",
   "widgets",
-  getDefaultWidgets(16)
+  getDefaultWidgets(32)
 )
