@@ -1,6 +1,6 @@
 import { spacing } from "~/theme"
 
-import { createAtom } from "../createAtom"
+import { createAtom } from "../utils/createAtom"
 
 export interface GlobalSpacing {
   headerGap: number

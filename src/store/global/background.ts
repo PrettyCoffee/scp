@@ -1,4 +1,4 @@
-import { createAtom } from "../createAtom"
+import { createAtom } from "../utils/createAtom"
 
 type BgVariant<Type extends string, T> = T & {
   type: Type

@@ -1,4 +1,4 @@
-import { createAtom } from "../createAtom"
+import { createAtom } from "../utils/createAtom"
 
 const createDefaultStyles = (styles: string) =>
   `/* * * * * * * * * *

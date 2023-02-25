@@ -1,6 +1,6 @@
 import { Orientation, TileRect } from "~/components"
 
-import { createAtom } from "../createAtom"
+import { createAtom } from "../utils/createAtom"
 import { getDefaultWidgets } from "./utils/getDefaultWidgets"
 
 export interface WidgetUserConfig {
