@@ -1,9 +1,9 @@
 import { RefObject } from "react"
 
+import { Anchor } from "./useAnchor"
 import { exceedsWindow, Side } from "../../../base"
 import { ResizeItem } from "../../../utility"
 import { TileRect } from "../Tile"
-import { Anchor } from "./useAnchor"
 
 const resizeExceedsWindow = (
   element: Element,

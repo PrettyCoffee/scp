@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 
+import { TextInput, TextInputProps } from "./TextInput"
 import { useLatest } from "../hooks"
 import { ErrorBoundary } from "../utility"
-import { TextInput, TextInputProps } from "./TextInput"
 
 const validate = (value: string) => !Number.isNaN(Number(value))
 

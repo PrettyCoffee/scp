@@ -1,9 +1,9 @@
 import { useState } from "react"
 
-import { fontStyles, Text } from "../primitives"
-import { ErrorBoundary } from "../utility"
 import { InputBorder, ShakeState } from "./fragments/InputBorder"
 import { InputLabel } from "./fragments/InputLabel"
+import { fontStyles, Text } from "../primitives"
+import { ErrorBoundary } from "../utility"
 
 const UnitText = styled(Text.Medium)(
   ({ theme: { space } }) => css`

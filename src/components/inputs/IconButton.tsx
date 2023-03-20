@@ -1,7 +1,7 @@
+import { ButtonStyleProps, iconButtonStyles } from "./utils/iconButtonStyles"
 import { RefProp } from "../base"
 import { Icon, IconProps, VisuallyHidden } from "../primitives"
 import { ErrorBoundary } from "../utility"
-import { ButtonStyleProps, iconButtonStyles } from "./utils/iconButtonStyles"
 
 const Button = styled.button<ButtonStyleProps>`
   ${iconButtonStyles}

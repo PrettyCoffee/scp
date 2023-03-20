@@ -1,9 +1,9 @@
 import { PropsWithChildren, useId } from "react"
 
-import { ErrorBoundary } from "../../utility"
 import { Trigger, Content, Header, Preview } from "./fragments"
 import { MenuProvider } from "./utils/MenuContext"
 import { MenuOptions, useMenu } from "./utils/useMenu"
+import { ErrorBoundary } from "../../utility"
 
 export type MenuProps = MenuOptions
 

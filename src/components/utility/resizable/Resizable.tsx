@@ -1,7 +1,7 @@
-import { DisabledProp, Side } from "../../base/baseProps"
-import { ErrorBoundary } from "../ErrorBoundary"
 import { CornerHandle } from "./fragments/CornerHandle"
 import { SideHandle } from "./fragments/SideHandle"
+import { DisabledProp, Side } from "../../base/baseProps"
+import { ErrorBoundary } from "../ErrorBoundary"
 
 export type ResizeItem = Record<Side, number>
 

@@ -2,9 +2,9 @@ import { Children, Fragment, ReactElement, useEffect, useRef } from "react"
 
 import * as Radix from "@radix-ui/react-accordion"
 
+import { AccordionItem, AccordionItemProps } from "./AccordionItem"
 import { Separator } from "../../primitives"
 import { ErrorBoundary } from "../../utility"
-import { AccordionItem, AccordionItemProps } from "./AccordionItem"
 
 type AccordionChild = ReactElement<AccordionItemProps>
 

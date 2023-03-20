@@ -1,9 +1,9 @@
 import { RefObject, useEffect, useRef, useState } from "react"
 
-import { globalCursor, Position } from "../base"
 import { useEventListener } from "./useEventListener"
 import { useLatest } from "./useLatest"
 import { useThrottle } from "./useThrottle"
+import { globalCursor, Position } from "../base"
 
 const applySnap = (value: number, snap = 1) => {
   if (!snap || snap < 0) return value

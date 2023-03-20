@@ -1,8 +1,8 @@
 import { spacing } from "~/theme/spacing"
 
+import { IconDefinition, IconBaseProps } from "./icons/_IconBase"
 import { ClassNameProp } from "../../base"
 import { ErrorBoundary } from "../../utility"
-import { IconDefinition, IconBaseProps } from "./icons/_IconBase"
 
 type IconSize = "sm" | "md" | "lg" | "xl"
 

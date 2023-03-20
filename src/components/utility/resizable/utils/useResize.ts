@@ -1,9 +1,9 @@
 import { RefObject } from "react"
 
+import { getCursorBySide } from "./getCursorBySide"
 import { Position, Side } from "../../../base"
 import { useDragging, DragMoveArgs } from "../../../hooks"
 import { ResizableProps } from "../Resizable"
-import { getCursorBySide } from "./getCursorBySide"
 
 const getDeltaBySide = (delta: Position, side: Side) => {
   if (side === "bottom") return delta.y

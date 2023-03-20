@@ -1,8 +1,8 @@
 import Color from "color"
 
+import { inputBorder } from "./utils/inputBorder"
 import { fontStyles, Icon, IconProps } from "../primitives"
 import { ErrorBoundary } from "../utility"
-import { inputBorder } from "./utils/inputBorder"
 
 const opacity = (color: string, opacity: number) =>
   Color(color).alpha(opacity).string()

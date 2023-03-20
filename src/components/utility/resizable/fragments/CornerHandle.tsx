@@ -1,9 +1,9 @@
 import { useRef } from "react"
 
+import { sharedHandleStyles } from "./sharedHandleStyles"
 import { Side } from "../../../base"
 import { ResizableProps } from "../Resizable"
 import { useResize } from "../utils/useResize"
-import { sharedHandleStyles } from "./sharedHandleStyles"
 
 const Handle = styled.button<DiagonalHandleProps & { isResizing: boolean }>`
   ${sharedHandleStyles}

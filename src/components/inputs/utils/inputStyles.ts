@@ -1,6 +1,6 @@
+import { inputBorder } from "./inputBorder"
 import { ThemeProp } from "../../base"
 import { fontStyles } from "../../primitives"
-import { inputBorder } from "./inputBorder"
 
 export interface InputStyleProps {
   valid?: boolean

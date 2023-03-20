@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-import { ErrorBoundary } from "../utility"
 import { InputLabel } from "./fragments/InputLabel"
 import { InputStyleProps, inputStyles } from "./utils/inputStyles"
+import { ErrorBoundary } from "../utility"
 
 const Area = styled.textarea<InputStyleProps>(
   ({ theme, theme: { space }, valid, contentType }) => css`

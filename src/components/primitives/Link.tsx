@@ -1,5 +1,5 @@
-import { ErrorBoundary } from "../utility"
 import { FontProps, fontStyles } from "./Text"
+import { ErrorBoundary } from "../utility"
 
 type LinkTextProps = Pick<FontProps, "size">
 

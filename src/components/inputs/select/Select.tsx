@@ -2,11 +2,11 @@ import { createContext, useContext } from "react"
 
 import { FloatingPortal } from "@floating-ui/react"
 
-import { ErrorBoundary } from "../../utility"
-import { InputLabelProps } from "../fragments/InputLabel"
 import { SelectContent } from "./fragments/SelectContent"
 import { SelectTrigger } from "./fragments/SelectTrigger"
 import { useSelect } from "./useSelect"
+import { ErrorBoundary } from "../../utility"
+import { InputLabelProps } from "../fragments/InputLabel"
 
 type SelectContextState = ReturnType<typeof useSelect>
 const SelectContext = createContext<SelectContextState | null>(null)

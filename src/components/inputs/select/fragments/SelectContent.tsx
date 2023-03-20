@@ -1,10 +1,10 @@
 import { FloatingFocusManager } from "@floating-ui/react"
 
+import { SelectOption } from "./SelectOption"
 import { scrollFocus } from "../../../base"
 import { Select_Z_INDEX } from "../../../base/z-index"
 import { inputBorder } from "../../utils/inputBorder"
 import { useSelectContext } from "../Select"
-import { SelectOption } from "./SelectOption"
 
 const StyledContent = styled.div(
   ({ theme, theme: { tokens, shadow, space } }) => css`

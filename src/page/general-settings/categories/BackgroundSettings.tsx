@@ -11,8 +11,8 @@ import {
 } from "~/components"
 import { Background, useBackground } from "~/store"
 
-import { InputGrid } from "../fragments"
 import { custom, image, pattern, solid } from "./defaultBackground"
+import { InputGrid } from "../fragments"
 
 const defaults = {
   custom,

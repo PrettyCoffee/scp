@@ -7,13 +7,13 @@ import {
 } from "@floating-ui/react"
 import Color from "color"
 
+import { Header } from "./Header"
+import { Preview } from "./Preview"
 import { scrollFocus } from "../../../base"
 import { MODAL_Z_INDEX } from "../../../base/z-index"
 import { ErrorBoundary } from "../../../utility"
 import { useMenuContext } from "../utils/MenuContext"
 import { useMenu } from "../utils/useMenu"
-import { Header } from "./Header"
-import { Preview } from "./Preview"
 
 export type TransitionStatus = Pick<ReturnType<typeof useMenu>, "status">
 

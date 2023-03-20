@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react"
 
+import { transition, TransitionStatus } from "./Content"
 import { MODAL_Z_INDEX } from "../../../base/z-index"
 import { ErrorBoundary } from "../../../utility"
 import { useMenuContext } from "../utils/MenuContext"
-import { transition, TransitionStatus } from "./Content"
 
 const Layout = styled.div<TransitionStatus>(
   ({ status }) => css`
