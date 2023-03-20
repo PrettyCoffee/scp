@@ -6,7 +6,10 @@ const styles = (theme: Theme) => css`
   html,
   body,
   #root {
-    height: 100%;
+    /** TODO: Revert when jotai devtools is no longer adding padding to the body
+     *  height: 100%;
+     **/
+    height: 100vh;
     width: 100%;
     margin: 0;
   }

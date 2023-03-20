@@ -24,7 +24,6 @@
     "@radix-ui/react-toggle": "^1.0.1",
     "color": "^4.2.3",
     "jotai": "^2.0.2",
-    "jotai-devtools": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4"
@@ -53,6 +52,7 @@
     "eslint-plugin-sonarjs": "^0.16.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.2",
+    "jotai-devtools": "^0.3.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",

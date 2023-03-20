@@ -11,10 +11,13 @@ const root = document.getElementById("root")
 if (!root) throw new Error(`ERROR: Node with id "root" is missing.`)
 
 createRoot(root).render(
-  <StrictMode>
+  <>
+    {/* TODO: Move PreloadAtoms into StrictMode once the jotai-devtools bug is solved */}
     <PreloadAtoms />
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </StrictMode>
+    <StrictMode>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </StrictMode>
+  </>
 )
