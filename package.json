@@ -10,7 +10,7 @@
     "lint": "eslint ./src --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
     "validate": "npm run lint && npm run build",
-    "prepare": "husky install"
+    "prepare": "cozy-git-hooks install -q"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.7",
@@ -24,37 +24,20 @@
     "@radix-ui/react-toggle": "^1.0.1",
     "color": "^4.2.3",
     "jotai": "^2.0.2",
+    "jotai-devtools": "^0.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
     "@emotion/babel-plugin": "^11.10.5",
+    "@pretty-cozy/eslint-config": "^0.0.4",
+    "@pretty-cozy/git-hooks": "^0.0.4",
     "@types/color": "^3.0.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
     "@vitejs/plugin-react": "^2.2.0",
-    "eslint": "^8.27.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.2",
-    "eslint-plugin-check-file": "^1.3.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-prefer-function-component": "^3.0.0",
-    "eslint-plugin-sonarjs": "^0.16.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.2",
-    "jotai-devtools": "^0.3.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
+    "eslint": "^8.37.0",
     "typescript": "^4.8.4",
     "unplugin-auto-import": "^0.11.5",
     "vite": "^3.2.3"
@@ -63,9 +46,18 @@
     "defaults",
     "not IE 11"
   ],
+  "eslintConfig": {
+    "extends": [
+      "@pretty-cozy/eslint-config/base-ts",
+      "@pretty-cozy/eslint-config/react"
+    ]
+  },
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run lint:fix"
+    ],
+    "*.{json,md,html}": [
+      "prettier --write"
     ]
   }
 }
