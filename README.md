@@ -1,3 +1,5 @@
+**NOTE:** This project has been abandoned since it lost its appeal to me, and I was dissatisfied with how it turned out. However, I've revived the core concept as [gridwid](https://github.com/PrettyCoffee/gridwid). It's a work in progress and featuring a complete redesign and extended functionality.
+
 # [Put project name here]
 
 ## What is this
